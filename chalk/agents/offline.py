@@ -271,8 +271,8 @@ def telestrator(payload: dict[str, Any]) -> dict[str, Any]:
             chosen = pts
         elif t == "tactical_shift":
             mids = [(pid, pos) for pid, pos in pts
-                    if players.get(pid, {}).get("position") in ("DM", "CAM", "RAM", "LAM", "CM")]
-            chosen = mids or pts
+                    if players.get(pid, {}).get("position") in ("DM", "CAM", "RAM", "LAM", "CM", "RM", "LM")]
+            chosen = mids if len(mids) >= 3 else pts  # after a substitution the block can be thin
         else:
             chosen = sorted(pts, key=lambda kv: -kv[1][0] * d)[:5]  # most advanced players
         if len(chosen) >= 3:

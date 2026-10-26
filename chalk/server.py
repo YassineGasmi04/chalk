@@ -52,6 +52,7 @@ DATA = ROOT / "data"
 log = logging.getLogger("chalk.server")
 ON_AIR_DELAY_S = 3.0
 MAX_SPEED = 60.0
+PREP_SPEED = 900.0  # "AI highlights" for a new match: the crew watches the whole match fast
 
 # The match data MCP server over streamable HTTP (whole match, demo seed). Public read-only
 # data, so the Host check is relaxed for cloud hosting.
@@ -102,16 +103,17 @@ def health() -> dict[str, Any]:
 
 
 @app.get("/api/live")
-async def live(seed: int = 4, speed: float = Query(10.0, gt=0, le=MAX_SPEED),
-               ai: str = Query("auto", pattern="^(auto|live|recorded)$")) -> StreamingResponse:
+async def live(seed: int = 4, speed: float = Query(10.0, gt=0, le=PREP_SPEED),
+               ai: str = Query("auto", pattern="^(auto|live|recorded)$"), prep: bool = False) -> StreamingResponse:
     """The match as a live feed. ai=live runs the crew on each moment as it happens
     (using recorded answers where it has them), ai=recorded replays the stored cards,
     auto picks live when a model is configured."""
-    return StreamingResponse(_stream(seed, speed, ai), media_type="text/event-stream",
+    speed = min(speed, PREP_SPEED if prep else MAX_SPEED)
+    return StreamingResponse(_stream(seed, speed, ai, prep), media_type="text/event-stream",
                              headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
-async def _stream(seed: int, speed: float, ai: str) -> AsyncIterator[str]:
+async def _stream(seed: int, speed: float, ai: str, prep: bool = False) -> AsyncIterator[str]:
     events = _load_events(seed)
     recorded = _recorded(seed)
     settings = load_settings()
@@ -167,7 +169,8 @@ async def _stream(seed: int, speed: float, ai: str) -> AsyncIterator[str]:
                 pulse_sent = len(state.pulse)
             while not ready.empty():  # live insights: on air as soon as the crew is done
                 c = ready.get_nowait()
-                c["on_air_t"] = max(c["on_air_t"], ev["t"] + 1.0)
+                if not prep:  # when preparing highlights, keep each card at its moment
+                    c["on_air_t"] = max(c["on_air_t"], ev["t"] + 1.0)
                 yield _sse("insight", c)
             for c in [c for c in queued if c["on_air_t"] <= ev["t"] + ON_AIR_DELAY_S]:
                 queued.remove(c)

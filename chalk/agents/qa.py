@@ -133,7 +133,7 @@ class StudioQA:
             return {**base, **out, "var": {"final": "verified", "issues": [], "attempts": 1, "by": "rulebook"}}
 
         key = CallCache.key(self.settings.model, prompts.QA, str(seed), str(int(view.cutoff // 60)),
-                            _fold(q), lang, persona)
+                            _fold(q), lang, persona, f"{view.end_t:.1f}")  # a new match version never reuses old answers
         hit = self.cache.get(key)
         if hit is not None:
             self.stats["recorded"] += 1

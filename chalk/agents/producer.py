@@ -144,10 +144,13 @@ def build_recap_card(events: list[dict[str, Any]], state: MatchState,
     decisive = [m for m in goals if m["facts"]["goal_effect"] == "goes ahead"]
     tp = decisive[-1] if decisive and h != a else (reds[0] if reds else (goals[-1] if goals else None))
     if tp:
+        why = ("the goal that decided the match" if tp in decisive else
+               "the red card that changed the match" if tp["type"] == "red_card" else "the last goal of the match")
         facts["turning_point_clock"] = tp["clock"]
-        facts["turning_point_text"] = f"{tp['clock']}, {tp['title']}"
-    facts["turning_points"] = "; ".join(f"{m['clock']} {m['title']}" for m in moments
-                                        if m["type"] in ("goal", "red_card", "tactical_shift"))
+        facts["turning_point_text"] = f"{tp['clock']}, {tp['title']} ({why})"
+    # every big moment, for context only: the turning point is the one above
+    facts["key_moments_timeline"] = "; ".join(f"{m['clock']} {m['title']}" for m in moments
+                                              if m["type"] in ("goal", "red_card", "tactical_shift"))
     pid = player_of_the_match(state)
     if pid:
         ps = state.player_summary(pid)

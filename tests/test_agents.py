@@ -242,7 +242,7 @@ def test_fourth_live_run_score_logic(match):
     goals = {c.facts["clock"]: c for c in cards_for(match, types={"goal"})}
     assert [g.facts["goal_effect"] for g in goals.values()] == \
         ["opening goal", "extends the lead", "pulls one back", "equaliser", "goes ahead"]
-    eq, winner = goals["71'"], goals["89'"]
+    eq, winner = goals["71'"], goals["90+2'"]
     assert rulebook.check_score_logic("Holmberg scores, maintaining the 2-2 deadlock", eq.facts)
     assert rulebook.check_score_logic("Mensah-Cole extends Ashvale's lead to 3-2", winner.facts)
     assert rulebook.check_score_logic("Mensah-Cole puts Ashvale ahead at 3-2", winner.facts) == []
@@ -281,3 +281,22 @@ def test_recap_may_say_down_to_ten_men():
     card = build_recap_card(events, state, [m.to_dict() for m in det.moments])
     assert card.facts["away_players_on_pitch"] == 10
     assert check_numbers("Kestrel Bay FC finished with 10 men.", allowed_numbers(card.facts)) == []
+
+
+def test_judge_notes_that_say_fine_do_not_overturn():
+    """Regression from a live run: the judge overturned a recap with an 'issue' that ended
+    'so this is acceptable; no issue here'."""
+    from chalk.agents.rulebook import NOT_AN_ISSUE_RE
+    assert NOT_AN_ISSUE_RE.search("goals at 26' and 29' which is early, so this is acceptable; no issue here.")
+    assert not NOT_AN_ISSUE_RE.search("Turning point is incorrectly stated as 89' in the story")
+
+
+def test_recap_names_one_turning_point():
+    from chalk.agents.producer import build_recap_card
+    from chalk.sim.engine import MatchSimulator
+    from chalk.stats.moments import analyse
+    events = MatchSimulator(seed=4).run()
+    state, det = analyse(events)
+    f = build_recap_card(events, state, [m.to_dict() for m in det.moments]).facts
+    assert f["turning_point_clock"] == "90+2'" and "decided the match" in f["turning_point_text"]
+    assert "turning_points" not in f and "78'" in f["key_moments_timeline"]

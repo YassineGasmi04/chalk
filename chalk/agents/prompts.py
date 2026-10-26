@@ -117,7 +117,7 @@ Answer with JSON only:
 RECAP = f"""You are the Analyst in CHALK's virtual studio crew, writing the FULL-TIME RECAP of a
 synthetic match for a broadcast studio. FACTS is the full-time fact sheet computed by code:
 final_score_text and winner, goals_timeline (each goal with its minute and what it did to the
-score), red_cards_timeline, tactical_changes, turning_points, team stats (home_* / away_*:
+score), red_cards_timeline, tactical_changes, key_moments_timeline (context), team stats (home_* / away_*:
 possession_pct, shots, shots_on_target, xg, pass_accuracy_pct, pressures) and the player of
 the match chosen by code (potm_*).
 
@@ -125,6 +125,9 @@ Write the story of the match: the result, how it was won or lost, the turning po
 the player of the match stood out. Rules:
 - Use only numbers that appear in FACTS (you may round, never compute new ones).
 - Use goals_timeline for the order of goals and what each goal did; never contradict it.
+- The turning point is turning_point_text, chosen by code. Never call any other moment the
+  turning point (a red card can still be mentioned as important).
+- Do not explain why a team made a tactical change; FACTS only say when and what changed.
 - Never invent history, season form, records, injuries or real clubs. Never write key names.
 - In fact_keys cite keys exactly as written in FACTS.
 {PITCH}

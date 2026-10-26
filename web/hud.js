@@ -3,6 +3,8 @@
 // players with a player card, and small motion touches (tab ink, panel spotlight).
 // Every number here is computed in the browser from the match feed.
 
+import { t } from "./i18n.js";
+
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const L = 105, W = 68;
@@ -147,21 +149,21 @@ export class EventStack {
     switch (ev.type) {
       case "shot": {
         if (ev.outcome === "goal") return null;
-        const title = { saved: "Shot saved", blocked: "Shot blocked", off_target: "Shot off target" }[ev.outcome] || "Shot";
+        const title = t({ saved: "ev.saved", blocked: "ev.blocked", off_target: "ev.off" }[ev.outcome] || "ev.shot");
         return { icon: "shot", title, sub: `${name(ev.player)} · xG ${ev.xg.toFixed(2)} · ${ev.speed_kmh} km/h`, hot: ev.xg >= 0.25 };
       }
       case "goal":
-        return { icon: "goal", title: "GOAL", sub: `${name(ev.player)} · ${ev.score.home}-${ev.score.away}`, hot: true };
+        return { icon: "goal", title: t("ev.goal"), sub: `${name(ev.player)} · ${ev.score.home}-${ev.score.away}`, hot: true };
       case "foul":
-        return { icon: "foul", title: "Foul", sub: `${name(ev.player)} on ${name(ev.on)}` };
+        return { icon: "foul", title: t("ev.foul"), sub: t("ev.on", { a: name(ev.player), b: name(ev.on) }) };
       case "card":
-        return { icon: "card", title: ev.card === "red" ? "Red card" : "Yellow card", sub: name(ev.player), red: ev.card === "red", yellow: ev.card !== "red" };
+        return { icon: "card", title: t(ev.card === "red" ? "ev.red" : "ev.yellow"), sub: name(ev.player), red: ev.card === "red", yellow: ev.card !== "red" };
       case "substitution":
-        return { icon: "sub", title: "Substitution", sub: `${name(ev.player)} on · ${name(ev.player_off)} off` };
+        return { icon: "sub", title: t("ev.sub"), sub: t("ev.subLine", { a: name(ev.player), b: name(ev.player_off) }) };
       case "formation_change":
-        return { icon: "shape", title: "Change of shape", sub: `${ev.from} → ${ev.to}` };
+        return { icon: "shape", title: t("ev.shape"), sub: `${ev.from} → ${ev.to}` };
       case "sprint":
-        return ev.speed_kmh >= 33.5 ? { icon: "speed", title: "Top speed", sub: `${name(ev.player)} · ${ev.speed_kmh} km/h` } : null;
+        return ev.speed_kmh >= 33.5 ? { icon: "speed", title: t("ev.speed"), sub: `${name(ev.player)} · ${ev.speed_kmh} km/h` } : null;
       default:
         return null;
     }
@@ -170,6 +172,11 @@ export class EventStack {
   push(ev) {
     const c = this.card(ev);
     if (!c) return;
+    if (this.r.isFan?.()) { // the fan broadcast: louder, with emoji
+      const emo = { shot: ev.outcome === "saved" ? "\u{1F9E4}" : "\u{1F631}", goal: "\u26BD", foul: "\u{1F624}",
+        card: ev.card === "red" ? "\u{1F7E5}" : "\u{1F7E8}", sub: "\u{1F501}", shape: "\u{1F9E0}", speed: "\u26A1" }[c.icon];
+      c.title = `${emo ?? ""} ${c.title}${c.hot ? "!" : ""}`;
+    }
     const li = document.createElement("li");
     li.className = `ev-card${c.hot ? " hot" : ""}${c.red ? " red" : ""}${c.yellow ? " yellow" : ""}`;
     li.style.setProperty("--team", this.r.colors[ev.team] || "#ffffff");
@@ -233,9 +240,9 @@ export class PlayerCard {
     const acc = s.passes ? Math.round((100 * s.comp) / s.passes) : 0;
     const onPitch = !!r.events[r.idx]?.frame?.[pid];
     const stats = [
-      ["Goals", s.goals], ["Shots", s.shots], ["xG", s.xg.toFixed(2)],
-      ["Passes", `${s.comp}/${s.passes}`], ["Pass acc.", `${acc}%`], ["Touches", s.touches],
-      ["Ball wins", s.won], ["Sprints", s.sprints], ["Top speed", s.top ? `${s.top.toFixed(1)}` : "–"],
+      [t("p.goals"), s.goals], [t("p.shots"), s.shots], ["xG", s.xg.toFixed(2)],
+      [t("p.passes"), `${s.comp}/${s.passes}`], [t("p.passAcc"), `${acc}%`], [t("p.touches"), s.touches],
+      [t("p.wins"), s.won], [t("p.sprints"), s.sprints], [t("p.topKmh"), s.top ? `${s.top.toFixed(1)}` : "–"],
     ];
     if (full) {
       const following = r.studio.prefs.player === pid;
@@ -245,17 +252,17 @@ export class PlayerCard {
           <span class="pc-water" aria-hidden="true">${p.number}</span>
           <button type="button" class="pc-close" aria-label="Close">×</button>
           <div class="pc-top">
-            <span class="pc-num">${p.number}</span>
+            <span class="pc-photo"><img src="${r.photo(pid)}" alt=""><b>${p.number}</b></span>
             <div><p class="pc-pos">${esc(p.position)} · ${esc(team.name)}</p><h3 class="pc-name">${esc(p.name)}</h3>
             <p class="pc-status" id="pcStatus"></p></div>
           </div>
           <div class="pc-body">
             <dl class="pc-stats" id="pcStats"></dl>
             <div class="pc-side">
-              <div class="pc-heat-wrap"><canvas class="pc-heat" id="pcHeat" width="520" height="336"></canvas><span>Heatmap so far</span></div>
+              <div class="pc-heat-wrap"><canvas class="pc-heat" id="pcHeat" width="520" height="336"></canvas><span>${esc(t("p.heat"))}</span></div>
               <div class="pc-actions">
-                <button type="button" class="pc-btn" id="pcFollow">${following ? "Following" : "Follow"}</button>
-                <button type="button" class="pc-btn pc-ask" id="pcAsk">Ask the studio</button>
+                <button type="button" class="pc-btn" id="pcFollow">${esc(t(following ? "p.following" : "p.follow"))}</button>
+                <button type="button" class="pc-btn pc-ask" id="pcAsk">${esc(t("p.ask"))}</button>
               </div>
             </div>
           </div>
@@ -264,15 +271,15 @@ export class PlayerCard {
       $("pcFollow").addEventListener("click", () => {
         r.studio.prefs.player = r.studio.prefs.player === pid ? "" : pid;
         r.studio.applyPrefs();
-        $("pcFollow").textContent = r.studio.prefs.player === pid ? "Following" : "Follow";
+        $("pcFollow").textContent = t(r.studio.prefs.player === pid ? "p.following" : "p.follow");
       });
       $("pcAsk").addEventListener("click", () => {
         r.studio.selectTab("tabAsk");
-        r.ask.ask(`How is ${p.name} doing?`);
+        r.ask.ask(t("p.askQ", { name: p.name }));
       });
     }
-    $("pcStatus").textContent = onPitch ? `On the pitch · ${s.touches} touches` : "Not on the pitch";
-    $("pcStats").innerHTML = stats.map(([k, v]) => `<div><dt>${k}${k === "Top speed" ? " km/h" : ""}</dt><dd>${v}</dd></div>`).join("");
+    $("pcStatus").textContent = onPitch ? t("p.onPitch", { n: s.touches }) : t("p.offPitch");
+    $("pcStats").innerHTML = stats.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("");
     this.drawHeat($("pcHeat"), r.heat.blurred(r.heat.player[pid]), r.colors[p.team]);
   }
 
@@ -311,7 +318,7 @@ export class PlayerCard {
     c.fillStyle = "rgba(255,255,255,0.7)";
     c.font = "700 20px Archivo, system-ui, sans-serif";
     c.textAlign = "center";
-    c.fillText(home ? "attacking →" : "← attacking", w / 2, h - 18);
+    c.fillText(home ? `${t("p.attacking")} →` : `← ${t("p.attacking")}`, w / 2, h - 18);
   }
 }
 
@@ -394,19 +401,19 @@ export class LayersUI {
     const H = r.start.home.short, A = r.start.away.short;
     const rows = [];
     if (lay.space && ro.space) {
-      rows.push(`<div class="ro-row"><span>Space</span><span class="ro-bar"><i style="flex-grow:${ro.space.home};background:var(--home)"></i><i style="flex-grow:${ro.space.away};background:var(--away)"></i></span><b>${ro.space.home}% · ${ro.space.away}%</b></div>`);
+      rows.push(`<div class="ro-row"><span>${esc(t("layers.spaceRow"))}</span><span class="ro-bar"><i style="flex-grow:${ro.space.home};background:var(--home)"></i><i style="flex-grow:${ro.space.away};background:var(--away)"></i></span><b>${ro.space.home}% · ${ro.space.away}%</b></div>`);
     }
     if (lay.shape && ro.shape) {
       for (const [side, code] of [["home", H], ["away", A]]) {
         const s = ro.shape[side];
-        if (s) rows.push(`<div class="ro-row"><span class="ro-team ${side}">${esc(code)}</span><span>line ${s.line} m</span><b>${s.width} × ${s.depth} m</b></div>`);
+        if (s) rows.push(`<div class="ro-row"><span class="ro-team ${side}">${esc(code)}</span><span>${esc(t("layers.line", { n: s.line }))}</span><b>${s.width} × ${s.depth} m</b></div>`);
       }
     }
     if (lay.heat) {
       const focus = r.studio.prefs.player;
-      rows.push(`<div class="ro-row"><span>Heatmap</span><b>${esc(focus ? r.roster[focus].name : r.start[this.team].name)}</b></div>`);
+      rows.push(`<div class="ro-row"><span>${esc(t("layers.heat"))}</span><b>${esc(focus ? r.roster[focus].name : r.start[this.team].name)}</b></div>`);
     }
-    $("layerReadout").innerHTML = rows.join("") || `<p class="ro-hint">Turn on a layer. Click any player on the pitch for their card.</p>`;
+    $("layerReadout").innerHTML = rows.join("") || `<p class="ro-hint">${esc(t("layers.hint"))}</p>`;
   }
 }
 

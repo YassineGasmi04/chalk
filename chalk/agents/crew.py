@@ -332,8 +332,11 @@ class Crew:
                 else:
                     judged = await crew.call("var", {"facts": card.facts, "players": card.players,
                                                      "analysis": card.analysis}, card)
-                    verdict = "overturned" if judged.get("verdict") == "overturned" else "stands"
-                    issues, by = judged.get("issues") or [], "judge"
+                    # like real VAR: only a clear error overturns. The judge sometimes lists points it
+                    # then calls fine ("no issue here", "acceptable"); those are not issues.
+                    issues = [i for i in judged.get("issues") or [] if not rulebook.NOT_AN_ISSUE_RE.search(str(i))]
+                    verdict = "overturned" if judged.get("verdict") == "overturned" and issues else "stands"
+                    by = "judge"
                     if crew.settings.online and card.trace[-1]["source"] == "rules":
                         by = "rulebook only (judge unavailable)"
                 history = card.var.get("history", []) + [{"attempt": card.attempts, "verdict": verdict,

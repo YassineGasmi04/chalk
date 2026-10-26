@@ -6,6 +6,8 @@
 // (EN / FR / AR). "Why?" opens the crew's working: claims, facts, VAR, timings.
 
 import { makeShareCard, shareOrDownload } from "./share.js";
+import { setLang, t } from "./i18n.js";
+import { crestImg } from "./crests.js";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const $ = (id) => document.getElementById(id);
@@ -82,6 +84,11 @@ export class Studio {
     const bindSeg = (attr, key) => document.querySelectorAll(`[data-${attr}]`).forEach((b) => {
       b.addEventListener("click", () => { this.prefs[key] = b.dataset[attr]; this.applyPrefs(); });
     });
+    document.querySelectorAll("[data-persona]").forEach((b) => b.addEventListener("click", () => {
+      const w = $("wipe");
+      if (w) { w.classList.remove("go"); void w.offsetWidth; w.classList.add("go"); }
+      this.r.stadium?.whoosh();
+    }));
     bindSeg("persona", "persona");
     bindSeg("lang", "lang");
     clubPick.addEventListener("change", () => { this.prefs.club = clubPick.value; this.applyPrefs(); });
@@ -94,13 +101,20 @@ export class Studio {
     });
     if (!("speechSynthesis" in window)) $("voiceToggle").closest("label").hidden = true;
     $("hlBtn").addEventListener("click", () => (this.hl ? this.stopHighlights() : this.startHighlights()));
-    $("startMatch").addEventListener("click", () => { this.hideOverlays(); this.r.seek(0); this.r.toggle(true); });
-    $("startHighlights").addEventListener("click", () => this.startHighlights());
-    $("startLive").addEventListener("click", () => { this.hideOverlays(); this.r.goLive(); });
+    $("startMatch").addEventListener("click", () => { this.soundOn(); this.hideOverlays(); this.r.seek(0); this.r.toggle(true); this.r.showLineups(); });
+    $("startHighlights").addEventListener("click", () => { this.soundOn(); this.startHighlights(); });
+    $("startLive").addEventListener("click", () => { this.soundOn(); this.hideOverlays(); this.r.goLive(); });
     $("insWhy").addEventListener("click", () => { this.selectTab("tabCrew"); });
     $("insNext").addEventListener("click", () => this.end());
     $("insShare").addEventListener("click", () => this.share());
     this.applyPrefs(true);
+  }
+
+  /** The welcome screen's "Sound and voice" switch turns on the crowd and the commentary voice. */
+  soundOn() {
+    if (!$("welcomeSound")?.checked) return;
+    if (!this.r.stadium.on && this.r.stadium.start()) $("soundToggle").checked = true;
+    if ("speechSynthesis" in window && !this.prefs.voice) { this.prefs.voice = true; this.applyPrefs(); }
   }
 
   applyPrefs(initial = false) {
@@ -117,14 +131,31 @@ export class Studio {
     $("pauseToggle").checked = p.pause;
     $("voiceToggle").checked = p.voice;
     this.r.pitch.focus = p.player || null;
+    // Analyst and Fan are two different broadcasts, not just two caption styles
+    document.body.classList.toggle("mode-fan", p.persona === "casual");
+    document.body.classList.toggle("mode-analyst", p.persona !== "casual");
+    if (p.persona === "casual") { // the fan broadcast has no analytics overlays
+      Object.keys(this.r.pitch.layers).forEach((k) => { this.r.pitch.layers[k] = false; });
+      this.r.layersUI?.sync();
+    }
     savePrefs(p);
+    setLang(p.lang);
+    document.dispatchEvent(new CustomEvent("tabchange")); // tabs can appear or go with the mode
     this.r.ask?.render();
     if (!initial) {
       if (this.onAir) this.renderCard(this.onAir.card);
       if (!$("recap").hidden) this.showRecap();
       this.r.renderStats(true);
       this.r.refreshMomentMarks();
+      this.r.relabel?.();
+      this.renderTrust();
+      this.updateHlButton();
+      if (this.lastCard && !$("paneCrew").hidden) this.renderCrew(this.lastCard);
     }
+  }
+
+  typeLabel(type) {
+    return (TYPE_LABELS[this.prefs.lang] || TYPE_LABEL)[type] || type;
   }
 
   isMine(team, players = []) {
@@ -200,7 +231,16 @@ export class Studio {
       if (card.type === "goal") this.r.pitch.showVarLine(m?.geometry?.offside);
     }
     this.lastCard = card;
+    // when VAR overturned the AI's first draft, show the review on screen
+    const caught = (card.var?.history || []).find((h) => h.verdict === "overturned");
+    if (caught && !this.r.fx.active()) {
+      const issue = String(caught.issues?.[0] || "a claim the match data does not support");
+      this.r.fx.varReview({ clock: card.clock, issue: issue.length > 90 ? `${issue.slice(0, 88)}…` : issue,
+                            final: card.var.final });
+    }
     this.renderCard(card);
+    const badge = $("insVar");
+    badge.classList.remove("stamp"); void badge.offsetWidth; badge.classList.add("stamp");
     this.renderCrew(card);
     $("ticker").classList.remove("show");
     $("insight").hidden = false;
@@ -290,29 +330,26 @@ export class Studio {
       const ok = h.verdict === "stands";
       const who = h.by === "judge" ? "VAR judge" : h.by === "rulebook" ? "VAR rulebook" : h.by;
       const issues = (h.issues || []).slice(0, 2).map((i) => `<div class="why">${esc(i)}</div>`).join("");
-      return `<li><span class="mark ${ok ? "ok" : "no"}">${ok ? "✓" : "✕"}</span><div>Attempt ${h.attempt}: ${ok ? "stands" : "overturned"} (${esc(who)})${issues}</div></li>`;
+      return `<li><span class="mark ${ok ? "ok" : "no"}">${ok ? "✓" : "✕"}</span><div>${esc(t("crew.attempt", { n: h.attempt, verdict: t(ok ? "crew.stands" : "crew.overturned"), who }))}${issues}</div></li>`;
     }).join("");
     const final = card.var?.final;
-    const finalLine = final === "verified" ? "Aired the AI's version after VAR checked it."
-      : final === "fallback" ? "VAR overturned it twice, so a version built only from the fact sheet aired."
-      : "Aired after the rulebook checks (the VAR judge was unavailable).";
+    const finalLine = t(final === "verified" ? "crew.finalOk" : final === "fallback" ? "crew.finalFallback" : "crew.finalRules");
     const maxMs = Math.max(1, ...(card.trace || []).map((t) => t.ms || 0));
     const trace = (card.trace || []).map((t) => `<li><span>${esc(t.agent)}</span><span class="bar"><span style="width:${((t.ms || 0) / maxMs * 100).toFixed(0)}%"></span></span><span class="ms">${
       t.source === "recorded" ? "replay" : t.source === "error" ? "error" : `${((t.ms || 0) / 1000).toFixed(1)}s`}</span></li>`).join("");
     const rejected = (card.var?.drawing_issues || []).length;
     const eng = this.insights?.engine || {};
     $("crewBody").innerHTML = `
-      <p class="crew-moment">${esc(card.clock)} ${esc(TYPE_LABEL[card.type] || card.type)}</p>
+      <p class="crew-moment">${esc(card.clock)} ${esc(this.typeLabel(card.type))}</p>
       <p class="crew-head">${esc(card.headline)}</p>
       <p class="crew-story">${esc(card.story)}</p>
-      <h3 class="crew-section">Analyst: claims and the facts behind them</h3>
+      <h3 class="crew-section">${esc(t("crew.claims"))}</h3>
       <ul class="claims">${claims}</ul>
-      <h3 class="crew-section">VAR</h3>
+      <h3 class="crew-section">${esc(t("crew.var"))}</h3>
       <ul class="verdicts">${hist}<li><span class="mark ok">▸</span><div>${finalLine}</div></li></ul>
-      <h3 class="crew-section">Telestrator</h3>
-      <p class="crew-story">Drew ${card.drawings.length} shape${card.drawings.length === 1 ? "" : "s"} on the pitch${
-        rejected ? `; VAR rejected ${rejected} that weren't anchored to real positions or facts` : ""}.</p>
-      <h3 class="crew-section">Agent timings</h3>
+      <h3 class="crew-section">${esc(t("crew.tele"))}</h3>
+      <p class="crew-story">${esc(t("crew.drew", { n: card.drawings.length }))}${rejected ? ` ${esc(t("crew.rejected", { n: rejected }))}` : ""}</p>
+      <h3 class="crew-section">${esc(t("crew.timings"))}</h3>
       <ul class="trace">${trace}</ul>
       <p class="crew-foot">${esc(eng.model || "")}${eng.provider === "foundry" ? " on Microsoft Foundry" : ""}, orchestrated with Microsoft Agent Framework.
         <a href="${this.r.dataPath}/match_${this.r.seed}_overlay.json" target="_blank" rel="noopener">Broadcast overlay feed (JSON)</a></p>`;
@@ -340,17 +377,17 @@ export class Studio {
     const lat = Object.entries(byAgent).map(([a, xs]) => [a, pct(xs, 0.5), pct(xs, 0.95)]);
     const maxMs = Math.max(1, ...lat.map((l) => l[2]));
     const tile = (v, label, hot = false) => `<div class="${hot ? "hot" : ""}"><dt>${label}</dt><dd>${v}</dd></div>`;
-    const qaTiles = qa?.questions ? tile(qa.questions, "viewer questions answered") +
-      tile(qa.overturned, "Q&amp;A answers VAR sent back", qa.overturned > 0) : "";
+    const qaTiles = qa?.questions ? tile(qa.questions, esc(t("trust.qa"))) +
+      tile(qa.overturned, esc(t("trust.qaBack")), qa.overturned > 0) : "";
     $("trustBody").innerHTML = `
-      <div class="trust-head"><h3 class="trust-title">Trust report</h3>${cards.length ? `<p class="trust-score">${verified}/${cards.length} insights aired as the AI wrote them, after VAR</p>` : ""}</div>
+      <div class="trust-head"><h3 class="trust-title">${esc(t("trust.title"))}</h3>${cards.length ? `<p class="trust-score">${esc(t("trust.score", { a: verified, b: cards.length }))}</p>` : ""}</div>
       <dl class="trust-grid">
-        ${tile(claims, "claims checked")}${tile(facts, "facts cited")}${tile(overturns, "times VAR overturned the AI", overturns > 0)}
-        ${tile(fallbacks, "rulebook versions aired", fallbacks > 0)}${tile(`${drawn - rejected}/${drawn}`, "drawings kept on the pitch")}${tile(calls, "model calls")}
+        ${tile(claims, esc(t("trust.claims")))}${tile(facts, esc(t("trust.facts")))}${tile(overturns, esc(t("trust.over")), overturns > 0)}
+        ${tile(fallbacks, esc(t("trust.fallback")), fallbacks > 0)}${tile(`${drawn - rejected}/${drawn}`, esc(t("trust.drawings")))}${tile(calls, esc(t("trust.calls")))}
         ${qaTiles}
       </dl>
-      ${lat.length ? `<ul class="trust-lat">${lat.map(([a, p50, p95]) => `<li><span>${esc(a)}</span><span class="ms">median ${(p50 / 1000).toFixed(1)}s · p95 ${(p95 / 1000).toFixed(1)}s</span><span class="bar"><span class="p95" style="width:${(p95 / maxMs * 100).toFixed(0)}%"></span><span class="p50" style="width:${(p50 / maxMs * 100).toFixed(0)}%"></span></span></li>`).join("")}</ul>` : ""}
-      <p class="trust-note">Every number on air comes from code. Agents write the words and drawings; VAR rejects anything it cannot find in the match data.</p>`;
+      ${lat.length ? `<ul class="trust-lat">${lat.map(([a, p50, p95]) => `<li><span>${esc(a)}</span><span class="ms">${esc(t("trust.median", { a: (p50 / 1000).toFixed(1), b: (p95 / 1000).toFixed(1) }))}</span><span class="bar"><span class="p95" style="width:${(p95 / maxMs * 100).toFixed(0)}%"></span><span class="p50" style="width:${(p50 / maxMs * 100).toFixed(0)}%"></span></span></li>`).join("")}</ul>` : ""}
+      <p class="trust-note">${esc(t("trust.note"))}</p>`;
   }
 
   // --------------------------------------------------------------- share
@@ -380,10 +417,14 @@ export class Studio {
     return lang === "en" ? `${card.headline}. ${v.caption || ""}` : (v.caption || "");
   }
 
-  speak(text, lang = this.prefs.lang) {
+  speak(text, lang = this.prefs.lang, queue = false) {
     if (!this.prefs.voice || !text || !("speechSynthesis" in window)) return false;
+    if (this.r.comm) { // the studio pundit: a second voice, distinct from the match commentator
+      this.r.comm.speak(text, { role: "pundit", priority: 2, queue, lang }).then(() => { if (this.onAir) this.onAir.spoken = true; });
+      return true;
+    }
     try {
-      speechSynthesis.cancel();
+      if (!queue) speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       const tag = { en: "en-GB", fr: "fr-FR", ar: "ar-SA" }[lang] || "en-GB";
       u.lang = tag;
@@ -391,7 +432,11 @@ export class Studio {
       const voice = voices.find((v) => v.lang === tag) || voices.find((v) => v.lang?.toLowerCase().startsWith(lang));
       if (voice) u.voice = voice;
       u.rate = lang === "ar" ? 0.95 : 1.05;
-      u.onend = u.onerror = () => { if (this.onAir) this.onAir.spoken = true; };
+      u.onstart = () => document.body.classList.add("speaking");
+      u.onend = u.onerror = () => {
+        if (this.onAir) this.onAir.spoken = true;
+        setTimeout(() => { if (!speechSynthesis.speaking) document.body.classList.remove("speaking"); }, 120);
+      };
       speechSynthesis.speak(u);
       return true;
     } catch {
@@ -400,7 +445,8 @@ export class Studio {
   }
 
   silence() {
-    try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch { /* nothing to stop */ }
+    try { if ("speechSynthesis" in window && this.r.comm?.speakingPriority !== 3) speechSynthesis.cancel(); } catch { /* nothing to stop */ }
+    document.body.classList.remove("speaking");
   }
 
   // ---------------------------------------------------------- highlights
@@ -428,7 +474,7 @@ export class Studio {
   updateHlButton() {
     const b = $("hlBtn");
     b.setAttribute("aria-pressed", String(!!this.hl));
-    b.querySelector("span").textContent = this.hl ? "Exit highlights" : "AI highlights";
+    b.querySelector("span").textContent = t(this.hl ? "hl.exit" : "hl.btn");
   }
 
   // ------------------------------------------------------- welcome, recap
@@ -453,8 +499,8 @@ export class Studio {
     const [hg, ag] = String(f.score || "0-0").split("-");
     const goals = this.r.moments.filter((m) => m.type === "goal").map((m) =>
       `<li><span class="clk">${esc(m.clock)}</span><span class="dot" style="background:${this.r.colors[m.team]}"></span><span>${esc(m.facts.scorer)} <span class="why">(${esc(m.facts.goal_effect)})</span></span></li>`).join("");
-    const chips = [["Goals", f.potm_goals], ["Shots", f.potm_shots], ["xG", f.potm_xg], ["Touches", f.potm_touches],
-      ["Top speed", f.potm_top_speed_kmh ? `${f.potm_top_speed_kmh} km/h` : null]]
+    const chips = [[t("p.goals"), f.potm_goals], [t("p.shots"), f.potm_shots], ["xG", f.potm_xg], [t("p.touches"), f.potm_touches],
+      [t("p.top"), f.potm_top_speed_kmh ? `${f.potm_top_speed_kmh} km/h` : null]]
       .filter(([, x]) => x !== undefined && x !== null)
       .map(([k, x]) => `<span class="chip">${k} <b>${esc(x)}</b></span>`).join("");
     const potm = this.r.roster[rc.player_of_the_match] || {};
@@ -463,26 +509,26 @@ export class Studio {
     const body = lang === "en" ? (persona === "analyst" ? rc.story : v.caption) : "";
     const tp = rc.turning_point;
     $("recapCard").innerHTML = `
-      <p class="rc-kicker"><span>Full-time recap</span>
+      <p class="rc-kicker"><span>${esc(t("rc.kicker"))}</span>
         <span class="var-badge${final === "verified" ? "" : " warn"}"><span>${final === "verified" ? ui.ok : ui.safe}</span></span></p>
-      <div class="rc-score"><span class="rc-team">${esc(start.home.name)}</span><span class="rc-goals">${esc(hg)} – ${esc(ag)}</span><span class="rc-team">${esc(start.away.name)}</span></div>
+      <div class="rc-score"><span class="rc-team">${crestImg(start.home.name, this.r.colors.home, "rc-crest")}${esc(start.home.name)}</span><span class="rc-goals">${esc(hg)} – ${esc(ag)}</span><span class="rc-team">${esc(start.away.name)}${crestImg(start.away.name, this.r.colors.away, "rc-crest")}</span></div>
       <h2 class="rc-head${lang === "ar" ? " rtl" : ""}"${rtl}>${esc(head)}</h2>
       ${body ? `<p class="rc-text">${esc(body)}</p>` : ""}
       <div class="rc-grid">
-        <div class="rc-box"><h3>Goals</h3><ol class="rc-goals-list">${goals}</ol></div>
-        <div class="rc-box"><h3>Player of the match</h3>
+        <div class="rc-box"><h3>${esc(t("rc.goals"))}</h3><ol class="rc-goals-list">${goals}</ol></div>
+        <div class="rc-box"><h3>${esc(t("rc.potm"))}</h3>
           <p class="potm-name">${esc(potm.number ?? "")} ${esc(f.potm_name || "")}</p>
           <div class="potm-stats">${chips}</div></div>
-        <div class="rc-box rc-shotmap"><h3>Every shot, sized by xG</h3>${this.shotMap()}
+        <div class="rc-box rc-shotmap"><h3>${esc(t("rc.shots"))}</h3>${this.shotMap()}
           <p class="rc-legend"><span><span class="dot" style="display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:${this.r.colors.home}"></span> ${esc(start.home.name)}</span>
           <span><span class="dot" style="display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:${this.r.colors.away}"></span> ${esc(start.away.name)}</span>
-          <span>Filled with a white ring: goal</span></p></div>
+          <span>${esc(t("rc.ring"))}</span></p></div>
       </div>
       <div class="rc-actions">
-        ${tp ? `<button type="button" class="btn-primary" data-rc="tp">Replay the turning point ${esc(tp)}</button>` : ""}
+        ${tp ? `<button type="button" class="btn-primary" data-rc="tp">${esc(t("rc.tp", { tp }))}</button>` : ""}
         <button type="button" class="btn-ghost" data-rc="why">${ui.why}</button>
-        <button type="button" class="btn-ghost" data-rc="hl">AI highlights</button>
-        <button type="button" class="btn-ghost" data-rc="close">Close</button>
+        <button type="button" class="btn-ghost" data-rc="hl">${esc(t("hl.btn"))}</button>
+        <button type="button" class="btn-ghost" data-rc="close">${esc(t("rc.close"))}</button>
       </div>`;
     $("recap").hidden = false;
     this.renderCrew(rc);
@@ -531,9 +577,9 @@ export class Studio {
     $("pcMeta").textContent = `${p.position}, ${this.r.start[p.team].short}`;
     const acc = s.passes ? `${Math.round((100 * s.comp) / s.passes)}%` : "–";
     const cells = [
-      ["Touches", s.touches || 0], ["Passes", s.passes || 0], ["Accuracy", acc],
-      ["Shots", s.shots || 0], ["Goals", s.goals || 0], ["xG", (s.xg || 0).toFixed(2)],
-      ["Ball wins", s.won || 0], ["Sprints", s.sprints || 0], ["Top speed", s.top ? `${s.top} km/h` : "–"],
+      [t("p.touches"), s.touches || 0], [t("p.passes"), s.passes || 0], [t("p.accuracy"), acc],
+      [t("p.shots"), s.shots || 0], [t("p.goals"), s.goals || 0], ["xG", (s.xg || 0).toFixed(2)],
+      [t("p.wins"), s.won || 0], [t("p.sprints"), s.sprints || 0], [t("p.top"), s.top ? `${s.top} km/h` : "–"],
     ];
     $("pcGrid").innerHTML = cells.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
   }

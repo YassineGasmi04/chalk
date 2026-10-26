@@ -86,12 +86,43 @@
   "label": "El Mansouri on to chase the game"
  },
  {
+  "at": 72,
+  "kind": "sub",
+  "team": "away",
+  "off": "a11",
+  "on": "a18",
+  "label": "Ferraz on for Moreau-Vance, like for like"
+ },
+ {
   "at": 78,
   "kind": "tactic",
   "team": "home",
   "press": 0.8,
   "directness": 0.55,
   "label": "Ashvale throw everything forward"
+ },
+ {
+  "at": 82,
+  "kind": "formation",
+  "team": "home",
+  "to": "4-4-2",
+  "label": "Ashvale go two up front"
+ },
+ {
+  "at": 83,
+  "kind": "sub",
+  "team": "away",
+  "off": "a7",
+  "on": "a16",
+  "label": "Aalto on to protect the lead"
+ },
+ {
+  "at": 87,
+  "kind": "sub",
+  "team": "home",
+  "off": "h11",
+  "on": "h19",
+  "label": "Strand on for Dufay, fresh legs"
  },
  {
   "at": 86,

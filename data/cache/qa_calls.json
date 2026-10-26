@@ -104,5 +104,41 @@
 "attempts": 1,
 "by": "rulebook"
 }
+},
+"72de0600ffd0bb9e5a5d8f87c759c5e2": {
+"answer": "The score is still 0-0 between Ashvale Rovers and Kestrel Bay FC at 11 minutes. It's been a closely contested match so far.",
+"tools": [
+{
+"tool": "match_status",
+"args": {}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+},
+"97bc19c3311d9bde339740f76b4ef3b2": {
+"answer": "There has been one red card in the match so far: Adebayo Lorne from Kestrel Bay FC was sent off at the 78th minute. This likely impacted Kestrel Bay's tactical setup and defensive solidity in the final stages.",
+"tools": [
+{
+"tool": "key_moments",
+"args": {
+"kind": "red_card"
+}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
 }
 }

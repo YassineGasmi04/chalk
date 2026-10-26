@@ -123,3 +123,17 @@ def test_goals_carry_a_var_offside_line(demo):
         assert o and o["onside"] and o["margin_m"] >= 0  # every goal in the demo stood
         assert (o["line_x"] - o["receiver_x"]) * o["attack_dir"] == pytest.approx(o["margin_m"], abs=0.01)
     assert min(g.geometry["offside"]["margin_m"] for g in goals) < 1.5  # one tight call
+
+
+def test_portrait_prompts_describe_fictional_people_only():
+    import importlib.util
+    from pathlib import Path
+    spec = importlib.util.spec_from_file_location("gp", Path(__file__).resolve().parents[1] / "scripts" / "generate_portraits.py")
+    gp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(gp)
+    players = gp.roster()
+    assert len(players) == 40  # 11 starters and 9 substitutes per club
+    prompts = [gp.prompt_for(p, t) for p, t in players]
+    assert all("does not exist" in x and "No logos" in x for x in prompts)
+    assert prompts == [gp.prompt_for(p, t) for p, t in players]  # the same face every run
+    assert not any(p["name"] in x for (p, _), x in zip(players, prompts))  # names never reach the model

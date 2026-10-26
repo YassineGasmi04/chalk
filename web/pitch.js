@@ -12,6 +12,8 @@
 //   network  the passing network over the last 15 minutes
 //   trails   where every player has just run
 
+import { t } from "./i18n.js";
+
 const L = 105, W = 68, M = 4;
 const SIGNAL = "#ffbf3c";
 const LINE = "rgba(255,255,255,0.86)";
@@ -706,7 +708,7 @@ export class PitchRenderer {
       const width = Math.round(Math.max(...ys) - Math.min(...ys)), depth = Math.round(Math.max(...xs) - Math.min(...xs));
       const height = Math.round(team === "home" ? lx : L - lx);
       this.readouts.shape[team] = { width, depth, line: height };
-      this.label(c, [lx, -1.5], `Line ${height} m`, 0.95, team, 4);
+      this.label(c, [lx, -1.5], t("pitch.line", { n: height }), 0.95, team, 4);
       const cx = xs.reduce((s, v) => s + v, 0) / xs.length;
       this.label(c, [cx, Math.min(...ys)], `${width} × ${depth} m`, 0.95, team, 10);
     }
@@ -1098,8 +1100,8 @@ export class PitchRenderer {
     lineAt(o.line_x, "#5ad1ff", 2.6);
     lineAt(o.receiver_x, o.onside ? "#7ee2a8" : "#ff4d5e", 2.6);
     if (k >= 1) {
-      const label = `${o.onside ? "Onside" : "Offside"} by ${Math.abs(o.margin_m).toFixed(1)} m`;
-      this.label(c, [(o.line_x + o.receiver_x) / 2, 0], `VAR  ${label}`, 1, "var", 8);
+      const label = t("pitch.var", { verdict: t(o.onside ? "pitch.onside" : "pitch.offside"), m: Math.abs(o.margin_m).toFixed(1) });
+      this.label(c, [(o.line_x + o.receiver_x) / 2, 0], label, 1, "var", 8);
     }
   }
 

@@ -67,6 +67,10 @@ def check_numbers(text: str, allowed: set[float]) -> list[str]:
     return issues
 
 
+# judge notes that say the claim is fine are not grounds to overturn
+NOT_AN_ISSUE_RE = re.compile(r"\b(no issue|not an issue|is acceptable|so this is acceptable|claim stands|"
+                             r"this is fine|no problem here|no change needed)\b", re.I)
+
 KEY_LEAK_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
 
 
