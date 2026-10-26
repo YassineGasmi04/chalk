@@ -24,6 +24,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import json
+import logging
 import os
 import random
 import time
@@ -48,6 +49,7 @@ from .stats.moments import MomentDetector
 from .stats.state import MatchState
 
 DATA = ROOT / "data"
+log = logging.getLogger("chalk.server")
 ON_AIR_DELAY_S = 3.0
 MAX_SPEED = 60.0
 
@@ -95,7 +97,8 @@ def _sse(kind: str, data: Any) -> str:
 @app.get("/api/health")
 def health() -> dict[str, Any]:
     s = load_settings()
-    return {"ok": True, "engine": s.describe(), "live_ai": os.environ.get("CHALK_LIVE_AI", "1") != "0"}
+    return {"ok": True, "engine": s.describe(), "live_ai": os.environ.get("CHALK_LIVE_AI", "1") != "0",
+            "features": ["live", "ask", "mcp", "new_match"]}
 
 
 @app.get("/api/live")
@@ -198,8 +201,14 @@ class Question(BaseModel):
 @app.post("/api/ask")
 async def ask(q: Question) -> JSONResponse:
     """Ask the studio. Answers only from the match up to t, checked by VAR."""
-    qa = studio_qa()
-    out = await qa.ask(q.question, t=q.t, seed=q.seed, lang=q.lang, persona=q.persona)
+    try:
+        qa = studio_qa()
+        out = await qa.ask(q.question, t=q.t, seed=q.seed, lang=q.lang, persona=q.persona)
+    except Exception as err:  # never leave a viewer without an answer
+        log.exception("ask failed")
+        qa = StudioQA(load_settings(force_offline=True))
+        out = await qa.ask(q.question, t=q.t, seed=q.seed, lang=q.lang, persona=q.persona)
+        out["var"] = {**out["var"], "final": "fallback", "issues": [f"server error: {type(err).__name__}: {err}"[:240]]}
     out["engine"] = qa.engine
     out["session"] = dict(qa.stats)
     return JSONResponse(out)

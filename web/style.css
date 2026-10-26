@@ -866,3 +866,4 @@ button, input { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .ask-a.fresh, .dots i, .ask-mic.on { animation: none; }
 }
+.ask-why { color: var(--signal); }

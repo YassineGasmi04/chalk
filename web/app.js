@@ -568,7 +568,7 @@ load()
       $("startLive").hidden = false;
       $("startNew").hidden = false;
       $("newMatchBtn").hidden = false;
-      app.ask.setAvailable(true);
+      app.ask.setAvailable(true, (h.features || []).includes("ask"));
       const fresh = async () => {
         app.studio.hideOverlays();
         const r = await fetch("/api/new-match");

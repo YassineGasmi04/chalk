@@ -56,8 +56,9 @@ export class AskDesk {
   get lang() { return this.r.studio.prefs.lang; }
   get t() { return L[this.lang] || L.en; }
 
-  setAvailable(on) {
-    this.available = on;
+  setAvailable(on, current = true) {
+    this.available = on && current;
+    this.stale = on && !current;
     this.render();
   }
 
@@ -69,7 +70,8 @@ export class AskDesk {
     $("askInput").placeholder = t.placeholder;
     $("askInput").dir = rtl ? "rtl" : "ltr";
     $("askSend").textContent = t.send;
-    $("askIntro").textContent = this.available ? t.intro : t.offline;
+    $("askIntro").textContent = this.available ? t.intro
+      : this.stale ? "The server running is an older version: stop uvicorn (Ctrl+C) and start it again, then reload this page." : t.offline;
     $("askIntro").dir = rtl ? "rtl" : "ltr";
     $("askForm").hidden = !this.available;
     const pid = this.r.studio.prefs.player;
@@ -143,7 +145,10 @@ export class AskDesk {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ question, t: this.r.T, seed: Number(this.r.seed), lang, persona }),
       });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      if (!r.ok) {
+        const hint = r.status === 404 ? " (this server is older than the app: stop uvicorn with Ctrl+C and start it again)" : "";
+        throw new Error(`HTTP ${r.status}${hint}`);
+      }
       const out = await r.json();
       this.session = out.session;
       this.fill(pending, out);
@@ -153,7 +158,7 @@ export class AskDesk {
     } catch (err) {
       console.error(err);
       pending.className = "ask-a error";
-      pending.innerHTML = `<p>${esc(this.t.error)}</p>`;
+      pending.innerHTML = `<p>${esc(this.t.error)}</p><p class="ask-foot">${esc(err.message || err)}</p>`;
     } finally {
       this.busy = false;
       $("askSend").disabled = false;
@@ -178,6 +183,7 @@ export class AskDesk {
         <span class="var-badge ${ok ? "" : "safe"}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${esc(ok ? t.ok : t.safe)}</span></span>
         ${tools}
       </div>
+      ${!ok && out.var?.issues?.length ? `<p class="ask-foot ask-why">VAR: ${esc(out.var.issues.slice(-2).join("; "))}</p>` : ""}
       <p class="ask-foot">${retried ? `${esc(t.overturned)} · ` : ""}${esc(t.at)} ${esc(out.clock)} · ${esc(src)}${out.ms ? ` · ${(out.ms / 1000).toFixed(1)}s` : ""} · MCP</p>`;
   }
 

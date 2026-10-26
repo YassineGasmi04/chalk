@@ -17,5 +17,92 @@
 "attempts": 1,
 "by": "rulebook"
 }
+},
+"9a0bf79631f92fc88bc2c07c52990eb1": {
+"answer": "The score is currently 0-0 between Ashvale Rovers and Kestrel Bay FC. Both teams have all their players on the pitch, and it's still very early in the match.",
+"tools": [
+{
+"tool": "match_status",
+"args": {}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+},
+"cb831c5bd4b6c2df4ca0f059e9112617": {
+"answer": "The score is 0-0 between Ashvale Rovers and Kestrel Bay FC at 14 minutes. Ashvale Rovers have been on top in the last five minutes, and the game has been quite chaotic.",
+"tools": [
+{
+"tool": "match_status",
+"args": {}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+},
+"464b2d695a0f3ce1221e23cb73911956": {
+"answer": "Ashvale Rovers are leading Kestrel Bay FC 2-1 at the 50th minute. It's been a lively match with both teams fully on the pitch.",
+"tools": [
+{
+"tool": "match_status",
+"args": {}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+},
+"52f3930ca4dfbd9722d16a4bc3cbc887": {
+"answer": "Mensah-Cole is having a great game with 2 goals from 8 shots and a pass accuracy of 79%. He's also active defensively with 8 tackles and 11 interceptions. Overall, he's a key player for Ashvale Rovers so far.",
+"tools": [
+{
+"tool": "player_stats",
+"args": {
+"player": "Mensah-Cole"
+}
+}
+],
+"source": "model",
+"focus": "h9",
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+},
+"7069ca4e0f61236d1e6c65761790b1a5": {
+"answer": "Hello! Ashvale Rovers are currently leading 2-1 against Kestrel Bay FC at 51 minutes. The game has been quite contested recently, with Ashvale Rovers having the upper hand in the last five minutes. Let me know if you want to know more!",
+"tools": [
+{
+"tool": "match_status",
+"args": {}
+}
+],
+"source": "model",
+"focus": null,
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
 }
 }
