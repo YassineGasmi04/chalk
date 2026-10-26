@@ -4,6 +4,7 @@
 
 > Entry for the Microsoft x Premier League **Inside the Game: Developer Hackathon**
 > (challenge: *The Synthetic Match Insights Engine for Premier League Studio*).
+>    **▶ Live demo:** (https://chalk-pundit-adhcepfxfkazbgcu.austriaeast-01.azurewebsites.net/web/)  ·  **🎬 Video (1:52):**(https://youtu.be/UimayDvnE3g)
 
 TV pundits don't just talk about a moment. They pause the match and draw on it:
 an arrow for the run, a circle on the pressing trap, a shaded zone for the gap.
