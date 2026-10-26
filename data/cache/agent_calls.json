@@ -2118,5 +2118,1357 @@
 }
 }
 }
+},
+"9a9732b8c68f9fe3b31f9c51d79b12b3": {
+"headline": "Kestrel Bay narrows gap with Lorne's strike",
+"story": "At 40 minutes, Adebayo Lorne scores from 8.3 meters, assisted by Kai Holmberg, cutting Ashvale Rovers' lead to 2-1. Despite Kestrel Bay's lower possession (46.2%) and fewer shots (2), this goal shifts momentum in a chaotic match with pulse dominance still favoring Ashvale (0.45). It sets up a tense finish.",
+"claims": [
+{
+"text": "Adebayo Lorne scored from 8.3 meters with an assist by Kai Holmberg",
+"fact_keys": [
+"scorer",
+"shot_distance_m",
+"assist"
+]
+},
+{
+"text": "Kestrel Bay trails 2-1 but has only 46.2% possession and 2 shots",
+"fact_keys": [
+"away_goals",
+"away_possession_pct",
+"away_shots",
+"score"
+]
+},
+{
+"text": "Match tempo is chaotic with pulse dominance favoring Ashvale at 0.45",
+"fact_keys": [
+"pulse_chaos",
+"pulse_dominance",
+"pulse_label"
+]
+}
+],
+"focus_players": [
+"a9",
+"a7"
+],
+"drawing_brief": "Highlight Lorne's goal from 8.3 meters with Holmberg's assist path"
+},
+"bda1ad18f7abe50d3ab3acaafe87f2d6": {
+"headline": "Yaw Mensah-Cole Doubles Lead for Ashvale",
+"story": "At 29 minutes, Yaw Mensah-Cole scored his second goal for Ashvale Rovers, extending their lead to 2-0 over Kestrel Bay FC. This goal came after a quick 6.7-second buildup with only two passes, reflecting Ashvale's dominance with 56.5% possession and 8 shots. The scoreline now puts Ashvale in a commanding position early in the match.",
+"claims": [
+{
+"text": "Yaw Mensah-Cole scored his second goal at 29 minutes.",
+"fact_keys": [
+"scorer",
+"scorer_goals_today",
+"clock"
+]
+},
+{
+"text": "Ashvale Rovers lead 2-0 with higher possession and shots.",
+"fact_keys": [
+"home_goals",
+"away_goals",
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "The goal followed a quick 6.7-second buildup with just two passes.",
+"fact_keys": [
+"buildup_seconds",
+"buildup_passes"
+]
+},
+{
+"text": "The match pulse shows Ashvale's control but contested tempo.",
+"fact_keys": [
+"pulse_dominance",
+"pulse_label"
+]
+}
+],
+"focus_players": [
+"h9"
+],
+"drawing_brief": "Highlight Yaw Mensah-Cole shooting from 7.2 meters inside penalty area"
+},
+"3d8deaf8b9ffc6f23ec63fbcb59f1c62": {
+"headline": "Mensah-Cole's Goal Breaks Deadlock",
+"story": "At 26 minutes, Yaw Mensah-Cole scored from close range (7.1m) with a powerful 97.3 km/h shot, giving Ashvale Rovers a 1-0 lead. This goal came after a 22-second buildup with 4 passes, reflecting Ashvale's dominance (58.6% possession) and high xG (0.68). The chaotic tempo (pulse_chaos 1.35) underlines the intense match pace.",
+"claims": [
+{
+"text": "Mensah-Cole scored a goal from 7.1 meters with a 97.3 km/h shot",
+"fact_keys": [
+"scorer",
+"shot_distance_m",
+"shot_speed_kmh"
+]
+},
+{
+"text": "Ashvale Rovers led 1-0 with 58.6% possession and 0.68 xG",
+"fact_keys": [
+"home_goals",
+"home_possession_pct",
+"home_xg"
+]
+},
+{
+"text": "The goal followed a 22.3 second buildup involving 4 passes",
+"fact_keys": [
+"buildup_seconds",
+"buildup_passes"
+]
+},
+{
+"text": "Match tempo was chaotic with pulse_chaos at 1.35",
+"fact_keys": [
+"pulse_chaos"
+]
+}
+],
+"focus_players": [
+"h9"
+],
+"drawing_brief": "Highlight Mensah-Cole shooting from 7 meters inside the box"
+},
+"1cf079b2cb14683d3938b7fcddfa493d": {
+"headline": "Kestrel Bay FC shifts to 4-2-3-1 formation",
+"story": "At 66 minutes, Kestrel Bay FC switched from a 4-3-3 to a 4-2-3-1 formation while trailing 2-1. This tactical change aims to stabilize midfield and create more attacking options, as Ashvale Rovers hold a slight possession edge but fewer shots. The shift could influence the game's momentum and Kestrel Bay's chances to equalize.",
+"claims": [
+{
+"text": "Kestrel Bay FC changed formation from 4-3-3 to 4-2-3-1 at 66 minutes",
+"fact_keys": [
+"from_formation",
+"to_formation",
+"clock"
+]
+},
+{
+"text": "Ashvale Rovers lead 2-1 with higher possession and more shots",
+"fact_keys": [
+"home_goals",
+"away_goals",
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "Match pulse shows controlled tempo with home team dominance",
+"fact_keys": [
+"pulse_label",
+"pulse_dominance",
+"pulse_chaos"
+]
+}
+],
+"focus_players": [],
+"drawing_brief": "Draw formation shapes for Kestrel Bay FC's 4-2-3-1 and Ashvale Rovers' 4-3-3 on the pitch"
+},
+"36b03af3f4e5a2c279b7bf9d53263a23": {
+"headline": "Kestrel Bay Down to 10 Men at 77'",
+"story": "Adebayo Lorne of Kestrel Bay FC received a red card at 77', reducing his team to 10 players. Despite leading possession (62.5% last 5 minutes) and a balanced scoreline (2-2), this dismissal shifts momentum heavily towards Ashvale Rovers, who maintain a full squad and have nearly double the shots (14 vs 7).",
+"claims": [
+{
+"text": "Kestrel Bay FC now plays with 10 men after Lorne's red card",
+"fact_keys": [
+"away_players_on_pitch",
+"player",
+"title"
+]
+},
+{
+"text": "Kestrel Bay dominated possession in the last 5 minutes with 62.5%",
+"fact_keys": [
+"team_possession_last5_pct"
+]
+},
+{
+"text": "Ashvale Rovers have nearly twice as many shots as Kestrel Bay",
+"fact_keys": [
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "The score remains tied at 2-2 with 13 minutes left",
+"fact_keys": [
+"score",
+"minutes_remaining"
+]
+}
+],
+"focus_players": [
+"a9"
+],
+"drawing_brief": "Highlight Adebayo Lorne in red and show Kestrel Bay's 10-player formation against Ashvale's 11"
+},
+"04250acbd415058a5c58074d46320676": {
+"headline": "Kai Holmberg levels for Kestrel Bay",
+"story": "At 71 minutes, Kai Holmberg scored from 14 meters with a 96 km/h shot, assisted by Jules Moreau-Vance, equalizing the score at 2-2. This goal came after Kestrel Bay FC increased their pressing and switched to a 4-2-3-1 formation, shifting momentum despite Ashvale's higher xG and shots.",
+"claims": [
+{
+"text": "Kai Holmberg scored to make it 2-2 at 71 minutes",
+"fact_keys": [
+"clock",
+"score",
+"scorer",
+"home_goals",
+"away_goals"
+]
+},
+{
+"text": "The goal followed a 36.8-second buildup with 9 passes",
+"fact_keys": [
+"buildup_seconds",
+"buildup_passes"
+]
+},
+{
+"text": "Kestrel Bay FC had equal possession but fewer shots and lower xG",
+"fact_keys": [
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots",
+"home_xg",
+"away_xg"
+]
+},
+{
+"text": "Pulse dominance was -0.489, indicating Ashvale was slightly on top despite the equal score",
+"fact_keys": [
+"pulse_dominance",
+"pulse_label"
+]
+}
+],
+"focus_players": [
+"a7",
+"a11"
+],
+"drawing_brief": "Draw a shot arrow from Kai Holmberg at 14m out to the goal, highlighting the assist from Jules Moreau-Vance"
+},
+"bb30a22dfc20f6facbba84c50a577043": {
+"drawings": [
+{
+"type": "arrow",
+"from": [
+67.3,
+33.7
+],
+"to": [
+72.5,
+17.8
+],
+"style": "pass",
+"label": "Pass 1"
+},
+{
+"type": "arrow",
+"from": [
+72.5,
+17.8
+],
+"to": [
+86.1,
+21.9
+],
+"style": "carry",
+"label": "Carry"
+},
+{
+"type": "arrow",
+"from": [
+86.1,
+21.9
+],
+"to": [
+98.5,
+31.0
+],
+"style": "pass",
+"label": "Pass 2"
+},
+{
+"type": "circle",
+"player": "h9",
+"label": "Yaw Mensah-Cole"
+},
+{
+"type": "arrow",
+"from": [
+98.5,
+31.0
+],
+"to": [
+105.0,
+33.6
+],
+"style": "shot",
+"label": "Shot 7.2m"
+}
+]
+},
+"4fb8b428a1958a4e38d575026ade08f3": {
+"drawings": [
+{
+"type": "arrow",
+"from": [
+20.2,
+60.8
+],
+"to": [
+7.5,
+54.7
+],
+"style": "carry",
+"label": "Holmberg carry"
+},
+{
+"type": "arrow",
+"from": [
+7.5,
+54.7
+],
+"to": [
+5.0,
+40.6
+],
+"style": "pass",
+"label": "Holmberg assist"
+},
+{
+"type": "circle",
+"player": "a7",
+"label": "7"
+},
+{
+"type": "circle",
+"player": "a9",
+"label": "9"
+},
+{
+"type": "arrow",
+"from": [
+5.0,
+40.6
+],
+"to": [
+0.0,
+32.2
+],
+"style": "shot",
+"label": "8.3m shot"
+}
+]
+},
+"c3ea81cb00c62fdc7111737ceb693e97": {
+"headline": "Mensah-Cole seals Ashvale's late lead",
+"story": "At 89', Yaw Mensah-Cole scored his third goal, assisted by Elias Brandt, to put Ashvale Rovers ahead 3-2 against Kestrel Bay FC. Despite Kestrel Bay's recent pressure and a near-equal possession (home_possession_pct 50.3 vs away_possession_pct 49.7), Ashvale's clinical finishing (home_shots 17 vs away_shots 7) made the difference. This goal likely secures Ashvale's advantage in the final minutes.",
+"claims": [
+{
+"text": "Mensah-Cole scored a crucial third goal at 89 minutes",
+"fact_keys": [
+"clock",
+"scorer",
+"score"
+]
+},
+{
+"text": "Ashvale Rovers maintained a slight possession edge of 50.3%",
+"fact_keys": [
+"home_possession_pct",
+"away_possession_pct"
+]
+},
+{
+"text": "Ashvale took more than double the shots of Kestrel Bay FC (17 vs 7)",
+"fact_keys": [
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "The goal came after a quick 10.7 second buildup with only 1 pass",
+"fact_keys": [
+"buildup_seconds",
+"buildup_passes"
+]
+}
+],
+"focus_players": [
+"h9",
+"h10"
+],
+"drawing_brief": "Highlight Mensah-Cole's shot from 5.9m inside the box assisted by Brandt"
+},
+"28194918082e8fb0e1da93ef5a9d7f02": {
+"drawings": [
+{
+"type": "circle",
+"player": "a9",
+"label": "Red Card"
+},
+{
+"type": "circle",
+"player": "a1"
+},
+{
+"type": "circle",
+"player": "a2"
+},
+{
+"type": "circle",
+"player": "a3"
+},
+{
+"type": "circle",
+"player": "a4"
+},
+{
+"type": "circle",
+"player": "a5"
+},
+{
+"type": "circle",
+"player": "a6"
+},
+{
+"type": "circle",
+"player": "a7"
+},
+{
+"type": "circle",
+"player": "a10"
+},
+{
+"type": "circle",
+"player": "a11"
+},
+{
+"type": "circle",
+"player": "a19"
+},
+{
+"type": "circle",
+"player": "h1"
+},
+{
+"type": "circle",
+"player": "h2"
+},
+{
+"type": "circle",
+"player": "h3"
+},
+{
+"type": "circle",
+"player": "h4"
+},
+{
+"type": "circle",
+"player": "h5"
+},
+{
+"type": "circle",
+"player": "h6"
+},
+{
+"type": "circle",
+"player": "h7"
+},
+{
+"type": "circle",
+"player": "h8"
+},
+{
+"type": "circle",
+"player": "h9"
+},
+{
+"type": "circle",
+"player": "h10"
+},
+{
+"type": "circle",
+"player": "h11"
+}
+]
+},
+"23857eb766976ab9fc3b5318e8bb5f9e": {
+"drawings": [
+{
+"type": "link",
+"players": [
+"a3",
+"a4",
+"a5",
+"a6",
+"a10",
+"a19",
+"a7",
+"a9",
+"a11"
+],
+"label": "Kestrel Bay 4-2-3-1"
+},
+{
+"type": "circle",
+"player": "a6",
+"label": "DM"
+},
+{
+"type": "circle",
+"player": "a19",
+"label": "CAM"
+},
+{
+"type": "circle",
+"player": "a10",
+"label": "CM"
+},
+{
+"type": "circle",
+"player": "a9",
+"label": "ST"
+},
+{
+"type": "link",
+"players": [
+"h3",
+"h4",
+"h5",
+"h6",
+"h8",
+"h10",
+"h7",
+"h9",
+"h11"
+],
+"label": "Ashvale Rovers 4-3-3"
+},
+{
+"type": "circle",
+"player": "h6",
+"label": "DM"
+},
+{
+"type": "circle",
+"player": "h8",
+"label": "CM"
+},
+{
+"type": "circle",
+"player": "h10",
+"label": "CM"
+},
+{
+"type": "circle",
+"player": "h9",
+"label": "ST"
+}
+]
+},
+"504b96bd6865dba002735d3db9063ae9": {
+"verdict": "stands",
+"issues": []
+},
+"04e081400639d1a0747cb8125c99e40f": {
+"drawings": [
+{
+"type": "arrow",
+"from": [
+61.5,
+36.5
+],
+"to": [
+77.1,
+36.1
+],
+"style": "pass",
+"label": "Pass 1"
+},
+{
+"type": "arrow",
+"from": [
+77.1,
+36.1
+],
+"to": [
+64.9,
+37.8
+],
+"style": "pass",
+"label": "Pass 2"
+},
+{
+"type": "arrow",
+"from": [
+64.9,
+37.8
+],
+"to": [
+77.8,
+45.3
+],
+"style": "carry",
+"label": "Carry"
+},
+{
+"type": "arrow",
+"from": [
+77.8,
+45.3
+],
+"to": [
+83.6,
+44.6
+],
+"style": "carry"
+},
+{
+"type": "arrow",
+"from": [
+83.6,
+44.6
+],
+"to": [
+93.3,
+50.2
+],
+"style": "carry"
+},
+{
+"type": "arrow",
+"from": [
+93.3,
+50.2
+],
+"to": [
+100.5,
+39.5
+],
+"style": "pass",
+"label": "Pass 4"
+},
+{
+"type": "circle",
+"player": "h9",
+"label": "Mensah-Cole"
+},
+{
+"type": "arrow",
+"from": [
+100.5,
+39.5
+],
+"to": [
+105.0,
+32.5
+],
+"style": "shot",
+"label": "7.1m, 97.3 km/h"
+}
+]
+},
+"70b9abd6b84feb07e1d7742a8b917262": {
+"drawings": [
+{
+"type": "arrow",
+"from": [
+10.5,
+43.3
+],
+"to": [
+0.0,
+33.4
+],
+"style": "shot",
+"label": "Kai Holmberg shot"
+},
+{
+"type": "arrow",
+"from": [
+5.6,
+42.0
+],
+"to": [
+10.5,
+43.3
+],
+"style": "pass",
+"label": "Assist Jules Moreau-Vance"
+},
+{
+"type": "circle",
+"player": "a7",
+"label": "7 Kai Holmberg"
+},
+{
+"type": "circle",
+"player": "a11",
+"label": "11 Jules Moreau-Vance"
+}
+]
+},
+"ebf0f7bb0efd55808197032164fbb14d": {
+"verdict": "stands",
+"issues": []
+},
+"61d0c03622e8211e5fcf81ce6f87f391": {
+"drawings": [
+{
+"type": "circle",
+"player": "h10",
+"label": "Brandt 10"
+},
+{
+"type": "circle",
+"player": "h9",
+"label": "Mensah-Cole 9"
+},
+{
+"type": "arrow",
+"from": [
+99.4,
+62.8
+],
+"to": [
+100.5,
+37.8
+],
+"style": "pass",
+"label": "Assist"
+},
+{
+"type": "arrow",
+"from": [
+100.5,
+37.8
+],
+"to": [
+105.0,
+30.9
+],
+"style": "shot",
+"label": "Goal 5.9m"
+}
+]
+},
+"f75a92a11ef40d08102a9bfd202b1e3d": {
+"verdict": "overturned",
+"issues": [
+"Claim that Ashvale Rovers have higher possession is incorrect; facts show Ashvale Rovers have 51.3% possession and Kestrel Bay FC 48.7%, so Ashvale Rovers do have higher possession, but the claim also states Ashvale Rovers have more shots, which is correct. However, the story says Ashvale Rovers hold a slight possession edge but fewer shots, which contradicts the facts showing Ashvale Rovers have more shots (14 vs 4).",
+"The story states the formation change aims to stabilize midfield and create more attacking options, which is an interpretation not directly supported by facts and should be framed more cautiously or omitted.",
+"The claim about match pulse showing controlled tempo with home team dominance is partially misleading; pulse_dominance is 0.368, which suggests the away team (Kestrel Bay FC) is dominant, not the home team."
+]
+},
+"ae5fea2daba1067cb422104662754feb": {
+"headline": "Kestrel Bay Down to 10 Men at 2-2",
+"story": "At 77 minutes, Adebayo Lorne of Kestrel Bay FC received a red card, reducing his team to 10 players. Despite this, Kestrel Bay holds 50.8% possession and the score is level at 2-2, with 13 minutes remaining. This dismissal shifts momentum and puts Kestrel Bay under pressure against Ashvale Rovers' 11 men.",
+"claims": [
+{
+"text": "Adebayo Lorne was sent off at 77 minutes",
+"fact_keys": [
+"clock",
+"player",
+"team_name",
+"type"
+]
+},
+{
+"text": "Kestrel Bay FC now has 10 players on pitch",
+"fact_keys": [
+"away_players_on_pitch"
+]
+},
+{
+"text": "Score remains tied at 2-2 with 13 minutes left",
+"fact_keys": [
+"score",
+"minutes_remaining"
+]
+},
+{
+"text": "Kestrel Bay holds 50.8% possession despite being a man down",
+"fact_keys": [
+"away_possession_pct",
+"away_players_on_pitch"
+]
+}
+],
+"focus_players": [
+"a9"
+],
+"drawing_brief": "Highlight Adebayo Lorne in red and show Kestrel Bay with 10 players versus Ashvale's 11"
+},
+"31594251e9912fd0572a0276de735b7a": {
+"verdict": "stands",
+"issues": []
+},
+"a3cf613af851375bf48e130587af8dc9": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Mensah-Cole nets second at 29', Ashvale leads 2-0 with 56.5% possession, 8 shots, 2-pass 6.7s buildup.",
+"tag": "possession, buildup"
+},
+"fr": {
+"caption": "Mensah-Cole marque son 2e à la 29e, Ashvale mène 2-0, 56,5% possession, 8 tirs, attaque en 6,7s et 2 passes.",
+"tag": "possession, attaque"
+},
+"ar": {
+"caption": "مِنسا-كول يسجل الهدف الثاني عند الدقيقة 29، أشفيل تتقدم 2-0 مع 56.5% استحواذ و8 تسديدات.",
+"tag": "استحواذ, بناء"
+}
+},
+"casual": {
+"en": {
+"caption": "Yaw Mensah-Cole scored twice by 29 minutes, helping Ashvale Rovers lead 2-0 with more ball control.",
+"tag": "goal lead"
+},
+"fr": {
+"caption": "Yaw Mensah-Cole a marqué deux fois à la 29e, Ashvale mène 2-0 avec plus de contrôle du ballon.",
+"tag": "but, avance"
+},
+"ar": {
+"caption": "ياو مِنسا-كول سجل هدفين قبل الدقيقة 29، أشفيل تتقدم 2-0 مع سيطرة أكبر على الكرة.",
+"tag": "هدف, تقدم"
+}
+}
+}
+},
+"b7f63f0e0a1f6ab9919ceabec327de49": {
+"verdict": "stands",
+"issues": []
+},
+"ffaa7e1625d1aed2ee0a70abc2868d92": {
+"headline": "Kai Holmberg Levels for Kestrel Bay",
+"story": "At 71 minutes, Kai Holmberg scored from 14 meters after a 37-second build-up with 9 passes, assisted by Jules Moreau-Vance. This goal equalizes the match at 2-2, shifting momentum as Kestrel Bay FC, despite equal possession and fewer shots, claw back into contention against Ashvale Rovers.",
+"claims": [
+{
+"text": "Kai Holmberg scored a goal at 71 minutes.",
+"fact_keys": [
+"clock",
+"scorer",
+"score"
+]
+},
+{
+"text": "The goal came after a sustained 36.8-second build-up involving 9 passes.",
+"fact_keys": [
+"buildup_seconds",
+"buildup_passes"
+]
+},
+{
+"text": "Both teams had equal possession at 50%, but Ashvale Rovers had more shots (14 vs 6) and higher xG (1.54 vs 0.58).",
+"fact_keys": [
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots",
+"home_xg",
+"away_xg"
+]
+},
+{
+"text": "The goal reduced Kestrel Bay's pulse dominance deficit to -0.489, indicating a contested match.",
+"fact_keys": [
+"pulse_dominance",
+"pulse_label"
+]
+}
+],
+"focus_players": [
+"a7",
+"a11"
+],
+"drawing_brief": "Draw the 14m shot trajectory from Jules Moreau-Vance to Kai Holmberg finishing on goal"
+},
+"58b3544c4b79e953d8b62288119a2d05": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Lorne nets from 8.3m, assisted by Holmberg; Kestrel Bay trails 2-1 with 46.2% possession and 2 shots; chaotic tempo favors Ashvale (0.45).",
+"tag": "goal, possession, tempo"
+},
+"fr": {
+"caption": "Lorne marque à 8,3m, assisté par Holmberg; Kestrel Bay 1-2, 46,2% possession, 2 tirs; rythme chaotique, domination Ashvale (0,45).",
+"tag": "but, possession, rythme"
+},
+"ar": {
+"caption": "أديبايو لورن سجل من 8.3م بمساعدة كاي هولمبيرغ؛ كستريل باي متأخر 2-1 مع 46.2% استحواذ و2 تسديدات؛ إيقاع المباراة فوضوي لصالح آشفال (0.45).",
+"tag": "هدف, استحواذ, إيقاع"
+}
+},
+"casual": {
+"en": {
+"caption": "Lorne scored from 8 meters with help from Holmberg. Kestrel Bay is behind 2-1 but the game is wild and Ashvale still leads.",
+"tag": "goal, game"
+},
+"fr": {
+"caption": "Lorne a marqué à 8 mètres aidé par Holmberg. Kestrel Bay est à 1-2, match intense, Ashvale garde l’avantage.",
+"tag": "but, match"
+},
+"ar": {
+"caption": "أديبايو لورن سجل من 8 أمتار بمساعدة كاي هولمبيرغ. كستريل باي متأخر 2-1 لكن المباراة مشتعلة وآشفال متقدم.",
+"tag": "هدف, مباراة"
+}
+}
+}
+},
+"007b536896bed34f333025c28563491c": {
+"headline": "Kestrel Bay FC shifts to 4-2-3-1 formation",
+"story": "At 66 minutes, Kestrel Bay FC changed from a 4-3-3 to a 4-2-3-1 formation while trailing 2-1. Despite Ashvale Rovers holding 51.3% possession and 14 shots to Kestrel Bay's 4, the pulse dominance of 0.368 indicates Kestrel Bay is gaining control. This tactical shift signals Kestrel Bay's intent to influence the game's momentum.",
+"claims": [
+{
+"text": "Kestrel Bay FC switched formation from 4-3-3 to 4-2-3-1 at 66 minutes",
+"fact_keys": [
+"from_formation",
+"to_formation",
+"clock"
+]
+},
+{
+"text": "Ashvale Rovers lead 2-1 with higher possession (51.3%) and more shots (14)",
+"fact_keys": [
+"home_goals",
+"away_goals",
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "Pulse dominance of 0.368 shows Kestrel Bay FC gaining control despite trailing",
+"fact_keys": [
+"pulse_dominance",
+"score"
+]
+},
+{
+"text": "Match tempo is controlled but slightly slower than normal with pulse chaos at 0.75",
+"fact_keys": [
+"pulse_chaos",
+"pulse_label"
+]
+}
+],
+"focus_players": [
+"a10",
+"a19",
+"a9",
+"h9",
+"h6"
+],
+"drawing_brief": "Draw team shapes showing Kestrel Bay FC's shift from 4-3-3 to 4-2-3-1 formation on the pitch"
+},
+"45c20f7a6b528f427bc2513c03c7cade": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Mensah-Cole nets from 7.1m with 97.3 km/h shot; Ashvale leads 1-0, 58.6% possession, 0.68 xG; 22s buildup, 4 passes, chaotic tempo 1.35.",
+"tag": "goal stats"
+},
+"fr": {
+"caption": "Mensah-Cole marque à 7,1m, tir à 97,3 km/h; Ashvale mène 1-0, 58,6% possession, xG 0,68; 22s de construction, 4 passes, tempo chaotique 1,35.",
+"tag": "stats but"
+},
+"ar": {
+"caption": "سجل ياو منيشا-كول هدفًا من 7.1م بسرعة 97.3 كم/س؛ أشفيل يتقدم 1-0 مع 58.6% استحواذ و0.68 xG؛ بناء هجمة 22 ثانية، 4 تمريرات، إيقاع فوضوي 1.35.",
+"tag": "إحصائيات هدف"
+}
+},
+"casual": {
+"en": {
+"caption": "Yaw Mensah-Cole scored close with a strong shot, helping Ashvale Rovers lead 1-0 after a calm 22-second play.",
+"tag": "simple goal"
+},
+"fr": {
+"caption": "Yaw Mensah-Cole a marqué de près avec un tir puissant, Ashvale mène 1-0 après une action calme de 22 secondes.",
+"tag": "but simple"
+},
+"ar": {
+"caption": "سجل ياو منيشا-كول هدفًا من مسافة قريبة بتسديدة قوية، وأشفييل يتقدم 1-0 بعد هجمة هادئة استمرت 22 ثانية.",
+"tag": "هدف بسيط"
+}
+}
+}
+},
+"433e544b57726a47ce608ee1821c9f34": {
+"drawings": [
+{
+"type": "circle",
+"player": "a9",
+"label": "Red Card"
+},
+{
+"type": "zone",
+"points": [
+[
+97.9,
+31.8
+],
+[
+50.3,
+50.5
+],
+[
+41.0,
+29.7
+],
+[
+62.2,
+34.5
+],
+[
+74.9,
+54.8
+],
+[
+71.8,
+7.0
+],
+[
+79.5,
+20.7
+],
+[
+79.0,
+35.0
+],
+[
+65.4,
+22.6
+],
+[
+50.9,
+29.6
+]
+],
+"label": "Kestrel Bay 10 Men"
+},
+{
+"type": "zone",
+"points": [
+[
+6.3,
+31.8
+],
+[
+40.0,
+42.8
+],
+[
+56.4,
+51.5
+],
+[
+28.0,
+5.8
+],
+[
+28.4,
+52.4
+],
+[
+23.3,
+24.1
+],
+[
+21.8,
+35.6
+],
+[
+37.7,
+30.1
+],
+[
+46.5,
+12.6
+],
+[
+39.9,
+18.8
+],
+[
+60.9,
+28.7
+]
+],
+"label": "Ashvale 11 Men"
+}
+]
+},
+"d7fa514d16fd149e0ed289e98ab011cb": {
+"drawings": [
+{
+"type": "arrow",
+"from": [
+10.5,
+43.3
+],
+"to": [
+0.0,
+33.4
+],
+"style": "shot",
+"label": "14m shot"
+},
+{
+"type": "circle",
+"player": "a7",
+"label": "7"
+},
+{
+"type": "circle",
+"player": "a11",
+"label": "11"
+},
+{
+"type": "arrow",
+"from": [
+10.5,
+47.8
+],
+"to": [
+10.5,
+43.3
+],
+"style": "pass",
+"label": "assist"
+}
+]
+},
+"03eb9464665753638d02591ceb7a7b48": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Mensah-Cole nets third at 89', Ashvale edges possession 50.3%, doubles Kestrel Bay shots 17-7.",
+"tag": "late goal"
+},
+"fr": {
+"caption": "Mensah-Cole marque à la 89e, Ashvale domine possession 50,3%, tirs 17-7.",
+"tag": "but tardif"
+},
+"ar": {
+"caption": "مِنسا-كول يسجل الهدف الثالث في الدقيقة 89، أشفيل تسيطر بنسبة 50.3% وتطلق 17 تسديدة.",
+"tag": "هدف متأخر"
+}
+},
+"casual": {
+"en": {
+"caption": "Yaw Mensah-Cole scored a late winner at 89 minutes as Ashvale held a slight ball control edge.",
+"tag": "game winner"
+},
+"fr": {
+"caption": "Yaw Mensah-Cole a marqué le but décisif à la 89e, Ashvale a eu un léger avantage au ballon.",
+"tag": "but décisif"
+},
+"ar": {
+"caption": "سجل ياو مِنسا-كول هدف الفوز في الدقيقة 89، وأشفيل تحكمت بالكرة قليلاً.",
+"tag": "هدف الفوز"
+}
+}
+}
+},
+"e7ff654de0dc99f7e30465ce7d957f9e": {
+"drawings": [
+{
+"type": "circle",
+"player": "a1",
+"label": "GK"
+},
+{
+"type": "circle",
+"player": "a2"
+},
+{
+"type": "circle",
+"player": "a3"
+},
+{
+"type": "circle",
+"player": "a4"
+},
+{
+"type": "circle",
+"player": "a5",
+"label": "Back 4"
+},
+{
+"type": "circle",
+"player": "a6"
+},
+{
+"type": "circle",
+"player": "a10",
+"label": "2 DM"
+},
+{
+"type": "circle",
+"player": "a19",
+"label": "3 AM"
+},
+{
+"type": "circle",
+"player": "a7"
+},
+{
+"type": "circle",
+"player": "a9",
+"label": "ST"
+},
+{
+"type": "link",
+"players": [
+"a6",
+"a10"
+],
+"label": "Double pivot"
+},
+{
+"type": "link",
+"players": [
+"a10",
+"a19"
+],
+"label": "Attacking line"
+},
+{
+"type": "link",
+"players": [
+"a19",
+"a7"
+],
+"label": "Right AM"
+},
+{
+"type": "link",
+"players": [
+"a19",
+"a9"
+],
+"label": "Central AM"
+},
+{
+"type": "link",
+"players": [
+"a19",
+"a11"
+],
+"label": "Left AM"
+}
+]
+},
+"f869ef27915a2418ad4da06214f01109": {
+"verdict": "stands",
+"issues": []
+},
+"4365ef1ee7c4130a31ecb9090dd4af40": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Kestrel Bay FC down to 10 players with 13 minutes left; they held 62.5% possession pre-red card, now must maintain field control under pressure.",
+"tag": "possession, red card"
+},
+"fr": {
+"caption": "Kestrel Bay FC à 10 joueurs, 13 minutes restantes; 62,5% de possession avant le carton, défi de garder le contrôle malgré la pression.",
+"tag": "possession, carton rouge"
+},
+"ar": {
+"caption": "كسترل باي 10 لاعبين و13 دقيقة متبقية؛ استحوذوا 62.5% قبل الطرد، التحدي الحفاظ على السيطرة رغم النقص.",
+"tag": "الاستحواذ، الطرد"
+}
+},
+"casual": {
+"en": {
+"caption": "Kestrel Bay FC lost a player with 13 minutes left. They had the ball most before; now they must keep it with fewer players.",
+"tag": "red card"
+},
+"fr": {
+"caption": "Kestrel Bay FC a perdu un joueur à 13 minutes de la fin. Ils avaient le ballon, doivent le garder malgré l’infériorité.",
+"tag": "carton rouge"
+},
+"ar": {
+"caption": "كسترل باي فقد لاعبًا مع تبقي 13 دقيقة. كانوا يسيطرون على الكرة، والآن عليهم الحفاظ عليها رغم النقص.",
+"tag": "طرد"
+}
+}
+}
+},
+"ed06729061b7ad24d95f498a87c6a5a4": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Kestrel Bay FC's 9-pass buildup over 36.8s led to Holmberg's 0.12 xG shot from 14m, leveling at 2-2.",
+"tag": "build-up, xG, shot"
+},
+"fr": {
+"caption": "9 passes en 36,8s pour Kestrel Bay FC, Holmberg marque un tir à 0,12 xG à 14m, égalisation 2-2.",
+"tag": "construction, xG, tir"
+},
+"ar": {
+"caption": "كسترل باي 9 تمريرات خلال 36.8 ثانية، هدف هولمبيرغ من 14م بقيمة 0.12 xG، التعادل 2-2.",
+"tag": "بناء_اللعب، xG، تسديدة"
+}
+},
+"casual": {
+"en": {
+"caption": "Kestrel Bay FC passed 9 times in 37 seconds before Kai Holmberg scored from 14 meters to make it 2-2.",
+"tag": "teamplay"
+},
+"fr": {
+"caption": "Kestrel Bay FC a enchaîné 9 passes en 37 secondes avant que Kai Holmberg marque à 14 m, 2-2.",
+"tag": "jeu_d'équipe"
+},
+"ar": {
+"caption": "كسترل باي مرروا 9 مرات خلال 37 ثانية قبل أن يسجل كاي هولمبيرغ من 14 متر، التعادل 2-2.",
+"tag": "لعب_جماعي"
+}
+}
+}
+},
+"f181f662fddc9f9a3fe506b4aa3a78c6": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Kestrel Bay FC shifts from 4-3-3 to 4-2-3-1 at 66', gaining pulse dominance 0.368 despite trailing 2-1.",
+"tag": "formation shift"
+},
+"fr": {
+"caption": "Kestrel Bay FC passe de 4-3-3 à 4-2-3-1 à la 66e, dominance d'impulsion 0,368 malgré un score de 1-2.",
+"tag": "changement tactique"
+},
+"ar": {
+"caption": "كسترل باي يغير من 4-3-3 إلى 4-2-3-1 عند الدقيقة 66 مع سيطرة نبض 0.368 رغم تأخره 2-1.",
+"tag": "تغيير تكتيكي"
+}
+},
+"casual": {
+"en": {
+"caption": "At 66 minutes, Kestrel Bay changed shape to try to take control, though Ashvale leads 2-1 with more ball and shots.",
+"tag": "team shape"
+},
+"fr": {
+"caption": "À la 66e, Kestrel Bay change de formation pour reprendre le contrôle, mais Ashvale mène 2-1 avec plus de possession.",
+"tag": "formation"
+},
+"ar": {
+"caption": "عند الدقيقة 66، كسترل باي غيّر تشكيلته لمحاولة السيطرة رغم تقدم آشڤيل 2-1 مع استحواذ أكثر.",
+"tag": "تشكيلة"
+}
+}
+}
 }
 }

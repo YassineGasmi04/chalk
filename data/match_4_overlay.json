@@ -13,318 +13,39 @@
  "time": "seconds since kick-off (match clock t)",
  "cues": [
   {
-   "cue_id": "m001-caption",
-   "layer": "caption",
-   "start_t": 486.1,
-   "end_t": 496.7,
-   "moment_id": "m001",
-   "headline": "Momentum swings to Ashvale Rovers",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Ashvale Rovers on top: 56.6% possession, 90.0% field tilt over five minutes.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers domine : 56.6% de possession, 90.0% d'inclinaison du terrain sur cinq minutes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يسيطر: استحواذ 56.6% و90.0% من التمريرات في الثلث الأخير خلال خمس دقائق.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Ashvale Rovers have taken control of the game.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers a pris le contrôle du match.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يفرض سيطرته على المباراة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m001-draw-1",
-   "layer": "telestration",
-   "start_t": 486.1,
-   "end_t": 496.7,
-   "moment_id": "m001",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      70.5,
-      19.1
-     ],
-     [
-      102.0,
-      12.5
-     ],
-     [
-      99.3,
-      29.1
-     ],
-     [
-      100.5,
-      51.3
-     ],
-     [
-      73.8,
-      45.4
-     ]
-    ],
-    "label": "Where they play now"
-   }
-  },
-  {
-   "cue_id": "m001-draw-2",
-   "layer": "telestration",
-   "start_t": 487.0,
-   "end_t": 496.7,
-   "moment_id": "m001",
-   "shape": {
-    "type": "circle",
-    "player": "h7"
-   }
-  },
-  {
-   "cue_id": "m001-draw-3",
-   "layer": "telestration",
-   "start_t": 487.9,
-   "end_t": 496.7,
-   "moment_id": "m001",
-   "shape": {
-    "type": "circle",
-    "player": "h11"
-   }
-  },
-  {
-   "cue_id": "m002-caption",
-   "layer": "caption",
-   "start_t": 785.9,
-   "end_t": 796.5,
-   "moment_id": "m002",
-   "headline": "The game breaks open",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Chaos index 1.37: 4.0 turnovers per minute.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Indice de chaos 1.37 : 4.0 pertes de balle par minute.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "مؤشر الفوضى 1.37: 4.0 فقدان للكرة في الدقيقة.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "End to end! Nobody can keep the ball right now.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ça va d'un but à l'autre ! Personne ne garde le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "مباراة مفتوحة! لا أحد يستطيع الاحتفاظ بالكرة الآن.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m002-draw-1",
-   "layer": "telestration",
-   "start_t": 785.9,
-   "end_t": 796.5,
-   "moment_id": "m002",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      68.6,
-      39.5
-     ],
-     [
-      74.3,
-      30.9
-     ],
-     [
-      83.0,
-      51.2
-     ],
-     [
-      67.5,
-      51.3
-     ],
-     [
-      53.3,
-      50.0
-     ]
-    ],
-    "label": "Ball keeps turning over"
-   }
-  },
-  {
-   "cue_id": "m002-draw-2",
-   "layer": "telestration",
-   "start_t": 786.8,
-   "end_t": 796.5,
-   "moment_id": "m002",
-   "shape": {
-    "type": "circle",
-    "player": "h11"
-   }
-  },
-  {
-   "cue_id": "m002-draw-3",
-   "layer": "telestration",
-   "start_t": 787.7,
-   "end_t": 796.5,
-   "moment_id": "m002",
-   "shape": {
-    "type": "circle",
-    "player": "a8"
-   }
-  },
-  {
-   "cue_id": "m004-caption",
-   "layer": "caption",
-   "start_t": 1144.5,
-   "end_t": 1155.1,
-   "moment_id": "m004",
-   "headline": "Ashvale Rovers turn up the press",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Ashvale Rovers: 14 pressures in five minutes (2.1x normal), 6 high regains.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers : 14 pressings en cinq minutes (2.1x la normale), 6 récupérations hautes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers: 14 ضغطًا في خمس دقائق (2.1 ضعف المعدل)، و6 استعادات في نصف الخصم.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Ashvale Rovers are hunting the ball in packs and winning it back.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers presse très haut et récupère le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يضغط بقوة ويستعيد الكرة بسرعة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m004-draw-1",
-   "layer": "telestration",
-   "start_t": 1144.5,
-   "end_t": 1155.1,
-   "moment_id": "m004",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      62.1,
-      23.9
-     ],
-     [
-      92.3,
-      15.2
-     ],
-     [
-      88.5,
-      41.6
-     ],
-     [
-      85.9,
-      62.3
-     ],
-     [
-      69.5,
-      57.8
-     ]
-    ],
-    "label": "Pressing trap"
-   }
-  },
-  {
-   "cue_id": "m004-draw-2",
-   "layer": "telestration",
-   "start_t": 1145.4,
-   "end_t": 1155.1,
-   "moment_id": "m004",
-   "shape": {
-    "type": "circle",
-    "player": "h7"
-   }
-  },
-  {
-   "cue_id": "m004-draw-3",
-   "layer": "telestration",
-   "start_t": 1146.3,
-   "end_t": 1155.1,
-   "moment_id": "m004",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
    "cue_id": "m006-caption",
    "layer": "caption",
    "start_t": 1559.9,
-   "end_t": 1572.9,
+   "end_t": 1574.1,
    "moment_id": "m006",
-   "headline": "Yaw Mensah-Cole makes it 1-0",
+   "headline": "Mensah-Cole's Goal Breaks Deadlock",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Yaw Mensah-Cole scores: 4-pass move, 0.25 xG, 97.3 km/h. It's 1-0.",
-      "tag": "Insight"
+      "caption": "Mensah-Cole nets from 7.1m with 97.3 km/h shot; Ashvale leads 1-0, 58.6% possession, 0.68 xG; 22s buildup, 4 passes, chaotic tempo 1.35.",
+      "tag": "goal stats"
      },
      "fr": {
-      "caption": "But de Yaw Mensah-Cole : action en 4 passes, 0.25 xG, frappe à 97.3 km/h. 1-0.",
-      "tag": "Analyse"
+      "caption": "Mensah-Cole marque à 7,1m, tir à 97,3 km/h; Ashvale mène 1-0, 58,6% possession, xG 0,68; 22s de construction, 4 passes, tempo chaotique 1,35.",
+      "tag": "stats but"
      },
      "ar": {
-      "caption": "هدف Yaw Mensah-Cole: هجمة من 4 تمريرات، 0.25 أهداف متوقعة، تسديدة بسرعة 97.3 كم/س. النتيجة 1-0.",
-      "tag": "تحليل"
+      "caption": "سجل ياو منيشا-كول هدفًا من 7.1م بسرعة 97.3 كم/س؛ أشفيل يتقدم 1-0 مع 58.6% استحواذ و0.68 xG؛ بناء هجمة 22 ثانية، 4 تمريرات، إيقاع فوضوي 1.35.",
+      "tag": "إحصائيات هدف"
      }
     },
     "casual": {
      "en": {
-      "caption": "Goal! Yaw Mensah-Cole finishes it off and it's 1-0.",
-      "tag": "Did you see?"
+      "caption": "Yaw Mensah-Cole scored close with a strong shot, helping Ashvale Rovers lead 1-0 after a calm 22-second play.",
+      "tag": "simple goal"
      },
      "fr": {
-      "caption": "But ! Yaw Mensah-Cole conclut et c'est 1-0.",
-      "tag": "Vous avez vu ?"
+      "caption": "Yaw Mensah-Cole a marqué de près avec un tir puissant, Ashvale mène 1-0 après une action calme de 22 secondes.",
+      "tag": "but simple"
      },
      "ar": {
-      "caption": "هدف! Yaw Mensah-Cole يُنهي الهجمة والنتيجة الآن 1-0.",
-      "tag": "هل رأيت؟"
+      "caption": "سجل ياو منيشا-كول هدفًا من مسافة قريبة بتسديدة قوية، وأشفييل يتقدم 1-0 بعد هجمة هادئة استمرت 22 ثانية.",
+      "tag": "هدف بسيط"
      }
     }
    }
@@ -333,7 +54,67 @@
    "cue_id": "m006-draw-1",
    "layer": "telestration",
    "start_t": 1559.9,
-   "end_t": 1572.9,
+   "end_t": 1574.1,
+   "moment_id": "m006",
+   "shape": {
+    "type": "arrow",
+    "from": [
+     61.5,
+     36.5
+    ],
+    "to": [
+     77.1,
+     36.1
+    ],
+    "style": "pass",
+    "label": "Pass 1"
+   }
+  },
+  {
+   "cue_id": "m006-draw-2",
+   "layer": "telestration",
+   "start_t": 1560.8,
+   "end_t": 1574.1,
+   "moment_id": "m006",
+   "shape": {
+    "type": "arrow",
+    "from": [
+     77.1,
+     36.1
+    ],
+    "to": [
+     64.9,
+     37.8
+    ],
+    "style": "pass",
+    "label": "Pass 2"
+   }
+  },
+  {
+   "cue_id": "m006-draw-3",
+   "layer": "telestration",
+   "start_t": 1561.7,
+   "end_t": 1574.1,
+   "moment_id": "m006",
+   "shape": {
+    "type": "arrow",
+    "from": [
+     64.9,
+     37.8
+    ],
+    "to": [
+     77.8,
+     45.3
+    ],
+    "style": "carry",
+    "label": "Carry"
+   }
+  },
+  {
+   "cue_id": "m006-draw-4",
+   "layer": "telestration",
+   "start_t": 1562.6,
+   "end_t": 1574.1,
    "moment_id": "m006",
    "shape": {
     "type": "arrow",
@@ -349,10 +130,10 @@
    }
   },
   {
-   "cue_id": "m006-draw-2",
+   "cue_id": "m006-draw-5",
    "layer": "telestration",
-   "start_t": 1560.8,
-   "end_t": 1572.9,
+   "start_t": 1563.5,
+   "end_t": 1574.1,
    "moment_id": "m006",
    "shape": {
     "type": "arrow",
@@ -368,10 +149,10 @@
    }
   },
   {
-   "cue_id": "m006-draw-3",
+   "cue_id": "m006-draw-6",
    "layer": "telestration",
-   "start_t": 1561.7,
-   "end_t": 1572.9,
+   "start_t": 1564.4,
+   "end_t": 1574.1,
    "moment_id": "m006",
    "shape": {
     "type": "arrow",
@@ -383,38 +164,8 @@
      100.5,
      39.5
     ],
-    "style": "pass"
-   }
-  },
-  {
-   "cue_id": "m006-draw-4",
-   "layer": "telestration",
-   "start_t": 1562.6,
-   "end_t": 1572.9,
-   "moment_id": "m006",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     100.5,
-     39.5
-    ],
-    "to": [
-     105.0,
-     32.5
-    ],
-    "style": "shot",
-    "label": "xG 0.25"
-   }
-  },
-  {
-   "cue_id": "m006-draw-5",
-   "layer": "telestration",
-   "start_t": 1563.5,
-   "end_t": 1572.9,
-   "moment_id": "m006",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
+    "style": "pass",
+    "label": "Pass 4"
    }
   },
   {
@@ -423,34 +174,34 @@
    "start_t": 1709.5,
    "end_t": 1722.5,
    "moment_id": "m007",
-   "headline": "Yaw Mensah-Cole makes it 2-0",
+   "headline": "Yaw Mensah-Cole Doubles Lead for Ashvale",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Yaw Mensah-Cole scores: 2-pass move, 0.39 xG, 81.5 km/h. It's 2-0.",
-      "tag": "Insight"
+      "caption": "Mensah-Cole nets second at 29', Ashvale leads 2-0 with 56.5% possession, 8 shots, 2-pass 6.7s buildup.",
+      "tag": "possession, buildup"
      },
      "fr": {
-      "caption": "But de Yaw Mensah-Cole : action en 2 passes, 0.39 xG, frappe à 81.5 km/h. 2-0.",
-      "tag": "Analyse"
+      "caption": "Mensah-Cole marque son 2e à la 29e, Ashvale mène 2-0, 56,5% possession, 8 tirs, attaque en 6,7s et 2 passes.",
+      "tag": "possession, attaque"
      },
      "ar": {
-      "caption": "هدف Yaw Mensah-Cole: هجمة من 2 تمريرات، 0.39 أهداف متوقعة، تسديدة بسرعة 81.5 كم/س. النتيجة 2-0.",
-      "tag": "تحليل"
+      "caption": "مِنسا-كول يسجل الهدف الثاني عند الدقيقة 29، أشفيل تتقدم 2-0 مع 56.5% استحواذ و8 تسديدات.",
+      "tag": "استحواذ, بناء"
      }
     },
     "casual": {
      "en": {
-      "caption": "Goal! Yaw Mensah-Cole finishes it off and it's 2-0.",
-      "tag": "Did you see?"
+      "caption": "Yaw Mensah-Cole scored twice by 29 minutes, helping Ashvale Rovers lead 2-0 with more ball control.",
+      "tag": "goal lead"
      },
      "fr": {
-      "caption": "But ! Yaw Mensah-Cole conclut et c'est 2-0.",
-      "tag": "Vous avez vu ?"
+      "caption": "Yaw Mensah-Cole a marqué deux fois à la 29e, Ashvale mène 2-0 avec plus de contrôle du ballon.",
+      "tag": "but, avance"
      },
      "ar": {
-      "caption": "هدف! Yaw Mensah-Cole يُنهي الهجمة والنتيجة الآن 2-0.",
-      "tag": "هل رأيت؟"
+      "caption": "ياو مِنسا-كول سجل هدفين قبل الدقيقة 29، أشفيل تتقدم 2-0 مع سيطرة أكبر على الكرة.",
+      "tag": "هدف, تقدم"
      }
     }
    }
@@ -464,14 +215,15 @@
    "shape": {
     "type": "arrow",
     "from": [
-     46.1,
-     38.9
+     67.3,
+     33.7
     ],
     "to": [
      72.5,
      17.8
     ],
-    "style": "pass"
+    "style": "pass",
+    "label": "Pass 1"
    }
   },
   {
@@ -490,7 +242,8 @@
      86.1,
      21.9
     ],
-    "style": "carry"
+    "style": "carry",
+    "label": "Carry"
    }
   },
   {
@@ -509,13 +262,26 @@
      98.5,
      31.0
     ],
-    "style": "pass"
+    "style": "pass",
+    "label": "Pass 2"
    }
   },
   {
    "cue_id": "m007-draw-4",
    "layer": "telestration",
    "start_t": 1712.2,
+   "end_t": 1722.5,
+   "moment_id": "m007",
+   "shape": {
+    "type": "circle",
+    "player": "h9",
+    "label": "Yaw Mensah-Cole"
+   }
+  },
+  {
+   "cue_id": "m007-draw-5",
+   "layer": "telestration",
+   "start_t": 1713.1,
    "end_t": 1722.5,
    "moment_id": "m007",
    "shape": {
@@ -529,237 +295,7 @@
      33.6
     ],
     "style": "shot",
-    "label": "xG 0.39"
-   }
-  },
-  {
-   "cue_id": "m007-draw-5",
-   "layer": "telestration",
-   "start_t": 1713.1,
-   "end_t": 1722.5,
-   "moment_id": "m007",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m011-caption",
-   "layer": "caption",
-   "start_t": 2033.2,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "headline": "Big chance for Yaw Mensah-Cole",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Yaw Mensah-Cole: 0.22 xG from 8.7 m, saved.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Yaw Mensah-Cole : 0.22 xG à 8.7 m, arrêtée.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Yaw Mensah-Cole: فرصة بقيمة 0.22 من مسافة 8.7 م، تصدى لها الحارس.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "So close! Yaw Mensah-Cole had a great chance but it was saved.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Quelle occasion ! Yaw Mensah-Cole était tout près, mais c'est arrêtée.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "يا لها من فرصة! Yaw Mensah-Cole كان قريبًا جدًا لكن تصدى لها الحارس.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m011-draw-1",
-   "layer": "telestration",
-   "start_t": 2033.2,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     71.5,
-     16.8
-    ],
-    "to": [
-     93.4,
-     31.8
-    ],
-    "style": "pass"
-   }
-  },
-  {
-   "cue_id": "m011-draw-2",
-   "layer": "telestration",
-   "start_t": 2034.1,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     93.4,
-     31.8
-    ],
-    "to": [
-     100.5,
-     59.6
-    ],
-    "style": "pass"
-   }
-  },
-  {
-   "cue_id": "m011-draw-3",
-   "layer": "telestration",
-   "start_t": 2035.0,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     100.5,
-     59.6
-    ],
-    "to": [
-     100.5,
-     41.4
-    ],
-    "style": "pass"
-   }
-  },
-  {
-   "cue_id": "m011-draw-4",
-   "layer": "telestration",
-   "start_t": 2035.9,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     100.5,
-     41.4
-    ],
-    "to": [
-     105.0,
-     32.0
-    ],
-    "style": "shot",
-    "label": "xG 0.22"
-   }
-  },
-  {
-   "cue_id": "m011-draw-5",
-   "layer": "telestration",
-   "start_t": 2036.8,
-   "end_t": 2046.2,
-   "moment_id": "m011",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m012-caption",
-   "layer": "caption",
-   "start_t": 2165.4,
-   "end_t": 2176.0,
-   "moment_id": "m012",
-   "headline": "Kestrel Bay FC turn up the press",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Kestrel Bay FC: 16 pressures in five minutes (1.87x normal), 2 high regains.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC : 16 pressings en cinq minutes (1.87x la normale), 2 récupérations hautes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC: 16 ضغطًا في خمس دقائق (1.87 ضعف المعدل)، و2 استعادات في نصف الخصم.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Kestrel Bay FC are hunting the ball in packs and winning it back.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC presse très haut et récupère le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يضغط بقوة ويستعيد الكرة بسرعة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m012-draw-1",
-   "layer": "telestration",
-   "start_t": 2165.4,
-   "end_t": 2176.0,
-   "moment_id": "m012",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      74.6,
-      14.1
-     ],
-     [
-      90.5,
-      25.2
-     ],
-     [
-      90.6,
-      43.6
-     ],
-     [
-      75.8,
-      58.0
-     ],
-     [
-      73.9,
-      40.7
-     ]
-    ],
-    "label": "Pressing trap"
-   }
-  },
-  {
-   "cue_id": "m012-draw-2",
-   "layer": "telestration",
-   "start_t": 2166.3,
-   "end_t": 2176.0,
-   "moment_id": "m012",
-   "shape": {
-    "type": "circle",
-    "player": "a9"
-   }
-  },
-  {
-   "cue_id": "m012-draw-3",
-   "layer": "telestration",
-   "start_t": 2167.2,
-   "end_t": 2176.0,
-   "moment_id": "m012",
-   "shape": {
-    "type": "circle",
-    "player": "a11"
+    "label": "Shot 7.2m"
    }
   },
   {
@@ -768,34 +304,34 @@
    "start_t": 2349.2,
    "end_t": 2362.2,
    "moment_id": "m014",
-   "headline": "Adebayo Lorne makes it 2-1",
+   "headline": "Kestrel Bay narrows gap with Lorne's strike",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Adebayo Lorne scores: 6-pass move, 0.25 xG, 88.6 km/h. It's 2-1.",
-      "tag": "Insight"
+      "caption": "Lorne nets from 8.3m, assisted by Holmberg; Kestrel Bay trails 2-1 with 46.2% possession and 2 shots; chaotic tempo favors Ashvale (0.45).",
+      "tag": "goal, possession, tempo"
      },
      "fr": {
-      "caption": "But de Adebayo Lorne : action en 6 passes, 0.25 xG, frappe à 88.6 km/h. 2-1.",
-      "tag": "Analyse"
+      "caption": "Lorne marque à 8,3m, assisté par Holmberg; Kestrel Bay 1-2, 46,2% possession, 2 tirs; rythme chaotique, domination Ashvale (0,45).",
+      "tag": "but, possession, rythme"
      },
      "ar": {
-      "caption": "هدف Adebayo Lorne: هجمة من 6 تمريرات، 0.25 أهداف متوقعة، تسديدة بسرعة 88.6 كم/س. النتيجة 2-1.",
-      "tag": "تحليل"
+      "caption": "أديبايو لورن سجل من 8.3م بمساعدة كاي هولمبيرغ؛ كستريل باي متأخر 2-1 مع 46.2% استحواذ و2 تسديدات؛ إيقاع المباراة فوضوي لصالح آشفال (0.45).",
+      "tag": "هدف, استحواذ, إيقاع"
      }
     },
     "casual": {
      "en": {
-      "caption": "Goal! Adebayo Lorne finishes it off and it's 2-1.",
-      "tag": "Did you see?"
+      "caption": "Lorne scored from 8 meters with help from Holmberg. Kestrel Bay is behind 2-1 but the game is wild and Ashvale still leads.",
+      "tag": "goal, game"
      },
      "fr": {
-      "caption": "But ! Adebayo Lorne conclut et c'est 2-1.",
-      "tag": "Vous avez vu ?"
+      "caption": "Lorne a marqué à 8 mètres aidé par Holmberg. Kestrel Bay est à 1-2, match intense, Ashvale garde l’avantage.",
+      "tag": "but, match"
      },
      "ar": {
-      "caption": "هدف! Adebayo Lorne يُنهي الهجمة والنتيجة الآن 2-1.",
-      "tag": "هل رأيت؟"
+      "caption": "أديبايو لورن سجل من 8 أمتار بمساعدة كاي هولمبيرغ. كستريل باي متأخر 2-1 لكن المباراة مشتعلة وآشفال متقدم.",
+      "tag": "هدف, مباراة"
      }
     }
    }
@@ -809,25 +345,6 @@
    "shape": {
     "type": "arrow",
     "from": [
-     24.3,
-     39.8
-    ],
-    "to": [
-     20.2,
-     60.8
-    ],
-    "style": "pass"
-   }
-  },
-  {
-   "cue_id": "m014-draw-2",
-   "layer": "telestration",
-   "start_t": 2350.1,
-   "end_t": 2362.2,
-   "moment_id": "m014",
-   "shape": {
-    "type": "arrow",
-    "from": [
      20.2,
      60.8
     ],
@@ -835,13 +352,14 @@
      7.5,
      54.7
     ],
-    "style": "carry"
+    "style": "carry",
+    "label": "Holmberg carry"
    }
   },
   {
-   "cue_id": "m014-draw-3",
+   "cue_id": "m014-draw-2",
    "layer": "telestration",
-   "start_t": 2351.0,
+   "start_t": 2350.1,
    "end_t": 2362.2,
    "moment_id": "m014",
    "shape": {
@@ -854,13 +372,38 @@
      5.0,
      40.6
     ],
-    "style": "pass"
+    "style": "pass",
+    "label": "Holmberg assist"
+   }
+  },
+  {
+   "cue_id": "m014-draw-3",
+   "layer": "telestration",
+   "start_t": 2351.0,
+   "end_t": 2362.2,
+   "moment_id": "m014",
+   "shape": {
+    "type": "circle",
+    "player": "a7",
+    "label": "7"
    }
   },
   {
    "cue_id": "m014-draw-4",
    "layer": "telestration",
    "start_t": 2351.9,
+   "end_t": 2362.2,
+   "moment_id": "m014",
+   "shape": {
+    "type": "circle",
+    "player": "a9",
+    "label": "9"
+   }
+  },
+  {
+   "cue_id": "m014-draw-5",
+   "layer": "telestration",
+   "start_t": 2352.8,
    "end_t": 2362.2,
    "moment_id": "m014",
    "shape": {
@@ -874,333 +417,43 @@
      32.2
     ],
     "style": "shot",
-    "label": "xG 0.25"
-   }
-  },
-  {
-   "cue_id": "m014-draw-5",
-   "layer": "telestration",
-   "start_t": 2352.8,
-   "end_t": 2362.2,
-   "moment_id": "m014",
-   "shape": {
-    "type": "circle",
-    "player": "a9"
-   }
-  },
-  {
-   "cue_id": "m015-caption",
-   "layer": "caption",
-   "start_t": 2644.8,
-   "end_t": 2655.4,
-   "moment_id": "m015",
-   "headline": "Momentum swings to Kestrel Bay FC",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Kestrel Bay FC on top: 62.5% possession, 54.5% field tilt over five minutes.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC domine : 62.5% de possession, 54.5% d'inclinaison du terrain sur cinq minutes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يسيطر: استحواذ 62.5% و54.5% من التمريرات في الثلث الأخير خلال خمس دقائق.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Kestrel Bay FC have taken control of the game.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC a pris le contrôle du match.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يفرض سيطرته على المباراة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m015-draw-1",
-   "layer": "telestration",
-   "start_t": 2644.8,
-   "end_t": 2655.4,
-   "moment_id": "m015",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      38.4,
-      28.9
-     ],
-     [
-      44.7,
-      9.7
-     ],
-     [
-      57.0,
-      14.8
-     ],
-     [
-      57.9,
-      42.2
-     ],
-     [
-      41.2,
-      50.5
-     ]
-    ],
-    "label": "Where they play now"
-   }
-  },
-  {
-   "cue_id": "m015-draw-2",
-   "layer": "telestration",
-   "start_t": 2645.7,
-   "end_t": 2655.4,
-   "moment_id": "m015",
-   "shape": {
-    "type": "circle",
-    "player": "a9"
-   }
-  },
-  {
-   "cue_id": "m015-draw-3",
-   "layer": "telestration",
-   "start_t": 2646.6,
-   "end_t": 2655.4,
-   "moment_id": "m015",
-   "shape": {
-    "type": "circle",
-    "player": "a7"
-   }
-  },
-  {
-   "cue_id": "m016-caption",
-   "layer": "caption",
-   "start_t": 3246.4,
-   "end_t": 3257.0,
-   "moment_id": "m016",
-   "headline": "Ashvale Rovers turn up the press",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Ashvale Rovers: 18 pressures in five minutes (1.86x normal), 3 high regains.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers : 18 pressings en cinq minutes (1.86x la normale), 3 récupérations hautes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers: 18 ضغطًا في خمس دقائق (1.86 ضعف المعدل)، و3 استعادات في نصف الخصم.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Ashvale Rovers are hunting the ball in packs and winning it back.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers presse très haut et récupère le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يضغط بقوة ويستعيد الكرة بسرعة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m016-draw-1",
-   "layer": "telestration",
-   "start_t": 3246.4,
-   "end_t": 3257.0,
-   "moment_id": "m016",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      14.8,
-      26.8
-     ],
-     [
-      30.9,
-      18.2
-     ],
-     [
-      35.9,
-      37.9
-     ],
-     [
-      30.2,
-      57.7
-     ],
-     [
-      14.1,
-      48.5
-     ]
-    ],
-    "label": "Pressing trap"
-   }
-  },
-  {
-   "cue_id": "m016-draw-2",
-   "layer": "telestration",
-   "start_t": 3247.3,
-   "end_t": 3257.0,
-   "moment_id": "m016",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m016-draw-3",
-   "layer": "telestration",
-   "start_t": 3248.2,
-   "end_t": 3257.0,
-   "moment_id": "m016",
-   "shape": {
-    "type": "circle",
-    "player": "h7"
-   }
-  },
-  {
-   "cue_id": "m021-caption",
-   "layer": "caption",
-   "start_t": 3856.9,
-   "end_t": 3867.5,
-   "moment_id": "m021",
-   "headline": "Momentum swings to Kestrel Bay FC",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Kestrel Bay FC on top: 53.5% possession, 61.5% field tilt over five minutes.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC domine : 53.5% de possession, 61.5% d'inclinaison du terrain sur cinq minutes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يسيطر: استحواذ 53.5% و61.5% من التمريرات في الثلث الأخير خلال خمس دقائق.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Kestrel Bay FC have taken control of the game.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC a pris le contrôle du match.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يفرض سيطرته على المباراة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m021-draw-1",
-   "layer": "telestration",
-   "start_t": 3856.9,
-   "end_t": 3867.5,
-   "moment_id": "m021",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      11.5,
-      15.3
-     ],
-     [
-      44.0,
-      24.7
-     ],
-     [
-      41.2,
-      54.0
-     ],
-     [
-      13.6,
-      53.5
-     ],
-     [
-      8.3,
-      39.1
-     ]
-    ],
-    "label": "Where they play now"
-   }
-  },
-  {
-   "cue_id": "m021-draw-2",
-   "layer": "telestration",
-   "start_t": 3857.8,
-   "end_t": 3867.5,
-   "moment_id": "m021",
-   "shape": {
-    "type": "circle",
-    "player": "a9"
-   }
-  },
-  {
-   "cue_id": "m021-draw-3",
-   "layer": "telestration",
-   "start_t": 3858.7,
-   "end_t": 3867.5,
-   "moment_id": "m021",
-   "shape": {
-    "type": "circle",
-    "player": "a11"
+    "label": "8.3m shot"
    }
   },
   {
    "cue_id": "m024-caption",
    "layer": "caption",
    "start_t": 4026.8,
-   "end_t": 4037.4,
+   "end_t": 4041.0,
    "moment_id": "m024",
-   "headline": "Kestrel Bay FC switch to 4-2-3-1",
+   "headline": "Kestrel Bay FC shifts to 4-2-3-1 formation",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay FC shift from 4-3-3 to 4-2-3-1.",
-      "tag": "Insight"
+      "caption": "Kestrel Bay FC shifts from 4-3-3 to 4-2-3-1 at 66', gaining pulse dominance 0.368 despite trailing 2-1.",
+      "tag": "formation shift"
      },
      "fr": {
-      "caption": "Kestrel Bay FC passe du 4-3-3 au 4-2-3-1.",
-      "tag": "Analyse"
+      "caption": "Kestrel Bay FC passe de 4-3-3 à 4-2-3-1 à la 66e, dominance d'impulsion 0,368 malgré un score de 1-2.",
+      "tag": "changement tactique"
      },
      "ar": {
-      "caption": "Kestrel Bay FC يتحول من 4-3-3 إلى 4-2-3-1.",
-      "tag": "تحليل"
+      "caption": "كسترل باي يغير من 4-3-3 إلى 4-2-3-1 عند الدقيقة 66 مع سيطرة نبض 0.368 رغم تأخره 2-1.",
+      "tag": "تغيير تكتيكي"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay FC change their shape to 4-2-3-1.",
-      "tag": "Did you see?"
+      "caption": "At 66 minutes, Kestrel Bay changed shape to try to take control, though Ashvale leads 2-1 with more ball and shots.",
+      "tag": "team shape"
      },
      "fr": {
-      "caption": "Kestrel Bay FC change de système : 4-2-3-1.",
-      "tag": "Vous avez vu ?"
+      "caption": "À la 66e, Kestrel Bay change de formation pour reprendre le contrôle, mais Ashvale mène 2-1 avec plus de possession.",
+      "tag": "formation"
      },
      "ar": {
-      "caption": "Kestrel Bay FC يغيّر خطته إلى 4-2-3-1.",
-      "tag": "هل رأيت؟"
+      "caption": "عند الدقيقة 66، كسترل باي غيّر تشكيلته لمحاولة السيطرة رغم تقدم آشڤيل 2-1 مع استحواذ أكثر.",
+      "tag": "تشكيلة"
      }
     }
    }
@@ -1209,47 +462,68 @@
    "cue_id": "m024-draw-1",
    "layer": "telestration",
    "start_t": 4026.8,
-   "end_t": 4037.4,
+   "end_t": 4041.0,
    "moment_id": "m024",
    "shape": {
-    "type": "zone",
-    "points": [
-     [
-      84.4,
-      17.0
-     ],
-     [
-      87.7,
-      29.5
-     ],
-     [
-      80.7,
-      42.0
-     ]
-    ],
-    "label": "New 4-2-3-1 block"
+    "type": "circle",
+    "player": "a1",
+    "label": "GK"
    }
   },
   {
    "cue_id": "m024-draw-2",
    "layer": "telestration",
    "start_t": 4027.7,
-   "end_t": 4037.4,
+   "end_t": 4041.0,
    "moment_id": "m024",
    "shape": {
     "type": "circle",
-    "player": "a10"
+    "player": "a2"
    }
   },
   {
    "cue_id": "m024-draw-3",
    "layer": "telestration",
    "start_t": 4028.6,
-   "end_t": 4037.4,
+   "end_t": 4041.0,
    "moment_id": "m024",
    "shape": {
     "type": "circle",
-    "player": "a19"
+    "player": "a3"
+   }
+  },
+  {
+   "cue_id": "m024-draw-4",
+   "layer": "telestration",
+   "start_t": 4029.5,
+   "end_t": 4041.0,
+   "moment_id": "m024",
+   "shape": {
+    "type": "circle",
+    "player": "a4"
+   }
+  },
+  {
+   "cue_id": "m024-draw-5",
+   "layer": "telestration",
+   "start_t": 4030.4,
+   "end_t": 4041.0,
+   "moment_id": "m024",
+   "shape": {
+    "type": "circle",
+    "player": "a5",
+    "label": "Back 4"
+   }
+  },
+  {
+   "cue_id": "m024-draw-6",
+   "layer": "telestration",
+   "start_t": 4031.3,
+   "end_t": 4041.0,
+   "moment_id": "m024",
+   "shape": {
+    "type": "circle",
+    "player": "a6"
    }
   },
   {
@@ -1262,30 +536,30 @@
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kai Holmberg scores: 9-pass move, 0.12 xG, 96.4 km/h. It's 2-2.",
-      "tag": "Insight"
+      "caption": "Kestrel Bay FC's 9-pass buildup over 36.8s led to Holmberg's 0.12 xG shot from 14m, leveling at 2-2.",
+      "tag": "build-up, xG, shot"
      },
      "fr": {
-      "caption": "But de Kai Holmberg : action en 9 passes, 0.12 xG, frappe à 96.4 km/h. 2-2.",
-      "tag": "Analyse"
+      "caption": "9 passes en 36,8s pour Kestrel Bay FC, Holmberg marque un tir à 0,12 xG à 14m, égalisation 2-2.",
+      "tag": "construction, xG, tir"
      },
      "ar": {
-      "caption": "هدف Kai Holmberg: هجمة من 9 تمريرات، 0.12 أهداف متوقعة، تسديدة بسرعة 96.4 كم/س. النتيجة 2-2.",
-      "tag": "تحليل"
+      "caption": "كسترل باي 9 تمريرات خلال 36.8 ثانية، هدف هولمبيرغ من 14م بقيمة 0.12 xG، التعادل 2-2.",
+      "tag": "بناء_اللعب، xG، تسديدة"
      }
     },
     "casual": {
      "en": {
-      "caption": "Goal! Kai Holmberg finishes it off and it's 2-2.",
-      "tag": "Did you see?"
+      "caption": "Kestrel Bay FC passed 9 times in 37 seconds before Kai Holmberg scored from 14 meters to make it 2-2.",
+      "tag": "teamplay"
      },
      "fr": {
-      "caption": "But ! Kai Holmberg conclut et c'est 2-2.",
-      "tag": "Vous avez vu ?"
+      "caption": "Kestrel Bay FC a enchaîné 9 passes en 37 secondes avant que Kai Holmberg marque à 14 m, 2-2.",
+      "tag": "jeu_d'équipe"
      },
      "ar": {
-      "caption": "هدف! Kai Holmberg يُنهي الهجمة والنتيجة الآن 2-2.",
-      "tag": "هل رأيت؟"
+      "caption": "كسترل باي مرروا 9 مرات خلال 37 ثانية قبل أن يسجل كاي هولمبيرغ من 14 متر، التعادل 2-2.",
+      "tag": "لعب_جماعي"
      }
     }
    }
@@ -1379,99 +653,6 @@
    }
   },
   {
-   "cue_id": "m027-caption",
-   "layer": "caption",
-   "start_t": 4504.7,
-   "end_t": 4515.3,
-   "moment_id": "m027",
-   "headline": "Momentum swings to Kestrel Bay FC",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Kestrel Bay FC on top: 74.0% possession, 87.5% field tilt over five minutes.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC domine : 74.0% de possession, 87.5% d'inclinaison du terrain sur cinq minutes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يسيطر: استحواذ 74.0% و87.5% من التمريرات في الثلث الأخير خلال خمس دقائق.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Kestrel Bay FC have taken control of the game.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Kestrel Bay FC a pris le contrôle du match.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Kestrel Bay FC يفرض سيطرته على المباراة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m027-draw-1",
-   "layer": "telestration",
-   "start_t": 4504.7,
-   "end_t": 4515.3,
-   "moment_id": "m027",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      47.2,
-      30.3
-     ],
-     [
-      59.7,
-      12.2
-     ],
-     [
-      61.1,
-      28.8
-     ],
-     [
-      70.1,
-      39.5
-     ],
-     [
-      56.4,
-      49.6
-     ]
-    ],
-    "label": "Where they play now"
-   }
-  },
-  {
-   "cue_id": "m027-draw-2",
-   "layer": "telestration",
-   "start_t": 4505.6,
-   "end_t": 4515.3,
-   "moment_id": "m027",
-   "shape": {
-    "type": "circle",
-    "player": "a11"
-   }
-  },
-  {
-   "cue_id": "m027-draw-3",
-   "layer": "telestration",
-   "start_t": 4506.5,
-   "end_t": 4515.3,
-   "moment_id": "m027",
-   "shape": {
-    "type": "circle",
-    "player": "a10"
-   }
-  },
-  {
    "cue_id": "m029-caption",
    "layer": "caption",
    "start_t": 4728.8,
@@ -1481,30 +662,30 @@
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Adebayo Lorne off: Kestrel Bay FC down to 10 with 13 minutes left.",
-      "tag": "Insight"
+      "caption": "Kestrel Bay FC down to 10 players with 13 minutes left; they held 62.5% possession pre-red card, now must maintain field control under pressure.",
+      "tag": "possession, red card"
      },
      "fr": {
-      "caption": "Adebayo Lorne expulsé : Kestrel Bay FC à 10 pour les 13 dernières minutes.",
-      "tag": "Analyse"
+      "caption": "Kestrel Bay FC à 10 joueurs, 13 minutes restantes; 62,5% de possession avant le carton, défi de garder le contrôle malgré la pression.",
+      "tag": "possession, carton rouge"
      },
      "ar": {
-      "caption": "طرد Adebayo Lorne: Kestrel Bay FC بـ10 لاعبين في آخر 13 دقيقة.",
-      "tag": "تحليل"
+      "caption": "كسترل باي 10 لاعبين و13 دقيقة متبقية؛ استحوذوا 62.5% قبل الطرد، التحدي الحفاظ على السيطرة رغم النقص.",
+      "tag": "الاستحواذ، الطرد"
      }
     },
     "casual": {
      "en": {
-      "caption": "Red card for Adebayo Lorne! Kestrel Bay FC must play the rest with 10 players.",
-      "tag": "Did you see?"
+      "caption": "Kestrel Bay FC lost a player with 13 minutes left. They had the ball most before; now they must keep it with fewer players.",
+      "tag": "red card"
      },
      "fr": {
-      "caption": "Carton rouge pour Adebayo Lorne ! Kestrel Bay FC doit finir à 10.",
-      "tag": "Vous avez vu ?"
+      "caption": "Kestrel Bay FC a perdu un joueur à 13 minutes de la fin. Ils avaient le ballon, doivent le garder malgré l’infériorité.",
+      "tag": "carton rouge"
      },
      "ar": {
-      "caption": "بطاقة حمراء لـAdebayo Lorne! Kestrel Bay FC سيكمل المباراة بـ10 لاعبين.",
-      "tag": "هل رأيت؟"
+      "caption": "كسترل باي فقد لاعبًا مع تبقي 13 دقيقة. كانوا يسيطرون على الكرة، والآن عليهم الحفاظ عليها رغم النقص.",
+      "tag": "طرد"
      }
     }
    }
@@ -1537,132 +718,39 @@
    }
   },
   {
-   "cue_id": "m031-caption",
-   "layer": "caption",
-   "start_t": 5104.5,
-   "end_t": 5115.1,
-   "moment_id": "m031",
-   "headline": "Ashvale Rovers turn up the press",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Ashvale Rovers: 17 pressures in five minutes (1.62x normal), 5 high regains.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers : 17 pressings en cinq minutes (1.62x la normale), 5 récupérations hautes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers: 17 ضغطًا في خمس دقائق (1.62 ضعف المعدل)، و5 استعادات في نصف الخصم.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Ashvale Rovers are hunting the ball in packs and winning it back.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers presse très haut et récupère le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يضغط بقوة ويستعيد الكرة بسرعة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m031-draw-1",
-   "layer": "telestration",
-   "start_t": 5104.5,
-   "end_t": 5115.1,
-   "moment_id": "m031",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      47.5,
-      26.8
-     ],
-     [
-      63.0,
-      17.5
-     ],
-     [
-      66.6,
-      40.3
-     ],
-     [
-      65.6,
-      61.4
-     ],
-     [
-      50.8,
-      52.7
-     ]
-    ],
-    "label": "Pressing trap"
-   }
-  },
-  {
-   "cue_id": "m031-draw-2",
-   "layer": "telestration",
-   "start_t": 5105.4,
-   "end_t": 5115.1,
-   "moment_id": "m031",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m031-draw-3",
-   "layer": "telestration",
-   "start_t": 5106.3,
-   "end_t": 5115.1,
-   "moment_id": "m031",
-   "shape": {
-    "type": "circle",
-    "player": "h11"
-   }
-  },
-  {
    "cue_id": "m035-caption",
    "layer": "caption",
    "start_t": 5432.0,
-   "end_t": 5445.0,
+   "end_t": 5443.8,
    "moment_id": "m035",
-   "headline": "Yaw Mensah-Cole makes it 3-2",
+   "headline": "Mensah-Cole seals Ashvale's late lead",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Yaw Mensah-Cole scores: one-pass move, 0.46 xG, 109.9 km/h. It's 3-2.",
-      "tag": "Insight"
+      "caption": "Mensah-Cole nets third at 89', Ashvale edges possession 50.3%, doubles Kestrel Bay shots 17-7.",
+      "tag": "late goal"
      },
      "fr": {
-      "caption": "But de Yaw Mensah-Cole : action en une passe, 0.46 xG, frappe à 109.9 km/h. 3-2.",
-      "tag": "Analyse"
+      "caption": "Mensah-Cole marque à la 89e, Ashvale domine possession 50,3%, tirs 17-7.",
+      "tag": "but tardif"
      },
      "ar": {
-      "caption": "هدف Yaw Mensah-Cole: هجمة من تمريرة واحدة، 0.46 أهداف متوقعة، تسديدة بسرعة 109.9 كم/س. النتيجة 3-2.",
-      "tag": "تحليل"
+      "caption": "مِنسا-كول يسجل الهدف الثالث في الدقيقة 89، أشفيل تسيطر بنسبة 50.3% وتطلق 17 تسديدة.",
+      "tag": "هدف متأخر"
      }
     },
     "casual": {
      "en": {
-      "caption": "Goal! Yaw Mensah-Cole finishes it off and it's 3-2.",
-      "tag": "Did you see?"
+      "caption": "Yaw Mensah-Cole scored a late winner at 89 minutes as Ashvale held a slight ball control edge.",
+      "tag": "game winner"
      },
      "fr": {
-      "caption": "But ! Yaw Mensah-Cole conclut et c'est 3-2.",
-      "tag": "Vous avez vu ?"
+      "caption": "Yaw Mensah-Cole a marqué le but décisif à la 89e, Ashvale a eu un léger avantage au ballon.",
+      "tag": "but décisif"
      },
      "ar": {
-      "caption": "هدف! Yaw Mensah-Cole يُنهي الهجمة والنتيجة الآن 3-2.",
-      "tag": "هل رأيت؟"
+      "caption": "سجل ياو مِنسا-كول هدف الفوز في الدقيقة 89، وأشفيل تحكمت بالكرة قليلاً.",
+      "tag": "هدف الفوز"
      }
     }
    }
@@ -1671,45 +759,31 @@
    "cue_id": "m035-draw-1",
    "layer": "telestration",
    "start_t": 5432.0,
-   "end_t": 5445.0,
+   "end_t": 5443.8,
    "moment_id": "m035",
    "shape": {
-    "type": "arrow",
-    "from": [
-     80.0,
-     68.0
-    ],
-    "to": [
-     90.8,
-     60.8
-    ],
-    "style": "carry"
+    "type": "circle",
+    "player": "h10",
+    "label": "Brandt 10"
    }
   },
   {
    "cue_id": "m035-draw-2",
    "layer": "telestration",
    "start_t": 5432.9,
-   "end_t": 5445.0,
+   "end_t": 5443.8,
    "moment_id": "m035",
    "shape": {
-    "type": "arrow",
-    "from": [
-     90.8,
-     60.8
-    ],
-    "to": [
-     99.4,
-     62.8
-    ],
-    "style": "carry"
+    "type": "circle",
+    "player": "h9",
+    "label": "Mensah-Cole 9"
    }
   },
   {
    "cue_id": "m035-draw-3",
    "layer": "telestration",
    "start_t": 5433.8,
-   "end_t": 5445.0,
+   "end_t": 5443.8,
    "moment_id": "m035",
    "shape": {
     "type": "arrow",
@@ -1721,14 +795,15 @@
      100.5,
      37.8
     ],
-    "style": "pass"
+    "style": "pass",
+    "label": "Assist"
    }
   },
   {
    "cue_id": "m035-draw-4",
    "layer": "telestration",
    "start_t": 5434.7,
-   "end_t": 5445.0,
+   "end_t": 5443.8,
    "moment_id": "m035",
    "shape": {
     "type": "arrow",
@@ -1741,111 +816,7 @@
      30.9
     ],
     "style": "shot",
-    "label": "xG 0.46"
-   }
-  },
-  {
-   "cue_id": "m035-draw-5",
-   "layer": "telestration",
-   "start_t": 5435.6,
-   "end_t": 5445.0,
-   "moment_id": "m035",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m036-caption",
-   "layer": "caption",
-   "start_t": 5825.7,
-   "end_t": 5836.3,
-   "moment_id": "m036",
-   "headline": "Ashvale Rovers turn up the press",
-   "variants": {
-    "analyst": {
-     "en": {
-      "caption": "Ashvale Rovers: 19 pressures in five minutes (1.66x normal), 7 high regains.",
-      "tag": "Insight"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers : 19 pressings en cinq minutes (1.66x la normale), 7 récupérations hautes.",
-      "tag": "Analyse"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers: 19 ضغطًا في خمس دقائق (1.66 ضعف المعدل)، و7 استعادات في نصف الخصم.",
-      "tag": "تحليل"
-     }
-    },
-    "casual": {
-     "en": {
-      "caption": "Ashvale Rovers are hunting the ball in packs and winning it back.",
-      "tag": "Did you see?"
-     },
-     "fr": {
-      "caption": "Ashvale Rovers presse très haut et récupère le ballon.",
-      "tag": "Vous avez vu ?"
-     },
-     "ar": {
-      "caption": "Ashvale Rovers يضغط بقوة ويستعيد الكرة بسرعة.",
-      "tag": "هل رأيت؟"
-     }
-    }
-   }
-  },
-  {
-   "cue_id": "m036-draw-1",
-   "layer": "telestration",
-   "start_t": 5825.7,
-   "end_t": 5836.3,
-   "moment_id": "m036",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      72.3,
-      13.3
-     ],
-     [
-      97.6,
-      6.7
-     ],
-     [
-      99.0,
-      26.7
-     ],
-     [
-      98.6,
-      50.3
-     ],
-     [
-      71.5,
-      39.4
-     ]
-    ],
-    "label": "Pressing trap"
-   }
-  },
-  {
-   "cue_id": "m036-draw-2",
-   "layer": "telestration",
-   "start_t": 5826.6,
-   "end_t": 5836.3,
-   "moment_id": "m036",
-   "shape": {
-    "type": "circle",
-    "player": "h9"
-   }
-  },
-  {
-   "cue_id": "m036-draw-3",
-   "layer": "telestration",
-   "start_t": 5827.5,
-   "end_t": 5836.3,
-   "moment_id": "m036",
-   "shape": {
-    "type": "circle",
-    "player": "h11"
+    "label": "Goal 5.9m"
    }
   }
  ]
