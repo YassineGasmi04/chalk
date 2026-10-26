@@ -89,7 +89,7 @@ async def main_async(args: argparse.Namespace) -> None:
         out = await crew.run_moment(card)
         done += 1
         v = out.var.get("final", "?")
-        mark = {"verified": "VAR ok", "fallback": "VAR fallback"}.get(v, v)
+        mark = {"verified": "VAR ok", "fallback": "VAR fallback", "rulebook-only": "rules only (judge down)"}.get(v, v)
         print(f"  [{done:2d}/{len(cards)}] {out.moment['clock']:>6}  {out.moment['title'][:44]:<44} {mark}")
         crew.cache.save()
         return out
@@ -119,6 +119,14 @@ async def main_async(args: argparse.Namespace) -> None:
           f"VAR overturned {s['overturned']}, fallbacks {s['fallbacks']}, "
           f"drawings rejected {s['drawings_rejected']}, captions repaired {s['captions_repaired']}")
     print(f"wrote {stem}_insights.json and {stem}_overlay.json")
+    if crew.errors:
+        print("\n" + "!" * 72)
+        print("WARNING: some model calls failed, so rule-based pundits stood in for them:")
+        for model, err in crew.errors.items():
+            print(f"  deployment '{model}': {err}")
+        print("Check the deployment names in .env match Foundry exactly, then run:")
+        print("  python scripts/check_models.py")
+        print("!" * 72)
 
 
 def main() -> None:

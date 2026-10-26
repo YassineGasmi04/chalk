@@ -218,3 +218,19 @@ def test_third_live_run_regressions(match):
     assert fixed[0]["style"] == "run" and "h9" not in fixed[0]["label"]
     kept, issues = rulebook.filter_drawings(fixed, goal.moment["geometry"], rulebook.allowed_numbers(goal.facts))
     assert kept and not issues
+
+
+def test_one_broken_deployment_does_not_silence_the_others(match):
+    """Round 3 live run: a missing VAR deployment tripped a global circuit breaker
+    and every agent went offline. The breaker is per model now."""
+    crew = Crew(OFFLINE)
+    crew.settings = Settings("foundry", "https://example.invalid/openai/v1/", "x", "gpt-4.1-mini", 2, "gpt-4.1")
+    crew.retry_base_s = 0
+    crew.agents["var"] = Agent(_DownClient(), "x", name="VAR")
+    for role in ("analyst", "telestrator", "personalizer"):
+        crew.agents[role] = crew.offline_agents[role]
+    for card in cards_for(match, types={"goal"}, n=4):
+        out = run(crew, card)
+        assert out.var["final"] == "rulebook-only"
+    assert crew.circuit_open == {"gpt-4.1"}
+    assert "gpt-4.1" in crew.errors and "gpt-4.1-mini" not in crew.errors

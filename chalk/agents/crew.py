@@ -205,8 +205,10 @@ class Crew:
         self.cache = CallCache(cache_path or ROOT / "data" / "cache" / "agent_calls.json")
         self.sem = asyncio.Semaphore(max(1, settings.max_concurrency))
         self.retry_base_s = 2.0  # back-off for rate limits and network errors
-        self.consecutive_errors = 0
-        self.circuit_open = False  # after repeated outages, stop waiting on the model
+        # per-model circuit breaker: one broken deployment must not silence the others
+        self.consecutive_errors: dict[str, int] = {}
+        self.circuit_open: set[str] = set()
+        self.errors: dict[str, str] = {}  # model -> last error, reported at the end of a run
         self.stats = {"calls": 0, "cached": 0, "model_errors": 0, "fallbacks": 0,
                       "overturned": 0, "drawings_rejected": 0, "captions_repaired": 0}
         online = make_online_client(settings) if settings.online else None
@@ -220,16 +222,19 @@ class Crew:
             self.agents[role] = Agent(client, instructions, name=name, description=desc) \
                 if client is not None else self.offline_agents[role]
 
+    def model_for(self, role: str) -> str:
+        return (self.settings.var_model or self.settings.model) if role == "var" else self.settings.model
+
     # ------------------------------------------------------------- calls
     async def call(self, role: str, payload: dict[str, Any], card: Card,
                    force_offline: bool = False) -> dict[str, Any]:
         """Run one agent on one payload. Cached, retried, traced."""
         prompt = "INPUT:\n" + json.dumps(payload, ensure_ascii=False, sort_keys=True)
-        use_offline = force_offline or not self.settings.online or self.circuit_open
+        model = self.model_for(role)
+        use_offline = force_offline or not self.settings.online or model in self.circuit_open
         agent = self.offline_agents[role] if use_offline else self.agents[role]
         key = None
         if not use_offline:
-            model = (self.settings.var_model or self.settings.model) if role == "var" else self.settings.model
             key = CallCache.key(model, role, ROLES[role][1], prompt)
             hit = self.cache.get(key)
             if hit is not None:
@@ -252,17 +257,19 @@ class Crew:
                 if key:
                     self.cache.put(key, result)
                 if not use_offline:
-                    self.consecutive_errors = 0
+                    self.consecutive_errors[model] = 0
                 return result
             except Exception as err:  # network, rate limit, bad JSON
                 last_err = err
                 log.warning("%s attempt %d failed: %s", role, attempt + 1, err)
                 await asyncio.sleep(self.retry_base_s * (attempt + 1) ** 2)
         self.stats["model_errors"] += 1
-        self.consecutive_errors += 1
-        if self.consecutive_errors >= 3 and not self.circuit_open:
-            self.circuit_open = True
-            log.error("model failed 3 times in a row (%s); switching to the offline crew for this run", last_err)
+        self.errors[model] = str(last_err)[:300]
+        self.consecutive_errors[model] = self.consecutive_errors.get(model, 0) + 1
+        if self.consecutive_errors[model] >= 3 and model not in self.circuit_open:
+            self.circuit_open.add(model)
+            log.error("deployment '%s' failed 3 times in a row; its agents use the offline crew "
+                      "for the rest of this run. Last error: %s", model, last_err)
         card.trace.append({"agent": ROLES[role][0], "source": "error", "error": str(last_err)[:160]})
         if use_offline:
             raise RuntimeError(f"offline {role} failed: {last_err}")
@@ -315,6 +322,8 @@ class Crew:
                                                      "analysis": card.analysis}, card)
                     verdict = "overturned" if judged.get("verdict") == "overturned" else "stands"
                     issues, by = judged.get("issues") or [], "judge"
+                    if crew.settings.online and card.trace[-1]["source"] == "rules":
+                        by = "rulebook only (judge unavailable)"
                 history = card.var.get("history", []) + [{"attempt": card.attempts, "verdict": verdict,
                                                           "by": by, "issues": issues}]
                 card.var.update({"verdict": verdict, "issues": issues, "history": history})
@@ -336,7 +345,7 @@ class Crew:
                     card.var["verdict"] = "stands"
                     card.var["final"] = "fallback"
                 else:
-                    card.var["final"] = "verified"
+                    card.var["final"] = "rulebook-only" if by.startswith("rulebook only") else "verified"
                 card.route = "air"
                 await ctx.send_message(card)
 
