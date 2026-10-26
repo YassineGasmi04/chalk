@@ -139,7 +139,7 @@ class Replay {
     $("lgHome").textContent = `${home.name.split(" ")[0]} on top`;
     $("lgAway").textContent = `${away.name.split(" ")[0]} on top`;
 
-    $("playBtn").addEventListener("click", () => this.toggle());
+    $("playBtn").addEventListener("click", () => { this.studio.hideOverlays(); this.toggle(); });
     document.querySelectorAll(".speeds button").forEach((b) =>
       b.addEventListener("click", () => {
         this.speed = Number(b.dataset.speed);
@@ -154,7 +154,17 @@ class Replay {
         });
       }));
     $("namesToggle").addEventListener("change", (e) => { this.pitch.showNames = e.target.checked; });
-    $("scrub").addEventListener("input", (e) => this.seek((Number(e.target.value) / 1000) * this.endT));
+    $("scrub").addEventListener("input", (e) => {
+      this.studio.stopHighlights();
+      this.studio.hideOverlays();
+      this.seek(Math.min(this.endT, (Number(e.target.value) / 1000) * this.span()));
+    });
+    // releasing the scrubber on an AI marker replays that insight
+    $("scrub").addEventListener("change", (e) => {
+      const t = (Number(e.target.value) / 1000) * this.span();
+      const near = this.studio.cards.find((c) => c.on_air_t <= this.endT && Math.abs(c.on_air_t - t) < this.span() * 0.012);
+      if (near) { this.seek(Math.max(0, near.on_air_t - 6)); this.toggle(true); }
+    });
     document.addEventListener("keydown", (e) => {
       if (e.target.closest("input, button")) return;
       if (e.key === " ") {
@@ -166,8 +176,67 @@ class Replay {
     });
   }
 
+  // ---------------------------------------------------------------- live
+  /** Switch from the recorded file to the server's live feed (Server-Sent Events). */
+  goLive() {
+    if (this.live) return;
+    this.live = true;
+    this.liveEnded = false;
+    this.events = [this.events[0]];
+    this.moments.length = 0;
+    this.summary.pulse = [];
+    this.studio.reset();
+    this.studio.stopHighlights();
+    this.endT = 0;
+    this.T = 0;
+    this.idx = 0;
+    $("momentList").innerHTML = "";
+    this.momentsShown = 0;
+    this.seek(0);
+    $("feedLabel").textContent = "Live feed";
+    $("feedLabel").closest(".feed-pill").classList.add("is-live");
+    $("hlBtn").hidden = true;
+    const es = new EventSource(`/api/live?seed=${this.seed}&speed=${this.speed}`);
+    this.feed = es;
+    es.addEventListener("hello", (e) => {
+      const h = JSON.parse(e.data);
+      if (this.studio.insights) this.studio.insights.engine = h.engine;
+      $("crewEngine").textContent = h.mode === "live AI" ? `${h.engine.model} on Foundry, live` : "Recorded crew";
+    });
+    es.addEventListener("event", (e) => {
+      const ev = JSON.parse(e.data);
+      if (ev.type === "match_start") return;
+      this.events.push(ev);
+      this.endT = ev.t;
+    });
+    es.addEventListener("moment", (e) => {
+      const m = JSON.parse(e.data);
+      this.moments.push(m);
+      this.studio.momentById.set(m.id, m);
+    });
+    es.addEventListener("pulse", (e) => { this.summary.pulse.push(JSON.parse(e.data)); });
+    es.addEventListener("insight", (e) => { this.studio.addCard(JSON.parse(e.data)); });
+    es.addEventListener("recap", (e) => {
+      if (this.studio.insights) this.studio.insights.recap = JSON.parse(e.data);
+      else this.studio.insights = { recap: JSON.parse(e.data), cards: [] };
+    });
+    es.addEventListener("end", () => { this.liveEnded = true; es.close(); });
+    es.onerror = () => { if (this.liveEnded) es.close(); };
+    this.toggle(true);
+  }
+
+  /** Length of the timeline: the full match, even while it is still being played live. */
+  span() {
+    return this.live ? Math.max(this.endT, 96 * 60) : this.endT;
+  }
+
+  setSpeed(n) {
+    this.speed = n;
+    document.querySelectorAll(".speeds button").forEach((x) => x.classList.toggle("on", Number(x.dataset.speed) === n));
+  }
+
   toggle(force) {
-    if (this.T >= this.endT) this.seek(0);
+    if (this.T >= this.endT && !this.live) this.seek(0);
     this.playing = force ?? !this.playing;
     $("playBtn").setAttribute("aria-pressed", String(this.playing));
     $("playBtn").setAttribute("aria-label", this.playing ? "Pause" : "Play");
@@ -288,6 +357,8 @@ class Replay {
         <svg class="m-icon ${side}" aria-hidden="true"><use href="#${ICONS[m.type] || "ic-star"}"/></svg>
         <span class="m-title">${esc(m.title)}</span></button>`;
       li.querySelector("button").addEventListener("click", () => {
+        this.studio.stopHighlights();
+        this.studio.hideOverlays();
         this.seek(Math.max(0, (card ? card.on_air_t : m.t) - 8));
         this.toggle(true);
       });
@@ -313,7 +384,8 @@ class Replay {
     if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
     const c = cv.getContext("2d");
     c.clearRect(0, 0, w, h);
-    const X = (t) => (t / this.endT) * w;
+    const span = this.span() || 1;
+    const X = (t) => (t / span) * w;
     const top = 12 * dpr, bottom = h - 4 * dpr, mid = (top + bottom) / 2, amp = (bottom - top) / 2;
 
     // unplayed part of the match
@@ -367,11 +439,24 @@ class Replay {
       }
     }
 
+    // AI insight markers (only for insights already aired: no spoilers)
+    for (const card of this.studio?.cards || []) {
+      if (card.on_air_t > this.T) break;
+      const x = X(card.on_air_t), y = bottom - 7 * dpr, r = 4 * dpr;
+      c.beginPath();
+      c.moveTo(x, y - r); c.lineTo(x + r, y); c.lineTo(x, y + r); c.lineTo(x - r, y); c.closePath();
+      c.fillStyle = "#ffbf3c";
+      c.fill();
+      c.lineWidth = 1.2 * dpr;
+      c.strokeStyle = "rgba(31,10,46,0.9)";
+      c.stroke();
+    }
+
     const px = X(this.T);
     c.fillStyle = "#ffbf3c";
     c.fillRect(px - 1 * dpr, top - 2 * dpr, 2 * dpr, bottom - top + 4 * dpr);
     c.beginPath(); c.arc(px, bottom, 4 * dpr, 0, Math.PI * 2); c.fill();
-    $("scrub").value = String(Math.round((this.T / this.endT) * 1000));
+    $("scrub").value = String(Math.round((this.T / span) * 1000));
     $("scrub").setAttribute("aria-valuetext", this.events[this.idx].clock);
   }
 
@@ -388,13 +473,18 @@ class Replay {
       this.studio.check(this.T);
       const tick = Math.floor(now / 200);
       if (tick !== this.lastPulseTick) { this.lastPulseTick = tick; this.drawPulse(); }
-      if (this.T >= this.endT) this.toggle(false);
+      if (this.T >= this.endT && (!this.live || this.liveEnded)) {
+        this.toggle(false);
+        this.studio.stopHighlights();
+        this.studio.showRecap();
+      }
     }
     this.render(now);
     requestAnimationFrame((t) => this.loop(t));
   }
 
   render(now) {
+    if (!this.events[this.idx]) return;
     const frozen = this.studio.frozenFrame();
     if (frozen) {
       this.pitch.draw(frozen.frame, frozen.ball, null, now);
@@ -421,7 +511,15 @@ class Replay {
 }
 
 load()
-  .then((data) => { window.chalk = new Replay(data); })
+  .then((data) => {
+    window.chalk = new Replay(data);
+    if (!params.has("nowelcome")) window.chalk.studio.showWelcome();
+    fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((h) => {
+      if (!h?.ok) return;
+      $("startLive").hidden = false;
+      if (params.has("live")) { window.chalk.studio.hideOverlays(); window.chalk.goLive(); }
+    }).catch(() => { /* static hosting: replay only */ });
+  })
   .catch((err) => {
     $("matchTitle").textContent = err.message;
     console.error(err);

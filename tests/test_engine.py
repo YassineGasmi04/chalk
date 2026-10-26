@@ -105,3 +105,11 @@ def test_metrics_behave():
     easy = M.pass_difficulty((50, 34), (55, 34), 1, 12, 10, 0)
     hard = M.pass_difficulty((40, 34), (80, 30), 1, 1.0, 1.0, 3)
     assert 0 <= easy < 25 < 75 < hard <= 100
+
+
+def test_touches_count_every_on_ball_action(demo):
+    events, state, _ = demo
+    on_ball = {"pass", "carry", "take_on", "shot", "kickoff", "throw_in", "goal_kick", "free_kick"}
+    for pid in ("h9", "h8", "a10"):
+        expected = sum(1 for e in events if e.get("player") == pid and e["type"] in on_ball)
+        assert state.player_summary(pid)["touches"] == expected > 20

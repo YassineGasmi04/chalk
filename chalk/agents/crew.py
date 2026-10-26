@@ -46,6 +46,8 @@ ROLES = {
                     "Turns the story into grounded drawings on the pitch."),
     "var": ("VAR", prompts.VAR,
             "Fact-checks the story; can overturn it and send it back to the Analyst."),
+    "recap": ("Recap", prompts.RECAP,
+              "Writes the full-time recap from the code's full-time fact sheet."),
     "personalizer": ("Personalizer", prompts.PERSONALIZER,
                      "Rewrites the verified insight for analysts and casual fans in English, French and Arabic."),
 }
@@ -130,6 +132,10 @@ class Card:
     fallbacks: list[str] = field(default_factory=list)
     trace: list[dict[str, Any]] = field(default_factory=list)
     _sheet: dict[str, Any] | None = field(default=None, repr=False)
+
+    @property
+    def is_recap(self) -> bool:
+        return self.moment.get("type") == "full_time"
 
     @property
     def facts(self) -> dict[str, Any]:
@@ -286,7 +292,8 @@ class Crew:
                 payload = {"moment": card.moment_view(), "players": card.players, "context": card.context_view()}
                 if card.attempts and card.var.get("issues"):
                     payload["var_notes"] = card.var["issues"]
-                card.analysis = await crew.call("analyst", payload, card)
+                role = "recap" if card.is_recap else "analyst"
+                card.analysis = await crew.call(role, payload, card)
                 card.attempts += 1
                 await ctx.send_message(card)
 
@@ -295,6 +302,10 @@ class Crew:
             async def draw(self, card: Card, ctx: WorkflowContext[Card]) -> None:
                 payload = {"moment": card.moment_view(), "players": card.players,
                            "geometry": _geometry(card.moment["geometry"]), "analysis": card.analysis}
+                if card.is_recap:  # the recap is a studio segment, not a frozen frame
+                    card.drawings = []
+                    await ctx.send_message(card)
+                    return
                 raw = await crew.call("telestrator", payload, card)
                 allowed = rulebook.allowed_numbers(card.facts, card.extra_numbers())
                 allowed |= {float(p["number"]) for p in card.players.values() if p.get("number")}
@@ -314,7 +325,8 @@ class Crew:
             @handler
             async def review(self, card: Card, ctx: WorkflowContext[Card]) -> None:
                 rule_issues = rulebook.check_analysis(card.analysis or {}, card.facts, card.players,
-                                                      card.extra_numbers())
+                                                      card.extra_numbers(),
+                                                      max_words=110 if card.is_recap else 75)
                 if rule_issues:
                     verdict, issues, by = "overturned", rule_issues, "rulebook"
                 else:

@@ -250,3 +250,20 @@ def test_fourth_live_run_score_logic(match):
     assert red.facts["leading_team"] == "level"
     assert rulebook.check_score_logic("Kestrel Bay down to 10 men, yet still leading", red.facts)
     assert rulebook.check_score_logic("Kestrel Bay down to 10 men at 2-2", red.facts) == []
+
+
+def test_recap_agent_runs_through_the_same_crew(match):
+    from chalk.agents.producer import build_recap_card
+    from chalk.stats.moments import analyse
+    events, moments, _ = match
+    state, _ = analyse(events)
+    card = build_recap_card(events, state, moments)
+    f = card.facts
+    assert f["final_score_text"] == "Ashvale Rovers 3-2 Kestrel Bay FC" and f["winner"] == "Ashvale Rovers"
+    assert f["potm_id"] == "h9" and f["potm_goals"] == 3  # the hat-trick, picked by code
+    assert f["goals_timeline"].count("'") == 5
+    out = run(Crew(OFFLINE), card)
+    assert out.var["final"] == "verified" and out.drawings == []
+    assert [t["agent"] for t in out.trace] == ["Recap", "VAR", "Personalizer"]
+    assert rulebook.check_variants(out.variants, rulebook.allowed_numbers(out.facts, out.extra_numbers()),
+                                   PERSONAS, LANGUAGES, out.facts) == {}

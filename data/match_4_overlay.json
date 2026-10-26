@@ -525,30 +525,30 @@
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers dominate with 56.5% possession, 1.07 xG; Mensah-Cole doubles lead to 2-0 at 29'",
-      "tag": "possession, xG, score"
+      "caption": "Mensah-Cole doubles Ashvale's lead to 2-0 after a 6.7s, 2-pass buildup; Ashvale holds 56.5% possession with clear dominance.",
+      "tag": "possession, buildup"
      },
      "fr": {
-      "caption": "Ashvale Rovers contrôlent 56,5% de possession, 1,07 xG; Mensah-Cole porte le score à 2-0 à la 29e",
-      "tag": "possession, xG, score"
+      "caption": "Mensah-Cole double la mise à 2-0 après une construction rapide de 6,7s et 2 passes; Ashvale domine avec 56,5% de possession.",
+      "tag": "possession, construction"
      },
      "ar": {
-      "caption": "أشفيل روفرز تسيطر ب56.5% استحواذ و1.07 xG؛ ياو منساه-كول يضاعف النتيجة 2-0 في الدقيقة 29",
-      "tag": "استحواذ، xG، هدف"
+      "caption": "يوسع ياو منساه-كول التقدم لأشفيل روفرز 2-0 بعد بناء هجمة سريع 6.7 ثواني و2 تمريرات.",
+      "tag": "السيطرة, الهجمة"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers hold the ball more and make good chances; Mensah-Cole scores twice for a 2-0 lead",
-      "tag": "possession, goal"
+      "caption": "Yaw Mensah-Cole scored again, making it 2-0 for Ashvale after a quick, simple attack. Ashvale controls the ball most of the time.",
+      "tag": "goal, control"
      },
      "fr": {
-      "caption": "Ashvale Rovers gardent plus le ballon et créent des occasions; Mensah-Cole marque deux fois, 2-0",
-      "tag": "possession, but"
+      "caption": "Yaw Mensah-Cole marque encore, 2-0 pour Ashvale après une attaque rapide. Ashvale garde le ballon la plupart du temps.",
+      "tag": "but, contrôle"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة ويخلقون فرصًا؛ ياو منساه-كول يسجل مرتين ليصبح 2-0",
-      "tag": "استحواذ، هدف"
+      "caption": "سجل ياو منساه-كول هدفه الثاني ليصبح 2-0 لأشفيل بعد هجمة سريعة وبسيطة. أشفيل يسيطر على الكرة معظم الوقت.",
+      "tag": "هدف, سيطرة"
      }
     }
    }
@@ -570,7 +570,7 @@
      17.8
     ],
     "style": "pass",
-    "label": "Whitcombe to Varga"
+    "label": "6 to 7"
    }
   },
   {
@@ -589,8 +589,8 @@
      86.1,
      21.9
     ],
-    "style": "carry",
-    "label": "Varga carry"
+    "style": "run",
+    "label": "7 carry"
    }
   },
   {
@@ -610,7 +610,7 @@
      31.0
     ],
     "style": "pass",
-    "label": "Varga to Mensah-Cole"
+    "label": "7 to 9"
    }
   },
   {
@@ -642,7 +642,7 @@
      33.6
     ],
     "style": "shot",
-    "label": "Mensah-Cole shot"
+    "label": "Goal 7.2m"
    }
   },
   {
@@ -1135,36 +1135,36 @@
    "cue_id": "m016-caption",
    "layer": "caption",
    "start_t": 3246.4,
-   "end_t": 3257.0,
+   "end_t": 3259.4,
    "moment_id": "m016",
-   "headline": "Ashvale Rovers turn up the press",
+   "headline": "Ashvale Rovers ramp up pressing intensity",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers doubled pressing intensity to 18 in last 5 minutes, winning 5 turnovers, 3 high up Kestrel Bay's half.",
-      "tag": "press surge"
+      "caption": "Ashvale Rovers doubled pressing to 18 and won 5 turnovers in last 5 mins, despite Kestrel Bay's 50.3% possession edge.",
+      "tag": "pressing, turnovers"
      },
      "fr": {
-      "caption": "Ashvale Rovers a doublé la pression à 18 actions en 5 minutes, récupérant 5 ballons, dont 3 haut dans le camp de Kestrel Bay.",
-      "tag": "pression forte"
+      "caption": "Ashvale Rovers ont intensifié le pressing à 18 actions et gagné 5 ballons en 5 min, malgré 50,3% de possession de Kestrel Bay.",
+      "tag": "pressing, possession"
      },
      "ar": {
-      "caption": "أشفيل روفرز ضاعفوا الضغط إلى 18 في آخر 5 دقائق، واستعادوا الكرة 5 مرات، 3 منها في نصف كسترل باي.",
-      "tag": "ضغط مكثف"
+      "caption": "أشفيل روفرز ضاعفوا الضغط إلى 18 مرة وفازوا بـ5 استرجاعات خلال 5 دقائق رغم سيطرة كسترل باي 50.3%.",
+      "tag": "ضغط, استرجاع"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers pressed hard late, twice their usual effort, winning the ball 5 times, mostly near Kestrel Bay’s goal.",
-      "tag": "strong press"
+      "caption": "Ashvale Rovers pressed hard, making 18 attempts and stealing the ball 5 times in 5 minutes, though Kestrel Bay holds slightly more possession.",
+      "tag": "pressing"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont pressé fort en fin de match, deux fois plus que d’habitude, récupérant 5 ballons près du but adverse.",
-      "tag": "pression forte"
+      "caption": "Ashvale Rovers ont beaucoup pressé, 18 fois et récupéré 5 ballons en 5 minutes, malgré un léger contrôle de Kestrel Bay.",
+      "tag": "pressing"
      },
      "ar": {
-      "caption": "أشفيل روفرز ضغطوا بقوة في الدقائق الأخيرة، ضعف المعتاد، واستعادوا الكرة 5 مرات قرب مرمى كسترل باي.",
-      "tag": "ضغط قوي"
+      "caption": "أشفيل روفرز ضغطوا كثيرًا 18 مرة واستعادوا الكرة 5 مرات خلال 5 دقائق، رغم سيطرة بسيطة لكسترل باي.",
+      "tag": "ضغط"
      }
     }
    }
@@ -1173,55 +1173,60 @@
    "cue_id": "m016-draw-1",
    "layer": "telestration",
    "start_t": 3246.4,
-   "end_t": 3257.0,
+   "end_t": 3259.4,
    "moment_id": "m016",
    "shape": {
-    "type": "zone",
-    "points": [
-     [
-      14.8,
-      26.8
-     ],
-     [
-      30.9,
-      18.2
-     ],
-     [
-      35.9,
-      37.9
-     ],
-     [
-      30.2,
-      57.7
-     ],
-     [
-      14.1,
-      48.5
-     ]
-    ],
-    "label": "Pressing trap"
+    "type": "circle",
+    "player": "h2",
+    "label": "Asante-Brie 2"
    }
   },
   {
    "cue_id": "m016-draw-2",
    "layer": "telestration",
    "start_t": 3247.3,
-   "end_t": 3257.0,
+   "end_t": 3259.4,
    "moment_id": "m016",
    "shape": {
     "type": "circle",
-    "player": "h9"
+    "player": "h4",
+    "label": "Okafor 4"
    }
   },
   {
    "cue_id": "m016-draw-3",
    "layer": "telestration",
    "start_t": 3248.2,
-   "end_t": 3257.0,
+   "end_t": 3259.4,
    "moment_id": "m016",
    "shape": {
     "type": "circle",
-    "player": "h7"
+    "player": "h5",
+    "label": "Kallal 5"
+   }
+  },
+  {
+   "cue_id": "m016-draw-4",
+   "layer": "telestration",
+   "start_t": 3249.1,
+   "end_t": 3259.4,
+   "moment_id": "m016",
+   "shape": {
+    "type": "circle",
+    "player": "h6",
+    "label": "Whitcombe 6"
+   }
+  },
+  {
+   "cue_id": "m016-draw-5",
+   "layer": "telestration",
+   "start_t": 3250.0,
+   "end_t": 3259.4,
+   "moment_id": "m016",
+   "shape": {
+    "type": "circle",
+    "player": "h8",
+    "label": "Haddadi 8"
    }
   },
   {
@@ -1739,36 +1744,36 @@
    "cue_id": "m031-caption",
    "layer": "caption",
    "start_t": 5104.5,
-   "end_t": 5117.5,
+   "end_t": 5115.1,
    "moment_id": "m031",
-   "headline": "Ashvale Rovers Ramp Up Press With Numerical Edge",
+   "headline": "Ashvale Rovers turn up the press",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers press harder with 17 pressures, 8 turnovers, and 62.2% possession, exploiting their 11v10 player advantage.",
-      "tag": "press, possession, advantage"
+      "caption": "Ashvale Rovers increased pressures to 17 in last 5 minutes, 1.62x average, winning 8 turnovers, 5 high upfield.",
+      "tag": "press surge"
      },
      "fr": {
-      "caption": "Ashvale Rovers intensifient le pressing: 17 pressions, 8 récupérations, 62,2% de possession avec un joueur en plus.",
-      "tag": "pression, possession, avantage"
+      "caption": "Ashvale Rovers a intensifié le pressing à 17 actions en 5 minutes, 1,62 fois la moyenne, récupérant 8 ballons, 5 haut.",
+      "tag": "pression forte"
      },
      "ar": {
-      "caption": "أشفيل روفرز يضغطون بقوة مع 17 ضغطة و8 استحواذات وتحكم 62.2% بفضل تفوقهم العددي 11 ضد 10.",
-      "tag": "ضغط، استحواذ، تفوق"
+      "caption": "أشفيل روفرز نفذ 17 ضغطًا في آخر 5 دقائق، 1.62 ضعف المتوسط، واستعاد 8 كرات، 5 منها في نصف كسترل باي.",
+      "tag": "ضغط متصاعد"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers have more players and have kept the ball 62% recently, winning the ball 8 times by pressing hard.",
-      "tag": "possession"
+      "caption": "Ashvale Rovers pressed hard late, making 17 efforts and winning the ball 8 times, mostly near Kestrel Bay’s goal.",
+      "tag": "strong press"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont plus de joueurs et gardent le ballon 62% du temps, gagnant 8 ballons en pressant fort.",
-      "tag": "possession"
+      "caption": "Ashvale Rovers a beaucoup pressé en fin de match, 17 fois, récupérant le ballon 8 fois près du but adverse.",
+      "tag": "fort pressing"
      },
      "ar": {
-      "caption": "أشفيل روفرز لديهم لاعب إضافي ويحافظون على الكرة 62% مؤخرًا، وفازوا بالكرة 8 مرات بالضغط.",
-      "tag": "استحواذ"
+      "caption": "أشفيل روفرز ضاغط بقوة في الدقائق الأخيرة، 17 مرة، واستعاد الكرة 8 مرات قرب مرمى كسترل باي.",
+      "tag": "ضغط قوي"
      }
     }
    }
@@ -1777,85 +1782,55 @@
    "cue_id": "m031-draw-1",
    "layer": "telestration",
    "start_t": 5104.5,
-   "end_t": 5117.5,
+   "end_t": 5115.1,
    "moment_id": "m031",
    "shape": {
-    "type": "circle",
-    "player": "h10",
-    "label": "Brandt 10"
+    "type": "zone",
+    "points": [
+     [
+      47.5,
+      26.8
+     ],
+     [
+      63.0,
+      17.5
+     ],
+     [
+      66.6,
+      40.3
+     ],
+     [
+      65.6,
+      61.4
+     ],
+     [
+      50.8,
+      52.7
+     ]
+    ],
+    "label": "Pressing trap"
    }
   },
   {
    "cue_id": "m031-draw-2",
    "layer": "telestration",
    "start_t": 5105.4,
-   "end_t": 5117.5,
+   "end_t": 5115.1,
    "moment_id": "m031",
    "shape": {
     "type": "circle",
-    "player": "h17",
-    "label": "El Mansouri 17"
+    "player": "h9"
    }
   },
   {
    "cue_id": "m031-draw-3",
    "layer": "telestration",
    "start_t": 5106.3,
-   "end_t": 5117.5,
+   "end_t": 5115.1,
    "moment_id": "m031",
    "shape": {
     "type": "circle",
-    "player": "h8",
-    "label": "Haddadi 8"
-   }
-  },
-  {
-   "cue_id": "m031-draw-4",
-   "layer": "telestration",
-   "start_t": 5107.2,
-   "end_t": 5117.5,
-   "moment_id": "m031",
-   "shape": {
-    "type": "zone",
-    "points": [
-     [
-      29.1,
-      14.6
-     ],
-     [
-      66.6,
-      14.6
-     ],
-     [
-      66.6,
-      65.3
-     ],
-     [
-      29.1,
-      65.3
-     ]
-    ],
-    "label": "Pressing Zone"
-   }
-  },
-  {
-   "cue_id": "m031-draw-5",
-   "layer": "telestration",
-   "start_t": 5108.1,
-   "end_t": 5117.5,
-   "moment_id": "m031",
-   "shape": {
-    "type": "arrow",
-    "from": [
-     50.8,
-     52.7
-    ],
-    "to": [
-     61.4,
-     60.7
-    ],
-    "style": "run",
-    "label": "Brandt presses"
+    "player": "h11"
    }
   },
   {
@@ -1993,34 +1968,34 @@
    "start_t": 5825.7,
    "end_t": 5838.7,
    "moment_id": "m036",
-   "headline": "Ashvale Rovers press hard to protect lead",
+   "headline": "Ashvale Rovers press surge seals 3-2 lead",
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers press intensely with 1 extra player, winning 10 turnovers and 19 pressures in last 5 minutes amid contested tempo and overwhelming dominance.",
-      "tag": "press, turnovers, chaos"
+      "caption": "Ashvale Rovers, with 11 vs 10 players, won 10 turnovers and applied 19 pressures in last 5 minutes, dominating possession at 65.5%.",
+      "tag": "press surge"
      },
      "fr": {
-      "caption": "Ashvale Rovers pressent fort avec 1 joueur de plus, remportant 10 ballons et 19 pressions en 5 minutes, dominance écrasante malgré un tempo disputé.",
-      "tag": "pression, ballons, chaos"
+      "caption": "Ashvale Rovers, 11 contre 10, ont gagné 10 turnovers et exercé 19 pressions en 5 dernières minutes, possession à 65,5%.",
+      "tag": "pression forte"
      },
      "ar": {
-      "caption": "أشفيل روفرز يضغطون بقوة مع لاعب إضافي، فازوا بـ10 كرات و19 ضغطًا في آخر 5 دقائق وسط إيقاع متنازع وهيمنة ساحقة.",
-      "tag": "ضغط, كرات, هيمنة"
+      "caption": "أشفيل روفرز ب11 لاعبًا مقابل 10، استحوذوا 65.5% وفازوا بـ10 تحويلات و19 ضغطًا في آخر 5 دقائق.",
+      "tag": "ضغط مكثف"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers have one more player and worked hard, winning 10 balls in last 5 minutes to keep their 3-2 lead in a tough game.",
-      "tag": "hard press"
+      "caption": "Ashvale Rovers had one more player and kept the ball 65% in last 5 minutes, winning many battles to hold their 3-2 lead.",
+      "tag": "final push"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont un joueur de plus et ont gagné 10 ballons en 5 minutes pour garder leur avance 3-2 dans un match serré.",
-      "tag": "pression forte"
+      "caption": "Ashvale Rovers avaient un joueur de plus et gardé le ballon 65% en 5 dernières minutes, pour garder leur avance 3-2.",
+      "tag": "poussée finale"
      },
      "ar": {
-      "caption": "أشفيل روفرز لديهم لاعب أكثر وفازوا بـ10 كرات في آخر 5 دقائق ليحافظوا على تقدمهم 3-2 في مباراة صعبة.",
-      "tag": "ضغط قوي"
+      "caption": "أشفيل روفرز كان لديهم لاعب أكثر واستحوذوا على الكرة 65% في آخر 5 دقائق ليحافظوا على تقدمهم 3-2.",
+      "tag": "الضغط الأخير"
      }
     }
    }
@@ -2032,26 +2007,9 @@
    "end_t": 5838.7,
    "moment_id": "m036",
    "shape": {
-    "type": "zone",
-    "points": [
-     [
-      51.5,
-      2.9
-     ],
-     [
-      99.0,
-      2.9
-     ],
-     [
-      99.0,
-      50.3
-     ],
-     [
-      51.5,
-      50.3
-     ]
-    ],
-    "label": "High Press Zone"
+    "type": "circle",
+    "player": "h9",
+    "label": "Mensah-Cole 9"
    }
   },
   {
@@ -2062,8 +2020,8 @@
    "moment_id": "m036",
    "shape": {
     "type": "circle",
-    "player": "h9",
-    "label": "Mensah-Cole 9"
+    "player": "h8",
+    "label": "Haddadi 8"
    }
   },
   {
@@ -2074,8 +2032,8 @@
    "moment_id": "m036",
    "shape": {
     "type": "circle",
-    "player": "h8",
-    "label": "Haddadi 8"
+    "player": "h10",
+    "label": "Brandt 10"
    }
   },
   {
@@ -2085,9 +2043,17 @@
    "end_t": 5838.7,
    "moment_id": "m036",
    "shape": {
-    "type": "circle",
-    "player": "h10",
-    "label": "Brandt 10"
+    "type": "arrow",
+    "from": [
+     99.0,
+     26.7
+    ],
+    "to": [
+     95.8,
+     18.7
+    ],
+    "style": "run",
+    "label": "Press Mensah-Cole"
    }
   },
   {
@@ -2099,15 +2065,15 @@
    "shape": {
     "type": "arrow",
     "from": [
-     99.0,
-     26.7
+     72.3,
+     13.3
     ],
     "to": [
-     95.3,
-     32.5
+     70.0,
+     26.0
     ],
     "style": "run",
-    "label": "Pressing Mensah-Cole"
+    "label": "Press Haddadi"
    }
   }
  ]

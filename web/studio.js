@@ -31,7 +31,7 @@ const UI = {
 const STORE_KEY = "chalk.viewer";
 
 function loadPrefs() {
-  const base = { persona: "analyst", lang: "en", club: "", player: "", pause: true };
+  const base = { persona: "analyst", lang: "en", club: "", player: "", pause: true, voice: false };
   try {
     return { ...base, ...JSON.parse(localStorage.getItem(STORE_KEY) || "{}") };
   } catch {
@@ -51,7 +51,7 @@ export class Studio {
     this.byMoment = new Map(this.cards.map((c) => [c.moment_id, c]));
     this.momentById = new Map(replay.moments.map((m) => [m.id, m]));
     this.prefs = loadPrefs();
-    this.next = 0; // index of the next card to air
+    this.aired = new Set(); // moment ids already on air (supports cards arriving live)
     this.onAir = null; // {card, frame, ball, start, hold, paused}
     this.lastCard = null;
     this.setupViewer();
@@ -84,6 +84,16 @@ export class Studio {
     clubPick.addEventListener("change", () => { this.prefs.club = clubPick.value; this.applyPrefs(); });
     playerPick.addEventListener("change", () => { this.prefs.player = playerPick.value; this.applyPrefs(); });
     $("pauseToggle").addEventListener("change", (e) => { this.prefs.pause = e.target.checked; this.applyPrefs(); });
+    $("voiceToggle").addEventListener("change", (e) => {
+      this.prefs.voice = e.target.checked;
+      if (!this.prefs.voice) this.silence();
+      this.applyPrefs();
+    });
+    if (!("speechSynthesis" in window)) $("voiceToggle").closest("label").hidden = true;
+    $("hlBtn").addEventListener("click", () => (this.hl ? this.stopHighlights() : this.startHighlights()));
+    $("startMatch").addEventListener("click", () => { this.hideOverlays(); this.r.seek(0); this.r.toggle(true); });
+    $("startHighlights").addEventListener("click", () => this.startHighlights());
+    $("startLive").addEventListener("click", () => { this.hideOverlays(); this.r.goLive(); });
     $("insWhy").addEventListener("click", () => { this.selectTab("tabCrew"); });
     $("insNext").addEventListener("click", () => this.end());
     this.applyPrefs(true);
@@ -101,10 +111,12 @@ export class Studio {
     $("clubPick").value = p.club;
     $("playerPick").value = p.player;
     $("pauseToggle").checked = p.pause;
+    $("voiceToggle").checked = p.voice;
     this.r.pitch.focus = p.player || null;
     savePrefs(p);
     if (!initial) {
       if (this.onAir) this.renderCard(this.onAir.card);
+      if (!$("recap").hidden) this.showRecap();
       this.r.renderStats(true);
       this.r.refreshMomentMarks();
     }
@@ -139,25 +151,42 @@ export class Studio {
   /** Called after a seek: cards before T have already aired. */
   resync(T) {
     this.end(false);
-    this.next = this.cards.findIndex((c) => c.on_air_t > T);
-    if (this.next < 0) this.next = this.cards.length;
+    this.aired = new Set(this.cards.filter((c) => c.on_air_t <= T).map((c) => c.moment_id));
+  }
+
+  /** A card that arrived over the live feed. */
+  addCard(card) {
+    if (this.byMoment.has(card.moment_id)) return;
+    this.cards.push(card);
+    this.cards.sort((a, b) => a.on_air_t - b.on_air_t);
+    this.byMoment.set(card.moment_id, card);
+  }
+
+  reset() {
+    this.end(false);
+    this.cards = [];
+    this.byMoment = new Map();
+    this.momentById = new Map();
+    this.aired = new Set();
+    if (this.insights) this.insights.recap = null;
   }
 
   /** Called as time advances; returns true if playback must freeze. */
   check(T) {
-    if (this.onAir || this.next >= this.cards.length) return false;
-    const card = this.cards[this.next];
-    if (card.on_air_t > T) return false;
-    this.next++;
+    if (this.onAir) return false;
+    const card = this.cards.find((c) => !this.aired.has(c.moment_id) && c.on_air_t <= T);
+    if (!card) return false;
+    this.aired.add(card.moment_id);
     this.air(card);
     return this.onAir?.paused ?? false;
   }
 
   air(card) {
     const m = this.momentById.get(card.moment_id);
-    const paused = this.prefs.pause;
+    const paused = this.prefs.pause || !!this.hl;
     const hold = Math.min(12000, 4200 + 900 * card.drawings.length);
     this.onAir = { card, frame: m?.geometry?.frame, ball: m?.geometry?.ball, start: performance.now(), hold, paused };
+    if (this.speak(this.spokenText(card))) this.onAir.spoken = false;
     if (paused) this.r.pitch.showTelestration(card.drawings);
     this.lastCard = card;
     this.renderCard(card);
@@ -169,9 +198,16 @@ export class Studio {
   end(resume = true) {
     if (!this.onAir) return;
     this.onAir = null;
+    this.silence();
     this.r.pitch.clearTelestration();
     $("insight").hidden = true;
-    if (resume) this.r.lastFrame = performance.now();
+    if (!resume) return;
+    this.r.lastFrame = performance.now();
+    if (this.hl) {
+      this.hl.i++;
+      if (this.hl.i < this.cards.length) this.queueHighlight();
+      else { this.stopHighlights(); this.r.toggle(false); this.showRecap(); }
+    }
   }
 
   /** Per frame: progress bar and the end of the hold. */
@@ -180,7 +216,8 @@ export class Studio {
     if (!a) return;
     const k = Math.min(1, (now - a.start) / a.hold);
     $("insBar").style.width = `${(k * 100).toFixed(1)}%`;
-    if (k >= 1) this.end();
+    const voiceDone = a.spoken !== false || now - a.start > a.hold + 15000;
+    if (k >= 1 && voiceDone) this.end();
   }
 
   frozenFrame() {
@@ -266,6 +303,130 @@ export class Studio {
       <ul class="trace">${trace}</ul>
       <p class="crew-foot">${esc(eng.model || "")}${eng.provider === "foundry" ? " on Microsoft Foundry" : ""}, orchestrated with Microsoft Agent Framework.
         <a href="${this.r.dataPath}/match_${this.r.seed}_overlay.json" target="_blank" rel="noopener">Broadcast overlay feed (JSON)</a></p>`;
+  }
+
+  // --------------------------------------------------------------- voice
+  spokenText(card) {
+    const { persona, lang } = this.prefs;
+    const v = card.variants?.[persona]?.[lang] || {};
+    return lang === "en" ? `${card.headline}. ${v.caption || ""}` : (v.caption || "");
+  }
+
+  speak(text, lang = this.prefs.lang) {
+    if (!this.prefs.voice || !text || !("speechSynthesis" in window)) return false;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      const tag = { en: "en-GB", fr: "fr-FR", ar: "ar-SA" }[lang] || "en-GB";
+      u.lang = tag;
+      const voices = speechSynthesis.getVoices();
+      const voice = voices.find((v) => v.lang === tag) || voices.find((v) => v.lang?.toLowerCase().startsWith(lang));
+      if (voice) u.voice = voice;
+      u.rate = lang === "ar" ? 0.95 : 1.05;
+      u.onend = u.onerror = () => { if (this.onAir) this.onAir.spoken = true; };
+      speechSynthesis.speak(u);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  silence() {
+    try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch { /* nothing to stop */ }
+  }
+
+  // ---------------------------------------------------------- highlights
+  startHighlights() {
+    if (!this.cards.length || this.r.live) return;
+    this.hideOverlays();
+    this.hl = { i: 0 };
+    this.r.setSpeed(4);
+    this.updateHlButton();
+    this.queueHighlight();
+  }
+
+  queueHighlight() {
+    const c = this.cards[this.hl.i];
+    this.r.seek(Math.max(0, c.on_air_t - 7));
+    this.r.toggle(true);
+  }
+
+  stopHighlights() {
+    if (!this.hl) return;
+    this.hl = null;
+    this.updateHlButton();
+  }
+
+  updateHlButton() {
+    const b = $("hlBtn");
+    b.setAttribute("aria-pressed", String(!!this.hl));
+    b.querySelector("span").textContent = this.hl ? "Exit highlights" : "AI highlights";
+  }
+
+  // ------------------------------------------------------- welcome, recap
+  showWelcome() {
+    if (this.cards.length) $("welcome").hidden = false;
+  }
+
+  hideOverlays() {
+    $("welcome").hidden = true;
+    $("recap").hidden = true;
+  }
+
+  showRecap() {
+    const rc = this.insights?.recap;
+    if (!rc) return;
+    const { persona, lang } = this.prefs;
+    const ui = UI[lang] || UI.en;
+    const f = rc.facts || {};
+    const v = rc.variants?.[persona]?.[lang] || rc.variants?.analyst?.en || {};
+    const rtl = lang === "ar" ? ' dir="rtl" lang="ar"' : "";
+    const start = this.r.start;
+    const [hg, ag] = String(f.score || "0-0").split("-");
+    const goals = this.r.moments.filter((m) => m.type === "goal").map((m) =>
+      `<li><span class="clk">${esc(m.clock)}</span><span class="dot" style="background:${this.r.colors[m.team]}"></span><span>${esc(m.facts.scorer)} <span class="why">(${esc(m.facts.goal_effect)})</span></span></li>`).join("");
+    const chips = [["Goals", f.potm_goals], ["Shots", f.potm_shots], ["xG", f.potm_xg], ["Touches", f.potm_touches],
+      ["Top speed", f.potm_top_speed_kmh ? `${f.potm_top_speed_kmh} km/h` : null]]
+      .filter(([, x]) => x !== undefined && x !== null)
+      .map(([k, x]) => `<span class="chip">${k} <b>${esc(x)}</b></span>`).join("");
+    const potm = this.r.roster[rc.player_of_the_match] || {};
+    const final = rc.var?.final;
+    const head = lang === "en" ? rc.headline : (v.caption || rc.headline);
+    const body = lang === "en" ? (persona === "analyst" ? rc.story : v.caption) : "";
+    const tp = rc.turning_point;
+    $("recapCard").innerHTML = `
+      <p class="rc-kicker"><span>Full-time recap</span>
+        <span class="var-badge${final === "verified" ? "" : " warn"}"><span>${final === "verified" ? ui.ok : ui.safe}</span></span></p>
+      <div class="rc-score"><span class="rc-team">${esc(start.home.name)}</span><span class="rc-goals">${esc(hg)} – ${esc(ag)}</span><span class="rc-team">${esc(start.away.name)}</span></div>
+      <h2 class="rc-head${lang === "ar" ? " rtl" : ""}"${rtl}>${esc(head)}</h2>
+      ${body ? `<p class="rc-text">${esc(body)}</p>` : ""}
+      <div class="rc-grid">
+        <div class="rc-box"><h3>Goals</h3><ol class="rc-goals-list">${goals}</ol></div>
+        <div class="rc-box"><h3>Player of the match</h3>
+          <p class="potm-name">${esc(potm.number ?? "")} ${esc(f.potm_name || "")}</p>
+          <div class="potm-stats">${chips}</div></div>
+      </div>
+      <div class="rc-actions">
+        ${tp ? `<button type="button" class="btn-primary" data-rc="tp">Replay the turning point ${esc(tp)}</button>` : ""}
+        <button type="button" class="btn-ghost" data-rc="why">${ui.why}</button>
+        <button type="button" class="btn-ghost" data-rc="hl">AI highlights</button>
+        <button type="button" class="btn-ghost" data-rc="close">Close</button>
+      </div>`;
+    $("recap").hidden = false;
+    this.renderCrew(rc);
+    if (this.prefs.voice) this.speak(lang === "en" ? `${rc.headline}. ${v.caption || ""}` : v.caption);
+    $("recapCard").querySelectorAll("[data-rc]").forEach((b) => b.addEventListener("click", () => {
+      const act = b.dataset.rc;
+      if (act === "close") this.hideOverlays();
+      if (act === "why") this.selectTab("tabCrew");
+      if (act === "hl") this.startHighlights();
+      if (act === "tp") {
+        const card = this.cards.find((c) => c.clock === tp);
+        this.hideOverlays();
+        this.r.seek(Math.max(0, (card ? card.on_air_t : 0) - 8));
+        this.r.toggle(true);
+      }
+    }));
   }
 
   // --------------------------------------------------------- player card

@@ -87,8 +87,8 @@ class MatchState:
             self.in_possession = team
         elif etype in ("goal", "period_end"):
             self.in_possession = None  # celebrations and breaks belong to nobody
-            if P is not None:
-                P["touches"] += 1
+        if etype in ON_BALL and P is not None:
+            P["touches"] += 1
 
         if etype == "pass" and T is not None and P is not None:
             self._pass(ev, T, P)

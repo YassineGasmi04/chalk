@@ -28,9 +28,40 @@ def _ordinal_goal(n: int) -> str:
 OUTCOME_EN = {"saved": "saved", "off_target": "off target", "blocked": "blocked", "goal": "scored"}
 
 
+# ===================================================================== recap
+def recap(payload: dict[str, Any]) -> dict[str, Any]:
+    m = payload["moment"]
+    f = m["facts"]
+    v = dict(f)
+    winner, loser = f.get("winner"), f.get("loser")
+    if winner and winner != "draw":
+        headline = _fmt("{winner} beat {loser} {score}", v)
+        first = _fmt("{winner} beat {loser} {score}.", v)
+    else:
+        headline = _fmt("Honours even at {score}", v)
+        first = _fmt("{final_score_text}: honours even.", v)
+    parts = [first]
+    if f.get("turning_point_text"):
+        parts.append(_fmt("The turning point came at {turning_point_text}.", v))
+    parts.append(_fmt("{potm_name} was the player of the match with {potm_goals} goals from {potm_shots} shots.", v)
+                 if f.get("potm_goals") else _fmt("{potm_name} was the player of the match.", v))
+    parts.append(_fmt("On expected goals it finished {xg_text}.", v))
+    claims = [
+        {"text": _fmt("Final score {final_score_text}.", v), "fact_keys": ["final_score_text"]},
+        {"text": _fmt("Expected goals: {xg_text}.", v), "fact_keys": ["xg_text", "home_xg", "away_xg"]},
+        {"text": _fmt("{potm_name}: {potm_goals} goals, {potm_shots} shots.", v),
+         "fact_keys": ["potm_name", "potm_goals", "potm_shots"]},
+    ]
+    return {"headline": headline, "story": " ".join(parts), "claims": claims,
+            "focus_players": [f["potm_id"]] if f.get("potm_id") else [],
+            "turning_point": f.get("turning_point_clock")}
+
+
 # =================================================================== analyst
 def analyst(payload: dict[str, Any]) -> dict[str, Any]:
     m = payload["moment"]
+    if m["type"] == "full_time":
+        return recap(payload)
     f = dict(m["facts"])
     t = m["type"]
     team = m.get("team_name") or "The game"
@@ -361,6 +392,14 @@ TEMPLATES: dict[str, dict[str, tuple[str, str]]] = {
         "fr": ("{player} : {speed_kmh} km/h, sprint le plus rapide du match.", "{player} s'envole : {speed_kmh} km/h !"),
         "ar": ("{player}: {speed_kmh} كم/س، أسرع انطلاقة حتى الآن.", "{player} ينطلق كالصاروخ: {speed_kmh} كم/س!"),
     },
+    "full_time": {
+        "en": ("Full-time: {final_score_text}. xG {xg_text}. Player of the match: {potm_name}.",
+               "It's over! {final_score_text}, and {potm_name} was the star."),
+        "fr": ("Fin du match : {final_score_text}. xG {xg_text}. Homme du match : {potm_name}.",
+               "C'est fini ! {final_score_text}, et {potm_name} a été le héros du match."),
+        "ar": ("نهاية المباراة: {final_score_text}. الأهداف المتوقعة {xg_text}. أفضل لاعب: {potm_name}.",
+               "انتهت المباراة! {final_score_text}، و{potm_name} كان نجم اللقاء."),
+    },
     "milestone": {
         "en": ("{title}.", "{title}!"),
         "fr": ("{title}.", "{title} !"),
@@ -396,4 +435,5 @@ def personalizer(payload: dict[str, Any]) -> dict[str, Any]:
     return {"variants": out}
 
 
-HANDLERS = {"analyst": analyst, "telestrator": telestrator, "var": var_judge, "personalizer": personalizer}
+HANDLERS = {"analyst": analyst, "recap": recap, "telestrator": telestrator, "var": var_judge,
+            "personalizer": personalizer}

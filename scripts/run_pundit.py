@@ -26,11 +26,10 @@ sys.path.insert(0, str(ROOT))
 
 from chalk.agents.config import load_settings  # noqa: E402
 from chalk.agents.crew import LANGUAGES, PERSONAS, ROLES, Card, Crew  # noqa: E402
-from chalk.agents.producer import build_cards, replay_with_context, select_moments  # noqa: E402
+from chalk.agents.export import card_to_json, overlay_feed, recap_to_json  # noqa: E402
+from chalk.agents.producer import (build_cards, build_recap_card, replay_with_context,  # noqa: E402
+                                   select_moments)
 from chalk.sim.engine import MatchSimulator  # noqa: E402
-
-ON_AIR_DELAY_S = 3.0  # broadcast delay between the event and the graphic
-
 
 def load_events(seed: int) -> list[dict]:
     path = ROOT / "data" / f"match_{seed}.jsonl"
@@ -39,47 +38,15 @@ def load_events(seed: int) -> list[dict]:
     return MatchSimulator(seed=seed).run()
 
 
-def card_to_json(c: Card) -> dict:
-    m = c.moment
-    a = c.analysis or {}
-    on_air = round(m["t"] + ON_AIR_DELAY_S, 1)
-    duration = round(7.0 + 1.2 * len(c.drawings), 1)
-    return {
-        "moment_id": m["id"], "type": m["type"], "team": m["team"], "clock": m["clock"],
-        "t": m["t"], "on_air_t": on_air, "duration_s": duration, "title": m["title"],
-        "importance": m["importance"],
-        "headline": a.get("headline"), "story": a.get("story"), "claims": a.get("claims", []),
-        "focus_players": a.get("focus_players", []), "drawings": c.drawings, "variants": c.variants,
-        "var": {k: c.var.get(k) for k in ("verdict", "final", "history", "drawing_issues", "caption_issues")
-                if c.var.get(k) is not None},
-        "fallbacks": c.fallbacks, "trace": c.trace, "facts": c.facts,  # the full sheet VAR checked
-    }
-
-
-def overlay_feed(cards: list[dict], match_id: str) -> dict:
-    cues = []
-    for c in cards:
-        start, end = c["on_air_t"], round(c["on_air_t"] + c["duration_s"], 1)
-        cues.append({"cue_id": f"{c['moment_id']}-caption", "layer": "caption", "start_t": start, "end_t": end,
-                     "moment_id": c["moment_id"], "headline": c["headline"], "variants": c["variants"]})
-        for i, d in enumerate(c["drawings"]):
-            cues.append({"cue_id": f"{c['moment_id']}-draw-{i + 1}", "layer": "telestration",
-                         "start_t": round(start + 0.9 * i, 1), "end_t": end,
-                         "moment_id": c["moment_id"], "shape": d})
-    return {"schema": "chalk.overlay/1", "match_id": match_id, "coordinate_system":
-            {"units": "metres", "pitch": [105, 68], "x": "home attacks towards 105", "y": "0 far touchline, 68 near"},
-            "time": "seconds since kick-off (match clock t)", "cues": cues}
-
-
 async def main_async(args: argparse.Namespace) -> None:
     settings = load_settings(force_offline=args.offline)
     events = load_events(args.seed)
-    _, moments, contexts = replay_with_context(events)
+    final_state, moments, contexts = replay_with_context(events)
     chosen = select_moments(moments, args.max_cards)
     cards = build_cards(events, chosen, contexts)
     crew = Crew(settings)
     print(f"CHALK studio crew: {settings.describe()}")
-    print(f"{len(moments)} moments spotted, {len(cards)} going on air\n")
+    print(f"{len(moments)} moments spotted, {len(cards)} going on air, plus the full-time recap\n")
 
     t0 = time.perf_counter()
     done = 0
@@ -90,11 +57,12 @@ async def main_async(args: argparse.Namespace) -> None:
         done += 1
         v = out.var.get("final", "?")
         mark = {"verified": "VAR ok", "fallback": "VAR fallback", "rulebook-only": "rules only (judge down)"}.get(v, v)
-        print(f"  [{done:2d}/{len(cards)}] {out.moment['clock']:>6}  {out.moment['title'][:44]:<44} {mark}")
+        print(f"  [{done:2d}/{len(cards) + 1}] {out.moment['clock']:>6}  {out.moment['title'][:44]:<44} {mark}")
         crew.cache.save()
         return out
 
     results = await asyncio.gather(*(run(c) for c in cards))
+    recap = await run(build_recap_card(events, final_state, moments))
     elapsed = time.perf_counter() - t0
     crew.cache.save()
 
@@ -109,6 +77,7 @@ async def main_async(args: argparse.Namespace) -> None:
         "personas": PERSONAS, "languages": LANGUAGES,
         "stats": {**crew.stats, "cards": len(out_cards), "seconds": round(elapsed, 1)},
         "cards": out_cards,
+        "recap": recap_to_json(recap),
     }
     stem = ROOT / "data" / f"match_{args.seed}"
     Path(f"{stem}_insights.json").write_text(json.dumps(insights, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -2,5 +2,8 @@
 # (works with Microsoft Foundry / Azure OpenAI deployments).
 agent-framework-core>=1.23
 agent-framework-openai>=1.17
+# live server (Server-Sent Events)
+fastapi>=0.115
+uvicorn>=0.30
 # tests
 pytest>=8.0

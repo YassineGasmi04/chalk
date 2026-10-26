@@ -42,6 +42,10 @@ Spotter (code) -> Producer (code) -> Analyst -> Telestrator -> VAR --stands-----
 Each agent is an `agent_framework.Agent`; each moment runs through an Agent
 Framework `Workflow` whose conditional edge lets VAR send work back.
 
+At full time a fifth agent, **Recap**, writes the match recap from a full-time fact sheet
+computed by code (result, goal timeline with what each goal did to the score, turning
+point, player of the match picked by code). It goes through the same VAR and Personalizer.
+
 | Agent | Job | Output |
 |---|---|---|
 | **Analyst** | Explains why the moment matters. Every claim must cite the fact keys that prove it. | headline, 2-3 sentence story, claims with `fact_keys` |
@@ -65,6 +69,33 @@ cp .env.example .env          # then fill in your Microsoft Foundry endpoint, ke
 python scripts/run_pundit.py  # uses the model in .env
 python scripts/run_pundit.py --offline   # rule-based crew, no key needed
 ```
+
+## Live mode
+
+`chalk/server.py` (FastAPI) streams the match **as it happens** over Server-Sent Events and
+runs the whole pipeline live: events are released on the match clock, `MatchState` and the
+Spotter update on every event, and the studio crew runs on each aired moment the instant it
+is detected. Insights go on air when the crew finishes (typically 1-3 match seconds later).
+Recorded model answers are reused, so a demo costs nothing; without a model configured the
+server replays the recorded crew.
+
+```bash
+uvicorn chalk.server:app --port 8000   # then open http://localhost:8000 and press "Watch live"
+```
+
+| Endpoint | What |
+|---|---|
+| `GET /api/live?seed=4&speed=10&ai=auto` | the live feed: `event`, `pulse`, `moment`, `insight`, `recap`, `end` messages |
+| `GET /api/health` | which model the crew uses |
+| `GET /api/match/4/insights` | the recorded insight cards |
+
+## In the app
+
+- **Welcome screen**: what the four agents do, then *Watch live*, *Watch the match* or *AI highlights in 2 minutes*
+- **AI highlights**: plays only the moments the crew analysed, drawings and all, then the full-time recap
+- **Match Pulse**: who is on top minute by minute, chaotic spells, and an amber marker for every AI insight (release the scrubber on one to replay it)
+- **Voice**: reads each insight aloud in English, French or Arabic (browser speech synthesis)
+- **Full-time recap**: result, the AI's verified recap, every goal and what it did to the score, player of the match, and a button to replay the turning point
 
 ## The synthetic data
 
@@ -107,6 +138,7 @@ python scripts/generate_match.py          # writes data/match_4*.json(l)
 python scripts/run_pundit.py              # the AI crew (see above)
 python -m pytest -q                        # tests
 python scripts/serve.py                    # opens the replay at http://localhost:8000/web/
+uvicorn chalk.server:app --port 8000       # or the live server (adds "Watch live")
 ```
 
 The replay has two cameras: **Broadcast** (a perspective view from a high
@@ -133,8 +165,11 @@ chalk/agents/        the studio crew: config, prompts, crew (agents + workflow),
                      producer (what goes on air), offline (rule-based pundits)
 scripts/generate_match.py
 scripts/run_pundit.py  runs the crew, writes insights + overlay feed
-scripts/serve.py     local web server for the replay
-web/                 replay UI: index.html, style.css, pitch.js (renderer), app.js
+scripts/serve.py     static web server for the replay
+chalk/server.py      live server: the match and the AI crew as a live feed (FastAPI, SSE)
+Dockerfile           container for Azure Container Apps
+web/                 the app: index.html, style.css, pitch.js (renderer), app.js (playback, live feed),
+                     studio.js (insights on air, personalization, crew panel, highlights, recap, voice)
 tests/
 data/                generated match files
 ```

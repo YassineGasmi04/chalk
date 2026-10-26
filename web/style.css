@@ -74,6 +74,7 @@ button, input { font: inherit; color: inherit; }
 
 .feed-pill {
   margin: 0 0 0 auto;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -342,9 +343,10 @@ button, input { font: inherit; color: inherit; }
   .topbar { flex-wrap: wrap; gap: 0.75rem 1rem; padding: 0.8rem 1rem; }
   .fixture { order: 3; width: 100%; border: 0; padding: 0; }
   .feed-pill { display: none; }
-  .view-toggle { margin-left: auto; }
+
   .deck { grid-template-columns: auto minmax(0, 1fr); }
   .speeds { grid-column: 1 / -1; justify-self: start; }
+
   .pulse-head { flex-direction: column; gap: 0.15rem; }
   .pulse-legend { gap: 0.25rem 0.6rem; font-size: 0.72rem; flex-wrap: wrap; }
   .scorebug { top: 0.6rem; left: 0.6rem; height: 2.1rem; }
@@ -353,13 +355,6 @@ button, input { font: inherit; color: inherit; }
   .sb-clock { font-size: 0.8rem; padding: 0 1.1rem 0 0.55rem; }
   .names-toggle { display: none; }
   .ticker { font-size: 0.82rem; bottom: 0.6rem; }
-  .viewer { padding: 0 1rem 0.6rem; gap: 0.6rem 0.9rem; }
-  .viewer-label { display: none; }
-  .switch span { font-size: 0.8rem; }
-  .insight { left: 0.5rem; right: 0.5rem; bottom: 0.5rem; }
-  .ins-main { flex-direction: column; align-items: stretch; gap: 0.5rem; padding: 0.6rem 0.75rem; }
-  .ins-head { font-size: 1rem; }
-  .ins-caption { font-size: 0.85rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -562,3 +557,120 @@ button, input { font: inherit; color: inherit; }
 .trace .ms { text-align: right; color: var(--text-3); font-variant-numeric: tabular-nums; }
 .crew-foot { margin: 1.2rem 0 0; font-size: 0.8rem; color: var(--text-3); }
 .crew-foot a { color: var(--signal); }
+
+/* ------------------------------------------------------- highlights button */
+.hl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 191, 60, 0.55);
+  background: rgba(255, 191, 60, 0.12);
+  color: var(--signal);
+  font-weight: 800;
+  font-size: 0.88rem;
+  font-variation-settings: "wdth" 108;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hl-btn svg { width: 0.95rem; height: 0.95rem; }
+.hl-btn:hover, .hl-btn[aria-pressed="true"] { background: var(--signal); color: #1d0d00; }
+.switch-tight { margin-left: 0; }
+
+/* ------------------------------------------------------- welcome + recap */
+.welcome, .recap {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: radial-gradient(80% 80% at 50% 40%, rgba(31, 10, 46, 0.72), rgba(14, 4, 22, 0.92));
+  backdrop-filter: blur(3px);
+  animation: ins-in 0.35s ease-out;
+}
+.recap { position: fixed; z-index: 20; }
+.welcome-card, .recap-card {
+  width: min(42rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 1.6rem 1.8rem;
+  border-radius: var(--r-l);
+  background: rgba(42, 10, 61, 0.88);
+  border: 1px solid var(--rule);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+.welcome-title { margin: 0.7rem 0 0.4rem; font-size: 1.6rem; line-height: 1.15; font-weight: 800; font-variation-settings: "wdth" 112; }
+.welcome-sub { margin: 0 0 1.1rem; color: var(--text-2); line-height: 1.5; max-width: 34rem; }
+.crew-chips { list-style: none; margin: 0 0 1.3rem; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.crew-chips li { padding: 0.55rem 0.75rem; border-radius: var(--r-s); background: var(--glass); border: 1px solid var(--rule); font-size: 0.88rem; color: var(--text-2); }
+.crew-chips b { color: var(--signal); margin-right: 0.3rem; }
+.welcome-actions, .rc-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.btn-primary, .btn-ghost {
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-variation-settings: "wdth" 108;
+}
+.btn-primary { border: 0; background: #fff; color: var(--purple); }
+.btn-primary:hover { background: var(--signal); }
+.btn-ghost { border: 1px solid rgba(255, 191, 60, 0.6); background: rgba(255, 191, 60, 0.1); color: var(--signal); }
+.btn-ghost:hover { background: var(--signal); color: #1d0d00; }
+.welcome-note { margin: 1rem 0 0; font-size: 0.8rem; color: var(--text-3); }
+
+.rc-kicker { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin: 0 0 0.6rem; font-weight: 800; color: var(--signal); font-variation-settings: "wdth" 115; }
+.rc-score { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 0.2rem 0 0.9rem; font-size: 2.6rem; font-weight: 800; font-variant-numeric: tabular-nums; font-variation-settings: "wdth" 120; }
+.rc-score .rc-team { font-size: 1rem; font-weight: 700; color: var(--text-2); max-width: 10rem; line-height: 1.2; }
+.rc-score .rc-team:first-child { text-align: right; }
+.rc-score .rc-goals { padding: 0.1rem 0.8rem; border-radius: var(--r-s); background: #fff; color: var(--purple); }
+.rc-head { margin: 0 0 0.4rem; font-size: 1.3rem; line-height: 1.25; font-weight: 800; font-variation-settings: "wdth" 110; }
+.rc-text { margin: 0 0 1rem; color: var(--text-2); line-height: 1.55; }
+.rc-text.rtl, .rc-head.rtl { text-align: right; }
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.1rem; }
+.rc-box { padding: 0.8rem 0.9rem; border-radius: var(--r-m); background: var(--glass); border: 1px solid var(--rule); }
+.rc-box h3 { margin: 0 0 0.5rem; font-size: 0.8rem; color: var(--text-3); font-weight: 700; }
+.rc-goals-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; font-size: 0.88rem; }
+.rc-goals-list li { display: grid; grid-template-columns: 2.4rem 0.7rem 1fr; align-items: baseline; gap: 0.4rem; }
+.rc-goals-list .why { color: var(--text-3); font-size: 0.8rem; }
+.rc-goals-list .dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; }
+.rc-goals-list .clk { font-weight: 800; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.potm-name { margin: 0 0 0.5rem; font-weight: 800; font-size: 1.05rem; }
+.potm-stats { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.rc-actions .btn-ghost, .rc-actions .btn-primary { font-size: 0.86rem; padding: 0.5rem 1rem; }
+
+/* ------------------------------------------------ insight markers legend */
+.lg-ai::before { background: var(--signal); transform: rotate(45deg) scale(0.8); }
+.recap-card { width: min(50rem, 100%); max-height: calc(100vh - 2rem); }
+
+/* --------------------------------- phones: overrides for the components above */
+@media (max-width: 980px) {
+  .viewer { padding: 0 1rem 0.6rem; gap: 0.6rem 0.9rem; }
+  .viewer-label { display: none; }
+  .switch span { font-size: 0.8rem; }
+  /* on phones the insight sits under the pitch instead of covering it */
+  .insight { position: relative; left: auto; right: auto; bottom: auto; flex-direction: column; filter: none; }
+  .ins-tag { clip-path: none; border-radius: 0; padding: 0.4rem 0.8rem; max-width: none; font-size: 0.85rem; }
+  .ins-main { margin-left: 0; clip-path: none; border-radius: 0; flex-direction: column; align-items: stretch; gap: 0.5rem; padding: 0.6rem 0.75rem 0.8rem; }
+  .ins-actions { flex-wrap: wrap; }
+  .ins-head { font-size: 1rem; }
+  .ins-caption { font-size: 0.85rem; }
+  .welcome-card, .recap-card { padding: 1.1rem; }
+  .welcome-title { font-size: 1.25rem; }
+  .crew-chips { grid-template-columns: 1fr; }
+  .rc-grid { grid-template-columns: 1fr; }
+  .rc-score { font-size: 2rem; }
+  .hl-btn { margin-left: auto; padding: 0.4rem 0.75rem; }
+  .switch { margin-left: 0; }
+  .welcome { position: relative; inset: auto; padding: 0.75rem; }
+  .welcome-card { box-shadow: none; }
+}
+
+/* ------------------------------------------------------------- live mode */
+.live-dot { display: inline-block; width: 0.55rem; height: 0.55rem; margin-right: 0.45rem; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(255, 77, 94, 0.3); vertical-align: 0.05rem; }
+.feed-pill.is-live { border-color: rgba(255, 77, 94, 0.5); color: #fff; }
+.feed-pill.is-live .dot { background: var(--red); box-shadow: 0 0 10px var(--red); animation: blink 1.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .feed-pill.is-live .dot { animation: none; } }

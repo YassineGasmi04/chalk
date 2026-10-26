@@ -166,7 +166,7 @@ def resolve_key(key: str, facts: dict[str, Any]) -> bool:
 
 
 def check_analysis(analysis: dict[str, Any], facts: dict[str, Any], players: dict[str, Any],
-                   extra_numbers: list[Any]) -> list[str]:
+                   extra_numbers: list[Any], max_words: int = 75) -> list[str]:
     issues: list[str] = []
     if not isinstance(analysis, dict):
         return ["analysis is not a JSON object"]
@@ -193,8 +193,8 @@ def check_analysis(analysis: dict[str, Any], facts: dict[str, Any], players: dic
     for pid in analysis.get("focus_players", []) or []:
         if pid not in players:
             issues.append(f"unknown player id {pid}")
-    if len((analysis.get("story") or "").split()) > 75:
-        issues.append("story is longer than 75 words")
+    if len((analysis.get("story") or "").split()) > max_words:
+        issues.append(f"story is longer than {max_words} words")
     return sorted(set(issues))
 
 

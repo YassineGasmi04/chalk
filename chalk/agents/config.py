@@ -65,6 +65,7 @@ def load_settings(env_file: Path | None = None, force_offline: bool = False) -> 
     model = get("CHALK_MODEL", "gpt-4.1-mini")
     conc = int(get("CHALK_MAX_CONCURRENCY", "3"))
     var_model = get("CHALK_VAR_MODEL") or None
+    force_offline = force_offline or os.environ.get("CHALK_OFFLINE") == "1"
     if force_offline or not (base_url and api_key):
         return Settings("offline", None, None, "offline", conc)
     if not base_url.endswith("/"):
