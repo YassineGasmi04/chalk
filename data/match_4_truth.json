@@ -1,0 +1,102 @@
+[
+ {
+  "at": 15,
+  "kind": "tactic",
+  "team": "home",
+  "press": 0.9,
+  "line_height": 0.75,
+  "label": "Ashvale switch on a high press"
+ },
+ {
+  "at": 24,
+  "kind": "force_goal",
+  "team": "home",
+  "label": "Press pays off"
+ },
+ {
+  "at": 30,
+  "kind": "tactic",
+  "team": "home",
+  "press": 0.45,
+  "line_height": 0.55,
+  "label": "Ashvale drop back to a mid block"
+ },
+ {
+  "at": 30,
+  "kind": "tactic",
+  "team": "away",
+  "directness": 0.8,
+  "line_height": 0.3,
+  "label": "Kestrel go low block + direct counters"
+ },
+ {
+  "at": 38,
+  "kind": "force_goal",
+  "team": "away",
+  "label": "Counter-attack equaliser"
+ },
+ {
+  "at": 46,
+  "kind": "tactic",
+  "team": "away",
+  "directness": 0.55,
+  "line_height": 0.45,
+  "label": "Kestrel back to normal shape"
+ },
+ {
+  "at": 61,
+  "kind": "sub",
+  "team": "away",
+  "off": "a8",
+  "on": "a19",
+  "label": "Nkemelu on for Ferreira-Lind"
+ },
+ {
+  "at": 65,
+  "kind": "formation",
+  "team": "away",
+  "to": "4-2-3-1",
+  "label": "Kestrel switch to 4-2-3-1"
+ },
+ {
+  "at": 65,
+  "kind": "tactic",
+  "team": "away",
+  "press": 0.75,
+  "label": "Kestrel press higher on the right"
+ },
+ {
+  "at": 70,
+  "kind": "force_goal",
+  "team": "away",
+  "label": "Kestrel take the lead"
+ },
+ {
+  "at": 76,
+  "kind": "red_card",
+  "team": "away",
+  "label": "Kestrel down to ten"
+ },
+ {
+  "at": 77,
+  "kind": "sub",
+  "team": "home",
+  "off": "h6",
+  "on": "h17",
+  "label": "El Mansouri on to chase the game"
+ },
+ {
+  "at": 78,
+  "kind": "tactic",
+  "team": "home",
+  "press": 0.8,
+  "directness": 0.55,
+  "label": "Ashvale throw everything forward"
+ },
+ {
+  "at": 86,
+  "kind": "force_goal",
+  "team": "home",
+  "label": "Late equaliser"
+ }
+]

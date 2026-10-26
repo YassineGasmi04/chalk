@@ -1,0 +1,2 @@
+# Step 1 (engine + stats) needs only the Python standard library.
+pytest>=8.0
