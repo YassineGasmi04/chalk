@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#2a0a3d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Kalam:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Noto+Kufi+Arabic:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,6 +31,36 @@
     </div>
   </header>
 
+  <section class="viewer" aria-label="Your view">
+    <div class="viewer-group">
+      <span class="viewer-label" id="modeLabel">Watch as</span>
+      <div class="seg" role="group" aria-labelledby="modeLabel">
+        <button type="button" data-persona="analyst" class="on" aria-pressed="true">Analyst</button>
+        <button type="button" data-persona="casual" aria-pressed="false">Fan</button>
+      </div>
+    </div>
+    <div class="viewer-group">
+      <span class="viewer-label" id="langLabel">Language</span>
+      <div class="seg" role="group" aria-labelledby="langLabel">
+        <button type="button" data-lang="en" class="on" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+        <button type="button" data-lang="ar" aria-pressed="false" lang="ar">عربي</button>
+      </div>
+    </div>
+    <label class="viewer-group pick">
+      <span class="viewer-label">Your club</span>
+      <select id="clubPick"><option value="">No club</option></select>
+    </label>
+    <label class="viewer-group pick">
+      <span class="viewer-label">Follow a player</span>
+      <select id="playerPick"><option value="">Nobody</option></select>
+    </label>
+    <label class="viewer-group switch">
+      <input type="checkbox" id="pauseToggle" checked>
+      <span>Pause for insights</span>
+    </label>
+  </section>
+
   <main class="stage">
     <section class="hero" aria-label="Match pitch">
       <canvas id="pitch" role="img" aria-label="Animated pitch showing player and ball positions"></canvas>
@@ -43,6 +73,21 @@
         <span class="sb-clock" id="sbClock">0'</span>
       </div>
       <div class="ticker" id="ticker" aria-live="polite"></div>
+      <div class="insight" id="insight" hidden>
+        <div class="ins-tag"><span id="insTag">Insight</span></div>
+        <div class="ins-main">
+          <div class="ins-text" id="insText" aria-live="polite">
+            <p class="ins-head" id="insHead"></p>
+            <p class="ins-caption" id="insCaption"></p>
+          </div>
+          <div class="ins-actions">
+            <span class="var-badge" id="insVar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>VAR checked</span></span>
+            <button type="button" class="ins-btn" id="insWhy">Why?</button>
+            <button type="button" class="ins-btn ins-go" id="insNext">Resume</button>
+          </div>
+        </div>
+        <div class="ins-progress" aria-hidden="true"><span id="insBar"></span></div>
+      </div>
       <label class="names-toggle"><input type="checkbox" id="namesToggle" checked> Player names</label>
     </section>
 
@@ -74,20 +119,41 @@
     </section>
 
     <aside class="side">
-      <section class="panel" aria-labelledby="statsTitle">
+      <div class="tabs" role="tablist" aria-label="Side panel">
+        <button type="button" role="tab" id="tabStats" aria-controls="paneStats" aria-selected="true">Stats</button>
+        <button type="button" role="tab" id="tabMoments" aria-controls="paneMoments" aria-selected="false">Moments <span class="tab-count" id="momentCount"></span></button>
+        <button type="button" role="tab" id="tabCrew" aria-controls="paneCrew" aria-selected="false">Studio crew</button>
+      </div>
+      <section class="panel" id="paneStats" role="tabpanel" aria-labelledby="tabStats">
         <div class="panel-head">
           <h2 class="panel-title" id="statsTitle">Match stats</h2>
           <p class="panel-sides"><span id="stHome">ASH</span><span id="stAway">KES</span></p>
         </div>
         <ul class="stat-list" id="statList"></ul>
+        <div class="player-card" id="playerCard" hidden>
+          <div class="panel-head">
+            <h2 class="panel-title" id="pcName">Player</h2>
+            <p class="panel-count" id="pcMeta"></p>
+          </div>
+          <dl class="pc-grid" id="pcGrid"></dl>
+        </div>
       </section>
-      <section class="panel panel-moments" aria-labelledby="momentsTitle">
+      <section class="panel panel-moments" id="paneMoments" role="tabpanel" aria-labelledby="tabMoments" hidden>
         <div class="panel-head">
-          <h2 class="panel-title" id="momentsTitle">Key moments</h2>
-          <p class="panel-count" id="momentCount"></p>
+          <h2 class="panel-title">Key moments</h2>
+          <p class="panel-count"><span class="ai-dot" aria-hidden="true"></span>AI insight</p>
         </div>
         <ol class="moment-list" id="momentList"></ol>
         <p class="moment-empty" id="momentEmpty">Moments appear here as the match unfolds. Select one to watch it again.</p>
+      </section>
+      <section class="panel panel-crew" id="paneCrew" role="tabpanel" aria-labelledby="tabCrew" hidden>
+        <div class="panel-head">
+          <h2 class="panel-title">Studio crew</h2>
+          <p class="panel-count" id="crewEngine"></p>
+        </div>
+        <div id="crewBody">
+          <p class="moment-empty">When the crew airs an insight, you can see its working here: the claims, the facts behind them, what VAR checked and how long each agent took.</p>
+        </div>
       </section>
     </aside>
   </main>

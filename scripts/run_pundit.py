@@ -52,7 +52,7 @@ def card_to_json(c: Card) -> dict:
         "focus_players": a.get("focus_players", []), "drawings": c.drawings, "variants": c.variants,
         "var": {k: c.var.get(k) for k in ("verdict", "final", "history", "drawing_issues", "caption_issues")
                 if c.var.get(k) is not None},
-        "fallbacks": c.fallbacks, "trace": c.trace, "facts": m["facts"],
+        "fallbacks": c.fallbacks, "trace": c.trace, "facts": c.facts,  # the full sheet VAR checked
     }
 
 

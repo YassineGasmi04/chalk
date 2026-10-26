@@ -1,4 +1,5 @@
 import { PitchRenderer } from "./pitch.js";
+import { Studio } from "./studio.js";
 
 const params = new URLSearchParams(location.search);
 const SEED = params.get("seed") || "4";
@@ -29,12 +30,14 @@ async function load() {
     if (!r.ok) throw new Error(`Couldn't load ${path}. Run python scripts/generate_match.py, then reload.`);
     return kind === "text" ? r.text() : r.json();
   };
-  const [evText, moments, summary] = await Promise.all([
+  const [evText, moments, summary, insights] = await Promise.all([
     get(`match_${SEED}.jsonl`, "text"),
     get(`match_${SEED}_moments.json`),
     get(`match_${SEED}_summary.json`),
+    // the AI crew's output is optional: without it the replay still works
+    fetch(`${DATA}/match_${SEED}_insights.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]);
-  return { events: evText.trim().split("\n").map((l) => JSON.parse(l)), moments, summary };
+  return { events: evText.trim().split("\n").map((l) => JSON.parse(l)), moments, summary, insights };
 }
 
 // --------------------------------------------------------------- live stats
@@ -43,6 +46,7 @@ class LiveStats {
   reset() {
     const blank = () => ({ poss: 0, shots: 0, sot: 0, xg: 0, passes: 0, comp: 0, pressures: 0, won: 0, reds: 0 });
     this.t = { home: blank(), away: blank() };
+    this.p = {}; // per player, for player-cam mode
     this.inPoss = null;
     this.lastT = 0;
   }
@@ -51,6 +55,15 @@ class LiveStats {
     this.lastT = ev.t;
     if ((ON_BALL.has(ev.type) || WINS_BALL.has(ev.type)) && ev.team) this.inPoss = ev.team;
     else if (ev.type === "goal" || ev.type === "period_end") this.inPoss = null;
+    if (ev.player) {
+      const P = (this.p[ev.player] ||= { touches: 0, passes: 0, comp: 0, shots: 0, goals: 0, xg: 0, won: 0, sprints: 0, top: 0 });
+      if (ON_BALL.has(ev.type)) P.touches++;
+      if (ev.type === "pass") { P.passes++; if (ev.outcome === "complete") P.comp++; }
+      if (ev.type === "shot") { P.shots++; P.xg += ev.xg; }
+      if (ev.type === "goal") P.goals++;
+      if (ev.type === "tackle" || ev.type === "interception") P.won++;
+      if (ev.type === "sprint") { P.sprints++; P.top = Math.max(P.top, ev.speed_kmh); }
+    }
     const s = ev.team && this.t[ev.team];
     if (!s) return;
     switch (ev.type) {
@@ -79,7 +92,9 @@ class LiveStats {
 
 // -------------------------------------------------------------------- app
 class Replay {
-  constructor({ events, moments, summary }) {
+  constructor({ events, moments, summary, insights }) {
+    this.seed = SEED;
+    this.dataPath = DATA;
     this.events = events;
     this.moments = moments;
     this.summary = summary;
@@ -107,6 +122,7 @@ class Replay {
     this.pitch = new PitchRenderer($("pitch"));
     this.pitch.setRoster(this.roster, this.colors);
     this.stats = new LiveStats();
+    this.studio = new Studio(this, insights);
     this.setupUI(home, away);
     this.pulseCanvas = $("pulse");
     new ResizeObserver(() => this.drawPulse()).observe(this.pulseCanvas);
@@ -141,7 +157,10 @@ class Replay {
     $("scrub").addEventListener("input", (e) => this.seek((Number(e.target.value) / 1000) * this.endT));
     document.addEventListener("keydown", (e) => {
       if (e.target.closest("input, button")) return;
-      if (e.key === " ") { e.preventDefault(); this.toggle(); }
+      if (e.key === " ") {
+        e.preventDefault();
+        if (this.studio.onAir?.paused) this.studio.end(); else this.toggle();
+      }
       if (e.key === "ArrowRight") this.seek(Math.min(this.endT, this.T + 15));
       if (e.key === "ArrowLeft") this.seek(Math.max(0, this.T - 15));
     });
@@ -160,6 +179,7 @@ class Replay {
     this.stats.reset();
     this.idx = 0;
     this.pitch.clearMarks();
+    this.studio.resync(this.T);
     this.advanceTo(this.T, true);
     $("momentList").innerHTML = "";
     this.momentsShown = 0;
@@ -218,6 +238,7 @@ class Replay {
   }
 
   flash(label, body, ms) {
+    if (this.studio?.onAir) return;
     const el = $("ticker");
     el.innerHTML = `<span class="accent">${esc(label)}</span><span class="body">${esc(body)}</span>`;
     el.classList.add("show");
@@ -240,6 +261,7 @@ class Replay {
     const now = performance.now();
     if (!force && this.lastStats && now - this.lastStats < 300) return;
     this.lastStats = now;
+    this.studio?.renderPlayer(this.stats);
     $("statList").innerHTML = this.stats.rows().map(([label, h, a, hv, av]) => {
       const sum = hv + av;
       const hs = sum ? hv / sum : 0.5;
@@ -259,18 +281,28 @@ class Replay {
       const li = document.createElement("li");
       if (!silent) li.className = "fresh";
       const side = m.team || "neutral";
-      li.innerHTML = `<button type="button" class="${m.importance >= 0.7 ? "big" : ""} ${m.type}">
+      const card = this.studio.byMoment.get(m.id);
+      li.dataset.moment = m.id;
+      li.innerHTML = `<button type="button" class="${m.importance >= 0.7 ? "big" : ""} ${m.type}${card ? " has-insight" : ""}">
         <span class="m-clock">${esc(m.clock)}</span>
         <svg class="m-icon ${side}" aria-hidden="true"><use href="#${ICONS[m.type] || "ic-star"}"/></svg>
         <span class="m-title">${esc(m.title)}</span></button>`;
       li.querySelector("button").addEventListener("click", () => {
-        this.seek(Math.max(0, m.t - 8));
+        this.seek(Math.max(0, (card ? card.on_air_t : m.t) - 8));
         this.toggle(true);
       });
       list.prepend(li);
     }
     $("momentEmpty").hidden = this.momentsShown > 0;
-    $("momentCount").textContent = this.momentsShown ? `${this.momentsShown} so far` : "";
+    $("momentCount").textContent = this.momentsShown ? String(this.momentsShown) : "";
+    this.refreshMomentMarks();
+  }
+
+  refreshMomentMarks() {
+    for (const li of document.querySelectorAll("#momentList li")) {
+      const m = this.studio.momentById.get(li.dataset.moment);
+      if (m) li.querySelector("button").classList.toggle("mine", !!this.studio.isMine(m.team, m.players || []));
+    }
   }
 
   drawPulse() {
@@ -347,11 +379,13 @@ class Replay {
   loop(now) {
     const dt = Math.min(0.1, (now - this.lastFrame) / 1000);
     this.lastFrame = now;
-    if (this.playing) {
+    this.studio.tick(now);
+    if (this.playing && !this.studio.onAir?.paused) {
       const before = this.idx;
       this.T = Math.min(this.endT, this.T + dt * this.speed);
       this.advanceTo(this.T);
       if (this.idx !== before) this.revealMoments();
+      this.studio.check(this.T);
       const tick = Math.floor(now / 200);
       if (tick !== this.lastPulseTick) { this.lastPulseTick = tick; this.drawPulse(); }
       if (this.T >= this.endT) this.toggle(false);
@@ -361,6 +395,11 @@ class Replay {
   }
 
   render(now) {
+    const frozen = this.studio.frozenFrame();
+    if (frozen) {
+      this.pitch.draw(frozen.frame, frozen.ball, null, now);
+      return;
+    }
     const a = this.events[this.idx];
     const b = this.events[Math.min(this.idx + 1, this.events.length - 1)];
     const span = b.t - a.t;

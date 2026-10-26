@@ -1,6 +1,6 @@
 {
  "match_id": "synthetic-4",
- "generated_at": "2026-10-26T03:38:57+00:00",
+ "generated_at": "2026-10-26T03:47:14+00:00",
  "engine": {
   "provider": "foundry",
   "model": "gpt-4.1-mini",
@@ -38,15 +38,15 @@
   "ar"
  ],
  "stats": {
-  "calls": 84,
-  "cached": 0,
+  "calls": 0,
+  "cached": 84,
   "model_errors": 0,
   "fallbacks": 1,
   "overturned": 5,
   "drawings_rejected": 3,
   "captions_repaired": 0,
   "cards": 18,
-  "seconds": 79.0
+  "seconds": 0.1
  },
  "cards": [
   {
@@ -178,23 +178,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 10325
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 14616
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 18307
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 7551
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -206,7 +206,31 @@
     "possession_last5_pct": 56.6,
     "field_tilt_last5_pct": 90.0,
     "shots_last5": 1,
-    "xg_last5": 0.18
+    "xg_last5": 0.18,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 0,
+    "home_possession_pct": 54.4,
+    "home_shots": 1,
+    "home_xg": 0.18,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 45.6,
+    "away_shots": 0,
+    "away_xg": 0.0,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 0.93,
+    "score_text": "Ashvale Rovers 0-0 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -339,23 +363,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 10251
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 14709
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 17932
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 5821
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -365,7 +389,29 @@
     "turnovers_per_min_last5": 4.0,
     "shots_per_min_last5": 0.4,
     "shots_last5_home": 2,
-    "shots_last5_away": 0
+    "shots_last5_away": 0,
+    "home_team": "Ashvale Rovers",
+    "home_goals": 0,
+    "home_possession_pct": 59.3,
+    "home_shots": 3,
+    "home_xg": 0.22,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 40.7,
+    "away_shots": 0,
+    "away_xg": 0.0,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "chaotic",
+    "pulse_chaos": 1.37,
+    "score_text": "Ashvale Rovers 0-0 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -523,23 +569,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 10398
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 16813
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 16109
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 10740
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -551,7 +597,31 @@
     "turnovers_won_last5": 7,
     "high_turnovers_last5": 6,
     "opponent_pass_count_last5": 17,
-    "possession_last5_pct": 44.0
+    "possession_last5_pct": 44.0,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 0,
+    "home_possession_pct": 58.0,
+    "home_shots": 5,
+    "home_xg": 0.3,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 42.0,
+    "away_shots": 0,
+    "away_xg": 0.0,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.0,
+    "score_text": "Ashvale Rovers 0-0 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -705,23 +775,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 12968
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 15594
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 15118
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 10590
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -741,7 +811,31 @@
     "won_in_opponent_half": false,
     "scorer_goals_today": 1,
     "team_xg_total": 0.68,
-    "opponent_players_on_pitch": 11
+    "opponent_players_on_pitch": 11,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 1,
+    "home_possession_pct": 58.6,
+    "home_shots": 7,
+    "home_xg": 0.68,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 41.4,
+    "away_shots": 1,
+    "away_xg": 0.02,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "neither team",
+    "pulse_dominance_strength": "balanced",
+    "pulse_tempo": "chaotic",
+    "pulse_chaos": 1.35,
+    "score_text": "Ashvale Rovers 1-0 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -889,23 +983,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 12687
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13677
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 16585
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 7935
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -925,7 +1019,31 @@
     "won_in_opponent_half": false,
     "scorer_goals_today": 2,
     "team_xg_total": 1.07,
-    "opponent_players_on_pitch": 11
+    "opponent_players_on_pitch": 11,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 56.5,
+    "home_shots": 8,
+    "home_xg": 1.07,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 43.5,
+    "away_shots": 1,
+    "away_xg": 0.02,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 0.97,
+    "score_text": "Ashvale Rovers 2-0 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1053,23 +1171,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 13053
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 14615
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 15645
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 8308
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1081,7 +1199,31 @@
     "shot_distance_m": 8.7,
     "shot_speed_kmh": 77.4,
     "pressured": false,
-    "team_xg_total": 1.29
+    "team_xg_total": 1.29,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 54.3,
+    "home_shots": 9,
+    "home_xg": 1.29,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 45.7,
+    "away_shots": 1,
+    "away_xg": 0.02,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "controlled",
+    "pulse_chaos": 0.62,
+    "score_text": "Ashvale Rovers 2-0 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1217,23 +1359,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 15631
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 14751
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 13416
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 10174
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1245,7 +1387,31 @@
     "turnovers_won_last5": 5,
     "high_turnovers_last5": 2,
     "opponent_pass_count_last5": 29,
-    "possession_last5_pct": 42.9
+    "possession_last5_pct": 42.9,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 55.7,
+    "home_shots": 10,
+    "home_xg": 1.32,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 0,
+    "away_possession_pct": 44.3,
+    "away_shots": 1,
+    "away_xg": 0.02,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "slight",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.06,
+    "score_text": "Ashvale Rovers 2-0 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1404,23 +1570,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 16039
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 15052
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 13123
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 12356
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1440,7 +1606,31 @@
     "won_in_opponent_half": false,
     "scorer_goals_today": 1,
     "team_xg_total": 0.27,
-    "opponent_players_on_pitch": 11
+    "opponent_players_on_pitch": 11,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 53.8,
+    "home_shots": 10,
+    "home_xg": 1.32,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 1,
+    "away_possession_pct": 46.2,
+    "away_shots": 2,
+    "away_xg": 0.27,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "chaotic",
+    "pulse_chaos": 1.38,
+    "score_text": "Ashvale Rovers 2-1 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1599,38 +1789,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 15291
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13764
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 15902
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 14395
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 5798
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 7820
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 3086
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1642,7 +1832,31 @@
     "possession_last5_pct": 62.5,
     "field_tilt_last5_pct": 54.5,
     "shots_last5": 1,
-    "xg_last5": 0.25
+    "xg_last5": 0.25,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 52.3,
+    "home_shots": 10,
+    "home_xg": 1.32,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 1,
+    "away_possession_pct": 47.7,
+    "away_shots": 2,
+    "away_xg": 0.27,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "slight",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.19,
+    "score_text": "Ashvale Rovers 2-1 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1774,38 +1988,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 17878
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13182
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 13824
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 11734
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 7682
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 9246
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 5295
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1817,7 +2031,31 @@
     "turnovers_won_last5": 5,
     "high_turnovers_last5": 3,
     "opponent_pass_count_last5": 36,
-    "possession_last5_pct": 33.1
+    "possession_last5_pct": 33.1,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 49.7,
+    "home_shots": 11,
+    "home_xg": 1.42,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 1,
+    "away_possession_pct": 50.3,
+    "away_shots": 2,
+    "away_xg": 0.27,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "slight",
+    "pulse_tempo": "controlled",
+    "pulse_chaos": 0.67,
+    "score_text": "Ashvale Rovers 2-1 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -1949,23 +2187,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 18213
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 14071
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 12352
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 12205
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1977,7 +2215,31 @@
     "possession_last5_pct": 53.5,
     "field_tilt_last5_pct": 61.5,
     "shots_last5": 1,
-    "xg_last5": 0.06
+    "xg_last5": 0.06,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 50.9,
+    "home_shots": 12,
+    "home_xg": 1.44,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 1,
+    "away_possession_pct": 49.1,
+    "away_shots": 4,
+    "away_xg": 0.44,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-3-3",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "slight",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.06,
+    "score_text": "Ashvale Rovers 2-1 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -2131,30 +2393,54 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 19606
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13904
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 11817
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 14389
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
     "clock": "66'",
     "score": "2-1",
     "from_formation": "4-3-3",
-    "to_formation": "4-2-3-1"
+    "to_formation": "4-2-3-1",
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 51.3,
+    "home_shots": 14,
+    "home_xg": 1.54,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 1,
+    "away_possession_pct": 48.7,
+    "away_shots": 4,
+    "away_xg": 0.44,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "controlled",
+    "pulse_chaos": 0.75,
+    "score_text": "Ashvale Rovers 2-1 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -2282,23 +2568,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 20419
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13213
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 11757
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 15923
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -2318,7 +2604,31 @@
     "won_in_opponent_half": false,
     "scorer_goals_today": 1,
     "team_xg_total": 0.58,
-    "opponent_players_on_pitch": 11
+    "opponent_players_on_pitch": 11,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 50.0,
+    "home_shots": 14,
+    "home_xg": 1.54,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 50.0,
+    "away_shots": 6,
+    "away_xg": 0.58,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.03,
+    "score_text": "Ashvale Rovers 2-2 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -2449,23 +2759,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 20346
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 12896
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 11906
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 13711
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -2477,7 +2787,31 @@
     "possession_last5_pct": 74.0,
     "field_tilt_last5_pct": 87.5,
     "shots_last5": 1,
-    "xg_last5": 0.12
+    "xg_last5": 0.12,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 49.7,
+    "home_shots": 14,
+    "home_xg": 1.54,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 50.3,
+    "away_shots": 6,
+    "away_xg": 0.58,
+    "away_players_on_pitch": 11,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "overwhelming",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 0.88,
+    "score_text": "Ashvale Rovers 2-2 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "level numbers",
+    "window_minutes": 5
    }
   },
   {
@@ -2577,23 +2911,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 22834
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 11855
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 10913
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 16977
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -2604,7 +2938,31 @@
     "players_left": 10,
     "minutes_remaining": 13,
     "team_possession_last5_pct": 62.5,
-    "opponent_possession_last5_pct": 37.5
+    "opponent_possession_last5_pct": 37.5,
+    "team_name": "Kestrel Bay FC",
+    "opponent_name": "Ashvale Rovers",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 49.2,
+    "home_shots": 14,
+    "home_xg": 1.54,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 50.8,
+    "away_shots": 7,
+    "away_xg": 0.73,
+    "away_players_on_pitch": 10,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Kestrel Bay FC",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.29,
+    "score_text": "Ashvale Rovers 2-2 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "Ashvale Rovers have 1 more player",
+    "window_minutes": 5
    }
   },
   {
@@ -2755,38 +3113,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 23025
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13535
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 10634
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 17577
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 2875
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 5722
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 3236
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -2798,7 +3156,31 @@
     "turnovers_won_last5": 8,
     "high_turnovers_last5": 5,
     "opponent_pass_count_last5": 23,
-    "possession_last5_pct": 62.2
+    "possession_last5_pct": 62.2,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 2,
+    "home_possession_pct": 50.6,
+    "home_shots": 16,
+    "home_xg": 1.75,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 49.4,
+    "away_shots": 7,
+    "away_xg": 0.73,
+    "away_players_on_pitch": 10,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "clear",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.12,
+    "score_text": "Ashvale Rovers 2-2 Kestrel Bay FC",
+    "leading_team": "level",
+    "player_advantage": "Ashvale Rovers have 1 more player",
+    "window_minutes": 5
    }
   },
   {
@@ -2948,23 +3330,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 22991
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 12388
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 10378
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 16536
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -2984,7 +3366,31 @@
     "won_in_opponent_half": false,
     "scorer_goals_today": 3,
     "team_xg_total": 2.21,
-    "opponent_players_on_pitch": 10
+    "opponent_players_on_pitch": 10,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 3,
+    "home_possession_pct": 50.3,
+    "home_shots": 17,
+    "home_xg": 2.21,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 49.7,
+    "away_shots": 7,
+    "away_xg": 0.73,
+    "away_players_on_pitch": 10,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "neither team",
+    "pulse_dominance_strength": "balanced",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 0.94,
+    "score_text": "Ashvale Rovers 3-2 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "Ashvale Rovers have 1 more player",
+    "window_minutes": 5
    }
   },
   {
@@ -3138,38 +3544,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 26050
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 13058
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 7875
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 17022
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 1884
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 7059
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 2982
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -3181,7 +3587,31 @@
     "turnovers_won_last5": 10,
     "high_turnovers_last5": 7,
     "opponent_pass_count_last5": 20,
-    "possession_last5_pct": 65.5
+    "possession_last5_pct": 65.5,
+    "team_name": "Ashvale Rovers",
+    "opponent_name": "Kestrel Bay FC",
+    "home_team": "Ashvale Rovers",
+    "home_goals": 3,
+    "home_possession_pct": 51.0,
+    "home_shots": 17,
+    "home_xg": 2.21,
+    "home_players_on_pitch": 11,
+    "home_formation": "4-3-3",
+    "away_team": "Kestrel Bay FC",
+    "away_goals": 2,
+    "away_possession_pct": 49.0,
+    "away_shots": 7,
+    "away_xg": 0.73,
+    "away_players_on_pitch": 10,
+    "away_formation": "4-2-3-1",
+    "pulse_team_on_top": "Ashvale Rovers",
+    "pulse_dominance_strength": "overwhelming",
+    "pulse_tempo": "contested",
+    "pulse_chaos": 1.24,
+    "score_text": "Ashvale Rovers 3-2 Kestrel Bay FC",
+    "leading_team": "Ashvale Rovers",
+    "player_advantage": "Ashvale Rovers have 1 more player",
+    "window_minutes": 5
    }
   }
  ]

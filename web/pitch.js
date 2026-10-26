@@ -40,6 +40,8 @@ export class PitchRenderer {
     this.players = {};
     this.blend = 1; // 1 = broadcast, 0 = tactical
     this.target = 1;
+    this.tele = null; // the AI Telestrator's drawings for the moment on air
+    this.focus = null; // player followed in player-cam mode
     new ResizeObserver(() => this.resize()).observe(canvas);
     this.resize();
   }
@@ -263,12 +265,17 @@ export class PitchRenderer {
     c.font = `700 ${Math.round(12 * dpr)}px Archivo, system-ui, sans-serif`;
     const w = c.measureText(text).width + 14 * dpr;
     const h = 20 * dpr;
-    const x = X - w / 2, y = Y - lift * dpr - h;
-    c.fillStyle = tone === "signal" ? SIGNAL : "rgba(10, 22, 30, 0.86)";
+    const x = X - w / 2;
+    let y = Y - lift * dpr - h;
+    // nudge up past any label already drawn here
+    const hits = (yy) => (this.placed || []).some((b) => x < b.x + b.w + 2 && x + w > b.x - 2 && yy < b.y + b.h + 2 && yy + h > b.y - 2);
+    for (let i = 0; i < 6 && hits(y); i++) y -= h + 3 * dpr;
+    (this.placed ||= []).push({ x, y, w, h });
+    c.fillStyle = tone === "signal" ? SIGNAL : tone === "focus" ? "#ffffff" : "rgba(10, 22, 30, 0.86)";
     c.beginPath();
     c.roundRect(x, y, w, h, h / 2);
     c.fill();
-    c.fillStyle = tone === "signal" ? "#1b1405" : "#ffffff";
+    c.fillStyle = tone === "signal" ? "#1b1405" : tone === "focus" ? "#2a0a3d" : "#ffffff";
     c.textAlign = "center";
     c.textBaseline = "middle";
     c.fillText(text, X, y + h / 2 + 0.5 * dpr);
@@ -284,11 +291,28 @@ export class PitchRenderer {
     }
     this.drawBoard();
     const c = this.ctx;
+    this.placed = []; // label boxes drawn this frame, to avoid overlaps
     c.clearRect(0, 0, this.canvas.width, this.canvas.height);
     c.drawImage(this.bg, 0, 0);
 
+    const tele = this.tele;
+    if (tele) this.drawTelestration(c, frame, now, "under");
+
+    if (this.focus && frame[this.focus]) {
+      const [x, y] = frame[this.focus];
+      const [rx, ry, X, Y] = this.groundRadii(x, y, 3.2);
+      c.save();
+      c.strokeStyle = "rgba(255,255,255,0.9)";
+      c.setLineDash([4 * this.dpr, 4 * this.dpr]);
+      c.lineWidth = 2 * this.dpr;
+      c.beginPath();
+      c.ellipse(X, Y, rx, ry, 0, 0, Math.PI * 2);
+      c.stroke();
+      c.restore();
+    }
+
     // carrier ring sits on the grass, under everything
-    if (carrier && frame[carrier]) {
+    if (!tele && carrier && frame[carrier]) {
       const [x, y] = frame[carrier];
       const [rx, ry, X, Y] = this.groundRadii(x, y, 2.4);
       c.save();
@@ -299,7 +323,7 @@ export class PitchRenderer {
       c.stroke();
       c.restore();
     }
-    this.drawMarks(now);
+    if (!tele) this.drawMarks(now);
 
     // players, far to near so nearer chips overlap farther ones
     const lift = this.blend;
@@ -345,10 +369,110 @@ export class PitchRenderer {
       c.stroke();
     }
 
-    if (this.showNames && carrier && frame[carrier] && this.players[carrier]) {
-      const [x, y] = frame[carrier];
-      const [rx] = this.groundRadii(x, y, 1.25);
-      this.label(c, [x, y], this.players[carrier].short, 1, "dark", (Math.max(rx * 1.1, 8.5 * this.dpr) * 2 * lift) / this.dpr + 8);
+    if (tele) this.drawTelestration(c, frame, now, "over");
+    const tagged = new Set();
+    for (const pid of [this.focus, tele ? null : carrier]) {
+      if (!pid || tagged.has(pid) || !frame[pid] || !this.players[pid]) continue;
+      if (pid !== this.focus && !this.showNames) continue;
+      tagged.add(pid);
+      const [x, y] = frame[pid];
+      this.label(c, [x, y], this.players[pid].short, 1, pid === this.focus ? "focus" : "dark", this.chipLift(x, y));
     }
+  }
+
+  chipLift(x, y) {
+    const [rx] = this.groundRadii(x, y, 1.25);
+    const r = Math.max(rx * 1.1, Math.min(8.5, this.canvas.clientWidth / 62) * this.dpr);
+    return (r * 2 * this.blend) / this.dpr + 8;
+  }
+
+  // --------------------------------------------------------- telestration
+  // Drawings from the AI Telestrator, revealed one stroke at a time.
+  showTelestration(drawings) {
+    this.tele = drawings && drawings.length ? { drawings, born: performance.now() } : null;
+  }
+
+  clearTelestration() {
+    this.tele = null;
+  }
+
+  teleProgress(i, now) {
+    const STAGGER = 750, GROW = 520;
+    if (reduceMotion) return 1;
+    return Math.max(0, Math.min(1, (now - this.tele.born - 250 - i * STAGGER) / GROW));
+  }
+
+  drawTelestration(c, frame, now, layer) {
+    const ink = SIGNAL;
+    this.tele.drawings.forEach((d, i) => {
+      const k = this.teleProgress(i, now);
+      if (k <= 0) return;
+      if (layer === "under") {
+        if (d.type === "zone") this.teleZone(c, d.points, k);
+        if (d.type === "circle" && frame[d.player]) this.teleRing(c, frame[d.player], k);
+        return;
+      }
+      if (d.type === "arrow") {
+        const to = [d.from[0] + (d.to[0] - d.from[0]) * k, d.from[1] + (d.to[1] - d.from[1]) * k];
+        c.save();
+        const dash = { pass: [9, 6], run: [2, 7], carry: [5, 4] }[d.style];
+        if (dash) c.setLineDash(dash.map((v) => v * this.dpr));
+        this.chalk(c, [d.from, to], d.style === "shot" ? "#ffffff" : ink, d.style === "shot" ? 3.4 : 3, 0.95, 7 + i);
+        c.restore();
+        if (k >= 1) this.arrowHead(c, d.from, d.to, d.style === "shot" ? "#ffffff" : ink, 1);
+        if (k >= 1 && d.label) this.label(c, d.to, d.label, 1, "signal", 14);
+      } else if (d.type === "link") {
+        const [a, b] = (d.players || []).map((p) => frame[p]);
+        if (!a || !b) return;
+        const to = [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+        c.save();
+        c.setLineDash([3 * this.dpr, 5 * this.dpr]);
+        this.chalk(c, [a, to], "#ffffff", 2.4, 0.95, 21 + i);
+        c.restore();
+        if (k >= 1 && d.label) this.label(c, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], d.label, 1, "signal", 6);
+      } else if (d.type === "circle" && frame[d.player] && k >= 1 && d.label) {
+        const [x, y] = frame[d.player];
+        this.label(c, [x, y], d.label, 1, "signal", this.chipLift(x, y) + 2);
+      } else if (d.type === "zone" && k >= 1 && d.label) {
+        const pts = d.points;
+        const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
+        const cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+        this.label(c, [cx, cy], d.label, 1, "signal", -10);
+      }
+    });
+  }
+
+  teleRing(c, [x, y], k) {
+    const [rx, ry, X, Y] = this.groundRadii(x, y, 2.6);
+    c.save();
+    c.strokeStyle = SIGNAL;
+    c.lineCap = "round";
+    // a pundit's circle: drawn once round and a little past the start
+    for (const [w, a, off] of [[3.2, 1, 0], [1.6, 0.45, 0.06]]) {
+      c.globalAlpha = a;
+      c.lineWidth = w * this.dpr;
+      c.beginPath();
+      c.ellipse(X, Y, rx * (1 + off), ry * (1 + off), 0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2.15 * k);
+      c.stroke();
+    }
+    c.restore();
+  }
+
+  teleZone(c, points, k) {
+    if (!points || points.length < 3) return;
+    c.save();
+    c.beginPath();
+    points.forEach(([x, y], i) => {
+      const [X, Y] = this.px(x, y);
+      i ? c.lineTo(X, Y) : c.moveTo(X, Y);
+    });
+    c.closePath();
+    c.fillStyle = `rgba(255, 191, 60, ${0.2 * k})`;
+    c.fill();
+    c.setLineDash([6 * this.dpr, 5 * this.dpr]);
+    c.strokeStyle = `rgba(255, 191, 60, ${0.9 * k})`;
+    c.lineWidth = 2 * this.dpr;
+    c.stroke();
+    c.restore();
   }
 }
