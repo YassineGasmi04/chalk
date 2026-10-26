@@ -2,6 +2,7 @@ import { PitchRenderer } from "./pitch.js";
 import { Studio } from "./studio.js";
 import { Stadium, Stingers } from "./fx.js";
 import { AskDesk } from "./ask.js";
+import { EventStack, Heat, LayersUI, PlayerCard, setupMotion, winProbability } from "./hud.js";
 
 const params = new URLSearchParams(location.search);
 const SEED = params.get("seed") || "4";
@@ -122,13 +123,18 @@ class Replay {
     }
 
     this.pitch = new PitchRenderer($("pitch"));
-    this.pitch.setRoster(this.roster, this.colors);
+    this.pitch.setRoster(this.roster, this.colors, { home: home.name, away: away.name });
+    this.heat = new Heat();
     this.stats = new LiveStats();
     this.fx = new Stingers();
     this.stadium = new Stadium();
     this.pitch.rain = /rain/i.test(this.start.weather || "");
     this.studio = new Studio(this, insights);
     this.ask = new AskDesk(this);
+    this.evStack = new EventStack(this);
+    this.pcard = new PlayerCard(this);
+    this.layersUI = new LayersUI(this);
+    setupMotion();
     this.setupUI(home, away);
     this.pulseCanvas = $("pulse");
     new ResizeObserver(() => this.drawPulse()).observe(this.pulseCanvas);
@@ -154,6 +160,10 @@ class Replay {
     document.querySelectorAll(".view-toggle button").forEach((b) =>
       b.addEventListener("click", () => {
         this.pitch.setView(b.dataset.view);
+        const cam = { "3d": "CAM 1 · GANTRY", follow: "CAM 2 · FOLLOW", "2d": "TACTICAL · TOP DOWN" }[b.dataset.view];
+        const bug = $("camBug");
+        $("camName").textContent = cam;
+        bug.classList.remove("swap"); void bug.offsetWidth; bug.classList.add("swap");
         document.querySelectorAll(".view-toggle button").forEach((x) => {
           x.classList.toggle("on", x === b);
           x.setAttribute("aria-pressed", String(x === b));
@@ -263,6 +273,9 @@ class Replay {
   seek(T) {
     this.T = Math.max(0, Math.min(T, this.endT));
     this.stats.reset();
+    this.heat.reset();
+    this.evStack?.clear();
+    this.layersUI && (this.layersUI.dirty = true);
     this.idx = 0;
     this.pitch.clearMarks();
     this.fx?.hide();
@@ -279,13 +292,17 @@ class Replay {
       this.idx++;
       const ev = this.events[this.idx];
       this.stats.apply(ev);
+      this.heat.add(ev, this.teamOf);
       if (!silent) this.onEvent(ev);
     }
     this.updateScoreboard();
   }
 
+  teamOf = (pid) => this.roster[pid]?.team;
+
   onEvent(ev) {
     const p = this.pitch;
+    this.evStack.push(ev);
     const name = (pid) => this.roster[pid]?.short ?? "";
     switch (ev.type) {
       case "pass": {
@@ -317,6 +334,7 @@ class Replay {
           scoreText: `${this.start.home.name} ${ev.score.home} – ${ev.score.away} ${this.start.away.name}`,
         });
         this.stadium.roar();
+        this.pitch.celebrate(this.colors[ev.team], "GOAL");
         break;
       }
       case "card":
@@ -339,6 +357,10 @@ class Replay {
       case "kickoff":
         this.stadium.whistle(1);
         break;
+      case "tackle":
+      case "interception":
+        if (ev.ball) p.addMark({ kind: "ripple", at: ev.ball, color: this.colors[ev.team], ttl: 700 });
+        break;
       case "period_end":
         this.fx.period({ label: ev.period === 1 ? "Half-time" : "Full-time",
           scoreText: `${this.start.home.name} ${ev.score.home} – ${ev.score.away} ${this.start.away.name}` });
@@ -360,7 +382,12 @@ class Replay {
   updateScoreboard() {
     const ev = this.events[this.idx];
     const reds = (side) => `<span class="sb-red" aria-label="red card"></span>`.repeat(this.stats.t[side].reds);
-    $("sbScore").textContent = `${ev.score.home} – ${ev.score.away}`;
+    const scoreText = `${ev.score.home} – ${ev.score.away}`;
+    const sb = $("sbScore");
+    if (sb.textContent !== scoreText) {
+      sb.textContent = scoreText;
+      if (this.playing) { sb.classList.remove("flip"); void sb.offsetWidth; sb.classList.add("flip"); }
+    }
     $("sbHome").innerHTML = `${esc(this.start.home.short)}${reds("home")}`;
     $("sbAway").innerHTML = `${reds("away")}${esc(this.start.away.short)}`;
     $("sbClock").textContent = ev.type === "period_end" ? (ev.period === 1 ? "HT" : "FT") : ev.clock;
@@ -372,16 +399,41 @@ class Replay {
     if (!force && this.lastStats && now - this.lastStats < 300) return;
     this.lastStats = now;
     this.studio?.renderPlayer(this.stats);
-    $("statList").innerHTML = this.stats.rows().map(([label, h, a, hv, av]) => {
+    const list = $("statList");
+    const rows = this.stats.rows();
+    if (list.children.length !== rows.length) {
+      list.innerHTML = rows.map(() => `<li class="stat-row"><span class="v h"></span><span class="label"></span><span class="v a"></span>
+        <span class="bar" aria-hidden="true"><span class="bh"></span><span class="ba"></span></span></li>`).join("");
+    }
+    rows.forEach(([label, h, a, hv, av], i) => {
+      const li = list.children[i];
       const sum = hv + av;
       const hs = sum ? hv / sum : 0.5;
-      return `<li class="stat-row">
-        <span class="v h ${hv < av ? "trail" : ""}">${h}</span>
-        <span class="label">${label}</span>
-        <span class="v a ${av < hv ? "trail" : ""}">${a}</span>
-        <span class="bar" aria-hidden="true"><span class="bh" style="flex-grow:${hs.toFixed(3)}"></span><span class="ba" style="flex-grow:${(1 - hs).toFixed(3)}"></span></span>
-      </li>`;
-    }).join("");
+      const [vh, lab, va] = li.children;
+      if (vh.textContent !== String(h)) { vh.textContent = h; vh.classList.remove("tick"); void vh.offsetWidth; vh.classList.add("tick"); }
+      if (va.textContent !== String(a)) { va.textContent = a; va.classList.remove("tick"); void va.offsetWidth; va.classList.add("tick"); }
+      lab.textContent = label;
+      vh.classList.toggle("trail", hv < av);
+      va.classList.toggle("trail", av < hv);
+      li.querySelector(".bh").style.flexGrow = hs.toFixed(3);
+      li.querySelector(".ba").style.flexGrow = (1 - hs).toFixed(3);
+    });
+    this.renderWinProb();
+  }
+
+  renderWinProb() {
+    const ev = this.events[this.idx];
+    const t = this.stats.t;
+    const ended = ev.type === "period_end" && ev.period === 2 || ev.type === "match_end";
+    const wp = ended
+      ? { home: ev.score.home > ev.score.away ? 100 : 0, away: ev.score.away > ev.score.home ? 100 : 0, draw: ev.score.home === ev.score.away ? 100 : 0 }
+      : winProbability({ T: ev.t, score: ev.score, xg: { home: t.home.xg, away: t.away.xg }, men: { home: 11 - t.home.reds, away: 11 - t.away.reds } });
+    $("wpH").style.flexGrow = Math.max(wp.home, 0.5);
+    $("wpD").style.flexGrow = Math.max(wp.draw, 0.5);
+    $("wpA").style.flexGrow = Math.max(wp.away, 0.5);
+    $("wpHn").textContent = `${this.start.home.short} ${wp.home}%`;
+    $("wpDn").textContent = `Draw ${wp.draw}%`;
+    $("wpAn").textContent = `${wp.away}% ${this.start.away.short}`;
   }
 
   revealMoments(silent = false) {
@@ -506,6 +558,7 @@ class Replay {
     const dt = Math.min(0.1, (now - this.lastFrame) / 1000);
     this.lastFrame = now;
     this.studio.tick(now);
+    this.layersUI.tick(now);
     if (Math.floor(now / 250) !== this.lastCrowdTick) {
       this.lastCrowdTick = Math.floor(now / 250);
       const pts = this.summary.pulse;
@@ -551,10 +604,17 @@ class Replay {
     const ball = a.ball && b.ball
       ? [a.ball[0] + (b.ball[0] - a.ball[0]) * ease, a.ball[1] + (b.ball[1] - a.ball[1]) * ease]
       : a.ball;
+    // long passes and shots leave the grass: a parabola, higher for longer balls
+    let ballZ = 0;
+    if ((a.type === "pass" || a.type === "shot") && a.start && a.end) {
+      const d = Math.hypot(a.end[0] - a.start[0], a.end[1] - a.start[1]);
+      const peak = a.type === "shot" ? (d > 18 ? 2.2 : 0.6) : d > 24 ? Math.min(9, d * 0.18) : 0;
+      ballZ = 4 * peak * ease * (1 - ease);
+    }
     // the ring follows the ball: on a pass it moves to the receiver
     const carrier = a.type === "pass" ? (a.outcome === "complete" ? a.to : null)
       : ON_BALL.has(a.type) || WINS_BALL.has(a.type) ? a.player : null;
-    this.pitch.draw(frame, ball, carrier, now);
+    this.pitch.draw(frame, ball, carrier, now, ballZ);
   }
 }
 

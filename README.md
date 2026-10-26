@@ -122,6 +122,13 @@ uvicorn chalk.server:app --port 8000   # then open http://localhost:8000 and pre
 
 ## In the app
 
+- **A floodlit stadium**: mown two-tone grass with grain and goalmouth wear, four floodlight pools and the matching four soft shadows under every player, stands full of fans in each club's colours, a floodlit roof, 3D goals with nets, corner flags, and LED boards that scroll and switch to the scorer's colours (with camera flashes in the stands) after a goal
+- **Three cameras**: Broadcast (gantry), **Follow cam** (zoomed, panning with the ball like a TV match camera) and Tactical (top down), with animated moves between them; long passes and shots fly in an arc with a shadow and a trail
+- **Analytics layers** (Layers button on the pitch), all computed live in the browser from the positions: **space control** (exact Voronoi cells and each team's share of the pitch), **team shape** (outfield block, width x depth, back-line height), **heatmaps** (team, or the player you follow), **pass network** (last 15 minutes) and **run trails**
+- **Clickable players**: hover to highlight, click for a player card (live stats, top speed, a heatmap so far) with *Follow* and *Ask the studio*
+- **Win probability**: a live Poisson model on each team's xG so far, adjusted for red cards, computed by code
+- **Event cards**: shots, fouls, cards, subs and top speeds stack in on the pitch as layered cards
+
 - **Ask the studio**: a chat tab with suggested questions, a microphone for spoken questions and spoken answers (Voice on); each answer shows its VAR badge and the MCP tools it called, and the player it talks about is ringed on the pitch
 - **New match**: simulates a match nobody has seen (a new seed) and the crew explains it live, start to finish
 - **Trust report** (Studio crew tab): claims checked, facts cited, how many times VAR overturned the AI, rulebook versions aired, drawings kept, model calls, Q&A answers sent back, and median / p95 latency per agent

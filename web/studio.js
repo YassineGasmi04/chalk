@@ -150,6 +150,7 @@ export class Studio {
       t.tabIndex = on ? 0 : -1;
       $(t.getAttribute("aria-controls")).hidden = !on;
     });
+    document.dispatchEvent(new CustomEvent("tabchange"));
   }
 
   // ---------------------------------------------------------- scheduling
