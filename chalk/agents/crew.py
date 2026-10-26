@@ -358,7 +358,7 @@ class Crew:
                 result = await crew.call("personalizer", payload, card)
                 variants = result.get("variants") or {}
                 allowed = rulebook.allowed_numbers(card.facts, card.extra_numbers())
-                problems = rulebook.check_variants(variants, allowed, PERSONAS, LANGUAGES)
+                problems = rulebook.check_variants(variants, allowed, PERSONAS, LANGUAGES, card.facts)
                 if problems:
                     safe = offline.personalizer(payload)["variants"]
                     for (p, lang) in problems:

@@ -618,6 +618,8 @@
   "facts": {
    "clock": "26'",
    "score": "1-0",
+   "goal_effect": "opening goal",
+   "score_before": "0-0",
    "scorer": "Yaw Mensah-Cole",
    "assist": null,
    "xg": 0.254,
@@ -955,6 +957,8 @@
   "facts": {
    "clock": "29'",
    "score": "2-0",
+   "goal_effect": "extends the lead",
+   "score_before": "1-0",
    "scorer": "Yaw Mensah-Cole",
    "assist": null,
    "xg": 0.388,
@@ -2085,6 +2089,8 @@
   "facts": {
    "clock": "40'",
    "score": "2-1",
+   "goal_effect": "pulls one back",
+   "score_before": "2-0",
    "scorer": "Adebayo Lorne",
    "assist": "Kai Holmberg",
    "xg": 0.252,
@@ -3776,6 +3782,8 @@
   "facts": {
    "clock": "71'",
    "score": "2-2",
+   "goal_effect": "equaliser",
+   "score_before": "2-1",
    "scorer": "Kai Holmberg",
    "assist": "Jules Moreau-Vance",
    "xg": 0.119,
@@ -5137,6 +5145,8 @@
   "facts": {
    "clock": "89'",
    "score": "3-2",
+   "goal_effect": "goes ahead",
+   "score_before": "2-2",
    "scorer": "Yaw Mensah-Cole",
    "assist": "Elias Brandt",
    "xg": 0.461,

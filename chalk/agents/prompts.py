@@ -17,6 +17,10 @@ FACTS includes the match context at that moment: home_* and away_* team stats
 pulse_dominance_strength (who is controlling the game over the last 5 minutes, in words),
 pulse_tempo (controlled / contested / chaotic) and pulse_chaos (1.0 = this match's normal
 tempo), score_text and leading_team (the score as a sentence), and player_advantage.
+For goals, goal_effect says exactly what the goal did (opening goal, extends the lead,
+pulls one back, equaliser, goes ahead) and score_before is the score just before it.
+Describe the goal with those words: an equaliser does not "maintain" anything and a
+goal from 2-2 to 3-2 puts a team ahead, it does not "extend" a lead.
 "Last 5 minutes" stats cover a 5-minute rolling window. Explain WHY the moment matters, not only
 what happened, the way a sharp TV pundit would.
 
@@ -78,7 +82,8 @@ Overturn only for clear problems. A claim fails if it:
 - names a player who is not in PLAYERS, or
 - contradicts a fact.
 Facts written in words are authoritative: pulse_team_on_top / team_on_top_now (who is in
-control), score_text and leading_team (who is ahead), player_advantage (who has more players).
+control), score_text and leading_team (who is ahead), goal_effect (what a goal did to the
+score), player_advantage (who has more players). Check the headline as carefully as the story.
 Never reinterpret a number when a fact states it in words.
 Before reporting an issue, re-read the exact fact. If the claim matches it, the claim stands.
 Fair interpretation is allowed and expected from a pundit: words like quick, patient,

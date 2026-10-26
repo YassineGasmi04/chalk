@@ -234,3 +234,19 @@ def test_one_broken_deployment_does_not_silence_the_others(match):
         assert out.var["final"] == "rulebook-only"
     assert crew.circuit_open == {"gpt-4.1"}
     assert "gpt-4.1" in crew.errors and "gpt-4.1-mini" not in crew.errors
+
+
+def test_fourth_live_run_score_logic(match):
+    """Round 4 live run: three score-logic slips got past the judge. The rulebook
+    owns that arithmetic now."""
+    goals = {c.facts["clock"]: c for c in cards_for(match, types={"goal"})}
+    assert [g.facts["goal_effect"] for g in goals.values()] == \
+        ["opening goal", "extends the lead", "pulls one back", "equaliser", "goes ahead"]
+    eq, winner = goals["71'"], goals["89'"]
+    assert rulebook.check_score_logic("Holmberg scores, maintaining the 2-2 deadlock", eq.facts)
+    assert rulebook.check_score_logic("Mensah-Cole extends Ashvale's lead to 3-2", winner.facts)
+    assert rulebook.check_score_logic("Mensah-Cole puts Ashvale ahead at 3-2", winner.facts) == []
+    red = cards_for(match, types={"red_card"}, n=1)[0]
+    assert red.facts["leading_team"] == "level"
+    assert rulebook.check_score_logic("Kestrel Bay down to 10 men, yet still leading", red.facts)
+    assert rulebook.check_score_logic("Kestrel Bay down to 10 men at 2-2", red.facts) == []

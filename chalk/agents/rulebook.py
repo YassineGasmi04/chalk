@@ -79,6 +79,46 @@ def check_language(text: str) -> list[str]:
     return issues
 
 
+# ------------------------------------------------------------- score logic
+# words that contradict what a goal did to the score (English text)
+EFFECT_CLASHES = {
+    "opening goal": ["extend", "double", "equalis", "equaliz", "level the", "levels the", "pulls one back",
+                     "pull one back", "cuts the deficit", "still lead"],
+    "extends the lead": ["equalis", "equaliz", "opener", "opening goal", "pulls one back", "level the",
+                         "levels the"],
+    "pulls one back": ["extend", "double", "equalis", "equaliz", "opener", "opening goal", "level the",
+                       "levels the", "takes the lead", "goes ahead"],
+    "equaliser": ["extend", "double", "opener", "opening goal", "pulls one back",
+                  "takes the lead", "goes ahead", "still lead"],
+    "goes ahead": ["extend", "double", "equalis", "equaliz", "opener", "opening goal", "pulls one back",
+                   "still lead"],
+}
+# "maintaining the 2-2" is wrong for a goal that changed the score; "maintaining
+# their numerical advantage" is fine
+MAINTAIN_SCORE_RE = re.compile(
+    r"\b(maintain|maintains|maintaining|keep|keeps|keeping|preserv\w*)\s+(the|their|its)?\s*"
+    r"(\d+-\d+|lead|deadlock|draw|scoreline|level|parity|advantage on the scoreboard)", re.I)
+EFFECT_WORDS = {"opening goal": "is the opening goal", "extends the lead": "extends the lead",
+                "pulls one back": "pulls one back", "equaliser": "is the equaliser",
+                "goes ahead": "puts them ahead"}
+LEVEL_CLASH_RE = re.compile(r"\b(still (lead|leading|ahead|in front)|leading|extends? (their|the) lead)\b", re.I)
+
+
+def check_score_logic(text: str, facts: dict[str, Any]) -> list[str]:
+    low = (text or "").lower()
+    issues = []
+    effect = facts.get("goal_effect")
+    what = f"this goal {EFFECT_WORDS.get(effect, effect)} ({facts.get('score_before')} to {facts.get('score')})"
+    for word in EFFECT_CLASHES.get(effect, []):
+        if word in low:
+            issues.append(f"'{word}' contradicts the score: {what}")
+    if effect and effect != "extends the lead" and MAINTAIN_SCORE_RE.search(text or ""):
+        issues.append(f"says the score was kept, but {what}")
+    if facts.get("leading_team") == "level" and not effect and LEVEL_CLASH_RE.search(text or ""):
+        issues.append(f"says someone is leading, but the score is level ({facts.get('score_text', facts.get('score'))})")
+    return issues
+
+
 # ----------------------------------------------------------------- analysis
 ALIASES = {"team": "team_name", "opponent": "opponent_name", "minute": "clock", "time": "clock"}
 # fields of the moment itself, which the Analyst also sees
@@ -139,6 +179,7 @@ def check_analysis(analysis: dict[str, Any], facts: dict[str, Any], players: dic
     for t in texts:
         issues += check_numbers(t, allowed)
         issues += check_language(t)
+        issues += check_score_logic(t, facts)
     for c in analysis.get("claims", []):
         if not isinstance(c, dict):
             issues.append("claim is not an object")
@@ -244,7 +285,7 @@ def filter_drawings(drawings: Any, geometry: dict[str, Any],
 
 # ---------------------------------------------------------------- captions
 def check_variants(variants: Any, allowed: set[float], personas: list[str],
-                   languages: list[str]) -> dict[tuple[str, str], list[str]]:
+                   languages: list[str], facts: dict[str, Any] | None = None) -> dict[tuple[str, str], list[str]]:
     """Problems per (persona, language); a missing caption is a problem too."""
     out: dict[tuple[str, str], list[str]] = {}
     for p in personas:
@@ -257,6 +298,7 @@ def check_variants(variants: Any, allowed: set[float], personas: list[str],
             probs = check_numbers(caption, allowed) + check_numbers(v.get("tag", ""), allowed)
             if lang == "en":
                 probs += check_language(caption)
+                probs += check_score_logic(caption, facts or {})
             elif KEY_LEAK_RE.search(caption):
                 probs.append("internal data names in the caption")
             if len(caption.split()) > 40:

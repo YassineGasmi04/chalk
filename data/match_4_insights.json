@@ -1,6 +1,6 @@
 {
  "match_id": "synthetic-4",
- "generated_at": "2026-10-26T03:35:01+00:00",
+ "generated_at": "2026-10-26T03:38:57+00:00",
  "engine": {
   "provider": "foundry",
   "model": "gpt-4.1-mini",
@@ -38,15 +38,15 @@
   "ar"
  ],
  "stats": {
-  "calls": 41,
-  "cached": 37,
+  "calls": 84,
+  "cached": 0,
   "model_errors": 0,
-  "fallbacks": 0,
-  "overturned": 2,
-  "drawings_rejected": 2,
+  "fallbacks": 1,
+  "overturned": 5,
+  "drawings_rejected": 3,
   "captions_repaired": 0,
   "cards": 18,
-  "seconds": 43.4
+  "seconds": 79.0
  },
  "cards": [
   {
@@ -59,74 +59,40 @@
    "duration_s": 13.0,
    "title": "Momentum swings to Ashvale Rovers",
    "importance": 0.65,
-   "headline": "Ashvale Rovers Gain Clear Upper Hand Early",
-   "story": "Ashvale Rovers have taken a clear grip on the match with 54.4% possession and their first shot generating an expected goal value of 0.18. This early control, reflected in a 90% field tilt over the last five minutes, sets the tone and puts Kestrel Bay FC on the back foot despite the score remaining level.",
+   "headline": "Ashvale Rovers Gain Clear Upper Hand",
+   "story": "Ashvale Rovers have taken control early with 54.4% possession and their first shot on goal, creating an expected threat of 0.18 xG. Their dominance over the last five minutes, with 56.6% possession and a clear control strength, signals growing pressure on Kestrel Bay FC in this contested tempo.",
    "claims": [
     {
-     "text": "Ashvale Rovers lead possession with 54.4% and hold a clear control strength now.",
+     "text": "Ashvale Rovers hold 54.4% possession and lead shots with 1 attempt",
      "fact_keys": [
       "home_possession_pct",
-      "control_strength_now"
+      "home_shots"
      ]
     },
     {
-     "text": "They have created the only shot so far, carrying an xG of 0.18.",
+     "text": "They have created an expected goal chance of 0.18",
      "fact_keys": [
-      "home_shots",
       "home_xg"
      ]
     },
     {
-     "text": "The field tilt heavily favors Ashvale Rovers at 90% over the last five minutes.",
+     "text": "Control strength is clear in Ashvale Rovers’ favor over the last 5 minutes",
      "fact_keys": [
-      "field_tilt_last5_pct"
+      "pulse_dominance_strength",
+      "possession_last5_pct"
      ]
     }
    ],
    "focus_players": [
+    "h9",
     "h10",
-    "h11",
-    "h9"
+    "h11"
    ],
    "drawings": [
     {
-     "type": "arrow",
-     "from": [
-      73.8,
-      45.4
-     ],
-     "to": [
-      99.3,
-      29.1
-     ],
-     "style": "pass",
-     "label": "Brandt to Mensah-Cole"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      99.3,
-      29.1
-     ],
-     "to": [
-      100.5,
-      51.3
-     ],
-     "style": "pass",
-     "label": "Mensah-Cole to Dufay"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      100.5,
-      51.3
-     ],
-     "to": [
-      100.5,
-      51.3
-     ],
-     "style": "shot",
-     "label": "Dufay shot xG 0.18"
+     "type": "circle",
+     "player": "h9",
+     "label": "Mensah-Cole 9"
     },
     {
      "type": "circle",
@@ -135,37 +101,63 @@
     },
     {
      "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole 9"
+     "player": "h11",
+     "label": "Dufay 11"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      99.3,
+      29.1
+     ],
+     "to": [
+      73.8,
+      45.4
+     ],
+     "style": "pass",
+     "label": "9 to 10"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      73.8,
+      45.4
+     ],
+     "to": [
+      100.5,
+      51.3
+     ],
+     "style": "pass",
+     "label": "10 to 11"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers dominate possession at 54.4%, with a 90% field tilt and an xG of 0.18 from their only shot.",
-      "tag": "possession, xG, tilt"
+      "caption": "Ashvale Rovers press with 54.4% possession, 1 shot, 0.18 xG; clear control strength last 5 minutes.",
+      "tag": "possession, xG, control"
      },
      "fr": {
-      "caption": "Ashvale Rovers contrôlent 54,4% de possession, 90% d'inclinaison du terrain, xG 0,18 sur leur seul tir.",
-      "tag": "possession, xG, inclinaison"
+      "caption": "Ashvale Rovers dominent avec 54,4% possession, 1 tir, 0,18 xG; contrôle net sur 5 dernières minutes.",
+      "tag": "possession, xG, contrôle"
      },
      "ar": {
-      "caption": "أشفيل روفرز تسيطر على الكرة بنسبة 54.4% وتمتلك ميل الملعب 90% مع xG 0.18 من تسديدة واحدة.",
-      "tag": "الاستحواذ، xG، الميل"
+      "caption": "أشفيل روفرز يسيطرون بـ54.4% استحواذ، 1 تسديدة، 0.18 xG؛ قوة سيطرة واضحة في آخر 5 دقائق.",
+      "tag": "استحواذ، xG، سيطرة"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers hold the ball more with 54%, pushing play their way and making one shot with a small chance to score.",
+      "caption": "Ashvale Rovers have the ball more and took the first shot, showing they’re gaining control.",
       "tag": "possession"
      },
      "fr": {
-      "caption": "Ashvale Rovers gardent le ballon 54% du temps, dominent le jeu et ont tiré une fois avec une petite chance.",
+      "caption": "Ashvale Rovers ont plus le ballon et ont tiré en premier, montrant leur contrôle.",
       "tag": "possession"
      },
      "ar": {
-      "caption": "أشفيل روفرز تسيطر على الكرة 54% وتسيطر على اللعب مع تسديدة واحدة وفرصة تسجيل صغيرة.",
-      "tag": "الاستحواذ"
+      "caption": "أشفيل روفرز يملكون الكرة أكثر وسددوا أول كرة، ما يدل على سيطرتهم.",
+      "tag": "استحواذ"
      }
     }
    },
@@ -186,23 +178,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 10325
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 14616
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 8525
+     "ms": 18307
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 6770
+     "ms": 7551
     }
    ],
    "facts": {
@@ -227,75 +219,46 @@
    "duration_s": 13.0,
    "title": "The game breaks open",
    "importance": 0.55,
-   "headline": "Ashvale Rovers surge with chaotic energy",
-   "story": "Ashvale Rovers have taken clear command with 59.3% possession and three shots, building an xG of 0.22. The match tempo has spiked to chaotic levels, reflecting intense, unpredictable play that could soon break the deadlock. Kestrel Bay FC remain scoreless with no shots, struggling to respond under pressure.",
+   "headline": "Ashvale Rovers dominate in chaotic start",
+   "story": "Ashvale Rovers have seized control early with 59.3% possession and three shots, creating a promising 0.22 xG. The match tempo has spiked to chaotic, with a high turnover rate of 4.0 per minute, indicating intense pressure and rapid changes. This surge could set the tone for Ashvale to break the deadlock soon.",
    "claims": [
     {
-     "text": "Ashvale Rovers dominate possession and shots early on.",
+     "text": "Ashvale Rovers control 59.3% possession and have three shots",
      "fact_keys": [
       "home_possession_pct",
       "home_shots"
      ]
     },
     {
-     "text": "The match tempo is chaotic, increasing unpredictability.",
+     "text": "Match tempo is chaotic with a high turnover rate of 4.0 per minute",
      "fact_keys": [
       "pulse_tempo",
-      "pulse_chaos"
+      "turnovers_per_min_last5"
      ]
     },
     {
-     "text": "Kestrel Bay FC have yet to register a shot or xG.",
+     "text": "Ashvale Rovers lead clear dominance over last 5 minutes",
      "fact_keys": [
-      "away_shots",
-      "away_xg"
+      "pulse_dominance_strength",
+      "pulse_team_on_top"
      ]
     }
    ],
    "focus_players": [
     "h9",
     "h10",
-    "a9"
+    "h11"
    ],
    "drawings": [
     {
-     "type": "arrow",
-     "from": [
-      41.4,
-      28.6
-     ],
-     "to": [
-      65.9,
-      27.9
-     ],
-     "style": "pass",
-     "label": "Whitcombe to Mensah-Cole"
+     "type": "circle",
+     "player": "h11",
+     "label": "Dufay 11"
     },
     {
-     "type": "arrow",
-     "from": [
-      65.9,
-      27.9
-     ],
-     "to": [
-      46.1,
-      43.5
-     ],
-     "style": "carry",
-     "label": "Mensah-Cole carry"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      46.1,
-      43.5
-     ],
-     "to": [
-      67.5,
-      51.3
-     ],
-     "style": "pass",
-     "label": "Brandt to Dufay"
+     "type": "circle",
+     "player": "h10",
+     "label": "Brandt 10"
     },
     {
      "type": "circle",
@@ -303,38 +266,59 @@
      "label": "Mensah-Cole 9"
     },
     {
-     "type": "circle",
-     "player": "h10",
-     "label": "Brandt 10"
+     "type": "arrow",
+     "from": [
+      46.1,
+      43.5
+     ],
+     "to": [
+      65.9,
+      27.9
+     ],
+     "style": "pass",
+     "label": "Brandt to Mensah-Cole"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      65.9,
+      27.9
+     ],
+     "to": [
+      67.5,
+      51.3
+     ],
+     "style": "pass",
+     "label": "Mensah-Cole to Dufay"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers lead with 59.3% possession, 3 shots, chaotic tempo at 1.37 raises unpredictability.",
+      "caption": "Ashvale Rovers hold 59.3% possession, 3 shots, clear dominance last 5 minutes amid chaotic tempo and 4 turnovers/min.",
       "tag": "possession, tempo"
      },
      "fr": {
-      "caption": "Ashvale Rovers dominent avec 59,3% possession, 3 tirs, tempo chaotique à 1,37 accroît l'imprévisibilité.",
-      "tag": "possession, tempo"
+      "caption": "Ashvale Rovers dominent avec 59,3% de possession, 3 tirs, dominance nette et 4 pertes/min dans un rythme chaotique.",
+      "tag": "possession, rythme"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون بـ59.3% استحواذ، 3 تسديدات، الإيقاع الفوضوي 1.37 يزيد عدم التوقع.",
-      "tag": "الاستحواذ, الإيقاع"
+      "caption": "أشفيل روفرز تسيطر على 59.3% من الكرة، 3 تسديدات، وهيمنة واضحة خلال 5 دقائق وسط إيقاع فوضوي و4 خسائر بالكرة في الدقيقة.",
+      "tag": "السيطرة, الإيقاع"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers control the ball more and shoot often; the game feels wild and hard to predict.",
+      "caption": "Ashvale Rovers have the ball most and made 3 shots in a fast, messy game with lots of turnovers.",
       "tag": "possession"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont plus le ballon et tirent souvent; le match est intense et imprévisible.",
+      "caption": "Ashvale Rovers ont le ballon et 3 tirs dans un match rapide et désordonné avec beaucoup de pertes.",
       "tag": "possession"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة أكثر ويسددون كثيرًا؛ المباراة متقلبة وصعب التوقع.",
-      "tag": "الاستحواذ"
+      "caption": "أشفيل روفرز يملكون الكرة أكثر وسددوا 3 مرات في مباراة سريعة وفوضوية مع الكثير من فقدان الكرة.",
+      "tag": "السيطرة"
      }
     }
    },
@@ -355,23 +339,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 10251
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 14709
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 8473
+     "ms": 17932
     },
     {
      "agent": "Personalizer",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 5821
     }
    ],
    "facts": {
@@ -395,63 +379,40 @@
    "title": "Ashvale Rovers turn up the press",
    "importance": 0.7,
    "headline": "Ashvale Rovers dominate with intense pressing",
-   "story": "Ashvale Rovers have surged ahead in game control, holding 58% possession and firing 5 shots without conceding any. Their aggressive pressing, shown by 14 pressures and 7 turnovers won in the last five minutes, keeps Kestrel Bay FC under constant pressure, setting the stage for a potential breakthrough.",
+   "story": "Ashvale Rovers are clearly on top, controlling 58% possession and generating five shots with an expected goals of 0.3. Their high pressing effort, winning seven turnovers in the last five minutes, keeps Kestrel Bay FC under constant pressure, limiting them to zero shots and no xG. This sustained pressure could soon break the deadlock.",
    "claims": [
     {
-     "text": "Ashvale Rovers lead possession with 58% and 5 shots on goal.",
+     "text": "Ashvale Rovers hold 58% possession and five shots",
      "fact_keys": [
       "home_possession_pct",
       "home_shots"
      ]
     },
     {
-     "text": "They have forced 14 pressures and won 7 turnovers in the last five minutes.",
+     "text": "Kestrel Bay FC have yet to register a shot or xG",
      "fact_keys": [
-      "pressures_last5",
-      "turnovers_won_last5"
+      "away_shots",
+      "away_xg"
      ]
     },
     {
-     "text": "The match tempo remains contested but Ashvale Rovers clearly control the game.",
+     "text": "Ashvale Rovers won seven turnovers and applied 14 pressures in last 5 minutes",
      "fact_keys": [
-      "pulse_tempo",
-      "pulse_dominance_strength",
-      "pulse_team_on_top"
+      "turnovers_won_last5",
+      "pressures_last5"
      ]
     }
    ],
    "focus_players": [
-    "h8",
     "h9",
-    "h7"
+    "h8",
+    "h6"
    ],
    "drawings": [
     {
-     "type": "zone",
-     "points": [
-      [
-       44.5,
-       12.8
-      ],
-      [
-       92.3,
-       12.8
-      ],
-      [
-       92.3,
-       64.3
-      ],
-      [
-       44.5,
-       64.3
-      ]
-     ],
-     "label": "Pressing Zone"
-    },
-    {
      "type": "circle",
-     "player": "h7",
-     "label": "Varga 7"
+     "player": "h9",
+     "label": "Mensah-Cole 9"
     },
     {
      "type": "circle",
@@ -460,50 +421,88 @@
     },
     {
      "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole 9"
+     "player": "h6",
+     "label": "Whitcombe 6"
+    },
+    {
+     "type": "zone",
+     "points": [
+      [
+       55.8,
+       37.6
+      ],
+      [
+       62.1,
+       23.9
+      ],
+      [
+       88.5,
+       41.6
+      ],
+      [
+       92.3,
+       15.2
+      ],
+      [
+       44.5,
+       31.2
+      ],
+      [
+       49.1,
+       12.8
+      ],
+      [
+       48.2,
+       64.3
+      ],
+      [
+       56.4,
+       46.8
+      ]
+     ],
+     "label": "Pressing Zone"
     },
     {
      "type": "arrow",
      "from": [
-      92.3,
-      15.2
-     ],
-     "to": [
       88.5,
       41.6
      ],
+     "to": [
+      94.9,
+      18.2
+     ],
      "style": "run",
-     "label": "Varga presses Mensah-Cole"
+     "label": "Mensah-Cole press"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers hold 58% possession, 5 shots, 14 pressures, 7 turnovers last 5 minutes; clear dominance despite contested tempo.",
-      "tag": "pressing, possession"
+      "caption": "Ashvale Rovers press intensely, winning 7 turnovers and 14 pressures last 5 minutes; 58% possession, 5 shots, xG 0.3.",
+      "tag": "pressing, turnovers"
      },
      "fr": {
-      "caption": "Ashvale Rovers dominent avec 58% de possession, 5 tirs, 14 pressions et 7 récupérations en 5 min, tempo disputé.",
-      "tag": "pression, possession"
+      "caption": "Ashvale Rovers dominent avec 7 récupérations et 14 pressions en 5 dernières minutes; 58% possession, 5 tirs, xG 0,3.",
+      "tag": "pression, récupérations"
      },
      "ar": {
-      "caption": "أشفيل روفرز تسيطر ب58% استحواذ، 5 تسديدات، 14 ضغط و7 استحواذات خلال 5 دقائق، مع وتيرة متنازع عليها.",
-      "tag": "ضغط، استحواذ"
+      "caption": "أشفيل روفرز يضغطون بقوة، 7 استرجاعات و14 ضغوط خلال 5 دقائق، استحواذ 58% وخمس تسديدات.",
+      "tag": "ضغط, استرجاع"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers control the ball 58% of the time, with 5 shots and strong pressure causing 7 turnovers recently.",
-      "tag": "game control"
+      "caption": "Ashvale Rovers control the ball more and keep Kestrel Bay from shooting, pressing hard in last 5 minutes.",
+      "tag": "ball control"
      },
      "fr": {
-      "caption": "Ashvale Rovers gardent le ballon 58% du temps, tirent 5 fois et forcent 7 pertes de balle récemment.",
-      "tag": "contrôle du jeu"
+      "caption": "Ashvale Rovers gardent le ballon et empêchent Kestrel Bay de tirer, avec une forte pression ces 5 dernières minutes.",
+      "tag": "contrôle ballon"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة 58% من الوقت، مع 5 تسديدات وضغط قوي تسبب في 7 خسائر للخصم.",
-      "tag": "سيطرة المباراة"
+      "caption": "أشفيل روفرز يسيطرون على الكرة ويمنعون كسترل باي من التسديد، يضغطون بقوة في آخر 5 دقائق.",
+      "tag": "سيطرة الكرة"
      }
     }
    },
@@ -524,23 +523,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 10398
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 16813
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 8515
+     "ms": 16109
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 7069
+     "ms": 10740
     }
    ],
    "facts": {
@@ -562,31 +561,32 @@
    "clock": "26'",
    "t": 1556.9,
    "on_air_t": 1559.9,
-   "duration_s": 9.4,
+   "duration_s": 13.0,
    "title": "Yaw Mensah-Cole scores",
    "importance": 1.0,
-   "headline": "Mensah-Cole's strike breaks deadlock",
-   "story": "Yaw Mensah-Cole scores the opening goal for Ashvale Rovers after a 22-second buildup with four passes. Despite a chaotic tempo and no clear control from either side, Ashvale Rovers' 58.6% possession and seven shots show their attacking intent. This goal gives them a crucial 1-0 lead in a tightly contested match.",
+   "headline": "Yaw Mensah-Cole nets Ashvale's opener",
+   "story": "Yaw Mensah-Cole scores the opening goal for Ashvale Rovers after a 22-second buildup with four passes. Despite a chaotic tempo and balanced pressure, Ashvale's 58.6% possession and 7 shots reflect their attacking edge. This goal breaks the deadlock, giving Ashvale the lead and setting the tone for the match.",
    "claims": [
     {
-     "text": "Ashvale Rovers lead 1-0 after Mensah-Cole's goal",
+     "text": "Ashvale Rovers hold 58.6% possession and 7 shots",
      "fact_keys": [
-      "score_text",
-      "scorer",
-      "home_goals"
+      "home_possession_pct",
+      "home_shots"
      ]
     },
     {
-     "text": "Home team dominates possession with 58.6%",
+     "text": "The goal is the opening one, changing the score from 0-0 to 1-0",
      "fact_keys": [
-      "home_possession_pct"
+      "goal_effect",
+      "score_before",
+      "score_text"
      ]
     },
     {
-     "text": "Match tempo is chaotic with neither team controlling",
+     "text": "The match tempo is chaotic with balanced pressure from both teams",
      "fact_keys": [
       "pulse_tempo",
-      "pulse_team_on_top"
+      "pulse_dominance_strength"
      ]
     }
    ],
@@ -595,51 +595,96 @@
    ],
    "drawings": [
     {
-     "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole"
+     "type": "arrow",
+     "from": [
+      61.5,
+      36.5
+     ],
+     "to": [
+      77.1,
+      36.1
+     ],
+     "style": "pass",
+     "label": "Whitcombe to Mensah-Cole"
     },
     {
      "type": "arrow",
      "from": [
-      100.5,
-      39.5
+      77.1,
+      36.1
      ],
      "to": [
-      105.0,
-      32.5
+      64.9,
+      37.8
      ],
-     "style": "shot",
-     "label": "7.1m shot"
+     "style": "pass",
+     "label": "Mensah-Cole to Whitcombe"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      64.9,
+      37.8
+     ],
+     "to": [
+      77.8,
+      45.3
+     ],
+     "style": "carry",
+     "label": "Whitcombe carry"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      77.8,
+      45.3
+     ],
+     "to": [
+      83.6,
+      44.6
+     ],
+     "style": "carry"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      83.6,
+      44.6
+     ],
+     "to": [
+      93.3,
+      50.2
+     ],
+     "style": "carry"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Mensah-Cole's goal after 4 passes lifts Ashvale Rovers to 1-0; 58.6% possession and 7 shots underline field tilt.",
-      "tag": "possession, xG, pressing"
+      "caption": "Ashvale Rovers dominate with 58.6% possession, 7 shots; Mensah-Cole nets opener at 26', breaking 0-0 deadlock amid chaotic tempo.",
+      "tag": "possession, opener"
      },
      "fr": {
-      "caption": "But de Mensah-Cole après 4 passes, Ashvale mène 1-0; 58,6% de possession et 7 tirs montrent la domination.",
-      "tag": "possession, xG, pressing"
+      "caption": "Ashvale Rovers contrôlent 58,6% de possession, 7 tirs; Mensah-Cole ouvre le score à la 26e, brisant le 0-0 dans un tempo chaotique.",
+      "tag": "possession, but"
      },
      "ar": {
-      "caption": "هدف ياو منساه-كول بعد 4 تمريرات يمنح أشفيل روفرز التقدم 1-0 مع 58.6% استحواذ و7 تسديدات.",
-      "tag": "الاستحواذ، الضغط، التمريرات"
+      "caption": "أشفيل روفرز تستحوذ 58.6% وتسجل 7 تسديدات؛ ياو منساه-كول يفتتح التسجيل عند الدقيقة 26 وسط إيقاع فوضوي.",
+      "tag": "الاستحواذ, الهدف"
      }
     },
     "casual": {
      "en": {
-      "caption": "Yaw Mensah-Cole scored early, giving Ashvale Rovers a 1-0 lead with most of the ball and many shots.",
-      "tag": "goal lead"
+      "caption": "Yaw Mensah-Cole scored Ashvale’s first goal at 26 minutes, after they kept the ball most of the time and tried 7 shots.",
+      "tag": "first goal"
      },
      "fr": {
-      "caption": "Yaw Mensah-Cole a marqué tôt, offrant à Ashvale Rovers un avantage 1-0 avec la majorité du ballon.",
-      "tag": "but, avance"
+      "caption": "Yaw Mensah-Cole marque le premier but d’Ashvale à la 26e, après une bonne possession et 7 tirs tentés.",
+      "tag": "premier but"
      },
      "ar": {
-      "caption": "سجل ياو منساه-كول مبكراً ليمنح أشفيل روفرز التقدم 1-0 مع سيطرة واضحة على الكرة.",
-      "tag": "هدف، تقدم"
+      "caption": "سجل ياو منساه-كول أول هدف لأشفيل روفرز عند الدقيقة 26 بعد استحواذهم على الكرة و7 تسديدات.",
+      "tag": "الهدف الأول"
      }
     }
    },
@@ -649,16 +694,6 @@
     "history": [
      {
       "attempt": 1,
-      "verdict": "overturned",
-      "by": "judge",
-      "issues": [
-       "Claim that game tempo is chaotic with balanced control contradicts pulse_team_on_top fact stating 'neither team' is on top, which means no control by either side, not balanced control.",
-       "Headline 'Mensah-Cole's sharp strike extends lead' implies the lead was extended, but facts show the score is 1-0, so this was the opening goal, not an extension.",
-       "Phrase 'boosting Ashvale Rovers' advantage' suggests a growing lead, but the lead is only 1-0, so wording should reflect opening or initial lead rather than extension or boost."
-      ]
-     },
-     {
-      "attempt": 2,
       "verdict": "stands",
       "by": "judge",
       "issues": []
@@ -670,43 +705,30 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
-    },
-    {
-     "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
-    },
-    {
-     "agent": "VAR",
      "source": "model",
-     "ms": 9872
-    },
-    {
-     "agent": "Analyst",
-     "source": "model",
-     "ms": 10462
+     "ms": 12968
     },
     {
      "agent": "Telestrator",
      "source": "model",
-     "ms": 10218
+     "ms": 15594
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 8900
+     "ms": 15118
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 3771
+     "ms": 10590
     }
    ],
    "facts": {
     "clock": "26'",
     "score": "1-0",
+    "goal_effect": "opening goal",
+    "score_before": "0-0",
     "scorer": "Yaw Mensah-Cole",
     "assist": null,
     "xg": 0.254,
@@ -729,34 +751,32 @@
    "clock": "29'",
    "t": 1706.5,
    "on_air_t": 1709.5,
-   "duration_s": 9.4,
+   "duration_s": 13.0,
    "title": "Yaw Mensah-Cole scores",
    "importance": 1.0,
-   "headline": "Yaw Mensah-Cole Doubles Lead for Ashvale Rovers",
-   "story": "Yaw Mensah-Cole scores his second goal in just three minutes, extending Ashvale Rovers' lead to 2-0. This goal underscores Ashvale's clear upper hand, reflected in their 56.5% possession and 8 shots, putting Kestrel Bay FC under significant pressure early on. The contest remains intense but Ashvale's control is evident.",
+   "headline": "Mensah-Cole doubles lead with sharp finish",
+   "story": "Yaw Mensah-Cole scores his second goal in seven minutes, extending Ashvale Rovers' lead to 2-0. With 56.5% possession and a clear upper hand in the last five minutes, Ashvale Rovers are firmly in control, putting Kestrel Bay FC under significant pressure early on.",
    "claims": [
     {
-     "text": "Ashvale Rovers lead 2-0 with two quick goals from the same player.",
+     "text": "Ashvale Rovers hold 56.5% possession, dominating the game",
      "fact_keys": [
-      "home_goals",
+      "home_possession_pct",
+      "pulse_team_on_top"
+     ]
+    },
+    {
+     "text": "Mensah-Cole's goal extends the lead to 2-0",
+     "fact_keys": [
+      "goal_effect",
       "score_text",
-      "scorer",
       "scorer_goals_today"
      ]
     },
     {
-     "text": "Ashvale Rovers dominate possession and shots, holding 56.5% and 8 shots.",
+     "text": "Ashvale Rovers created a high-quality chance with 1.07 xG",
      "fact_keys": [
-      "home_possession_pct",
-      "home_shots"
-     ]
-    },
-    {
-     "text": "The match tempo is contested but Ashvale Rovers have clear control over the last 5 minutes.",
-     "fact_keys": [
-      "pulse_tempo",
-      "pulse_dominance_strength",
-      "pulse_team_on_top"
+      "home_xg",
+      "xg"
      ]
     }
    ],
@@ -764,6 +784,45 @@
     "h9"
    ],
    "drawings": [
+    {
+     "type": "arrow",
+     "from": [
+      46.1,
+      38.9
+     ],
+     "to": [
+      72.5,
+      17.8
+     ],
+     "style": "pass",
+     "label": "Whitcombe to Varga"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      72.5,
+      17.8
+     ],
+     "to": [
+      86.1,
+      21.9
+     ],
+     "style": "carry",
+     "label": "Varga carry"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      86.1,
+      21.9
+     ],
+     "to": [
+      98.5,
+      31.0
+     ],
+     "style": "pass",
+     "label": "Varga to Mensah-Cole"
+    },
     {
      "type": "circle",
      "player": "h9",
@@ -780,36 +839,36 @@
       33.6
      ],
      "style": "shot",
-     "label": "Goal 7.2m"
+     "label": "Mensah-Cole shot"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Yaw Mensah-Cole nets twice; Ashvale Rovers lead 2-0 with 56.5% possession and 8 shots, dominating last 5 minutes.",
-      "tag": "possession, goals"
+      "caption": "Ashvale Rovers dominate with 56.5% possession, 1.07 xG; Mensah-Cole doubles lead to 2-0 at 29'",
+      "tag": "possession, xG, score"
      },
      "fr": {
-      "caption": "Yaw Mensah-Cole marque deux fois; Ashvale Rovers mènent 2-0 avec 56,5% de possession et 8 tirs, contrôle net 5 dernières minutes.",
-      "tag": "possession, buts"
+      "caption": "Ashvale Rovers contrôlent 56,5% de possession, 1,07 xG; Mensah-Cole porte le score à 2-0 à la 29e",
+      "tag": "possession, xG, score"
      },
      "ar": {
-      "caption": "ياو منساه-كول يسجل هدفين، أشفيل روفرز يتقدم 2-0 مع 56.5% استحواذ و8 تسديدات، سيطرة واضحة آخر 5 دقائق.",
-      "tag": "استحواذ, أهداف"
+      "caption": "أشفيل روفرز تسيطر ب56.5% استحواذ و1.07 xG؛ ياو منساه-كول يضاعف النتيجة 2-0 في الدقيقة 29",
+      "tag": "استحواذ، xG، هدف"
      }
     },
     "casual": {
      "en": {
-      "caption": "Yaw Mensah-Cole scored two quick goals, helping Ashvale Rovers lead 2-0 with most of the ball and shots.",
-      "tag": "two goals"
+      "caption": "Ashvale Rovers hold the ball more and make good chances; Mensah-Cole scores twice for a 2-0 lead",
+      "tag": "possession, goal"
      },
      "fr": {
-      "caption": "Yaw Mensah-Cole a marqué deux buts rapides, Ashvale Rovers mènent 2-0 en gardant le ballon et tirant plus.",
-      "tag": "deux buts"
+      "caption": "Ashvale Rovers gardent plus le ballon et créent des occasions; Mensah-Cole marque deux fois, 2-0",
+      "tag": "possession, but"
      },
      "ar": {
-      "caption": "ياو منساه-كول سجل هدفين سريعاً، أشفيل روفرز يتقدم 2-0 مع سيطرة على الكرة والتسديدات.",
-      "tag": "هدفين"
+      "caption": "أشفيل روفرز يسيطرون على الكرة ويخلقون فرصًا؛ ياو منساه-كول يسجل مرتين ليصبح 2-0",
+      "tag": "استحواذ، هدف"
      }
     }
    },
@@ -830,28 +889,30 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 12687
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13677
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 9223
+     "ms": 16585
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 14341
+     "ms": 7935
     }
    ],
    "facts": {
     "clock": "29'",
     "score": "2-0",
+    "goal_effect": "extends the lead",
+    "score_before": "1-0",
     "scorer": "Yaw Mensah-Cole",
     "assist": null,
     "xg": 0.388,
@@ -874,34 +935,33 @@
    "clock": "34'",
    "t": 2030.2,
    "on_air_t": 2033.2,
-   "duration_s": 9.4,
+   "duration_s": 11.8,
    "title": "Big chance for Yaw Mensah-Cole",
    "importance": 0.71,
-   "headline": "Yaw Mensah-Cole’s big chance saved",
-   "story": "Yaw Mensah-Cole fires a powerful shot from close range, but it’s saved, keeping the score at 2-0. Despite Ashvale Rovers’ clear control and higher expected goals, Kestrel Bay FC’s defense holds firm in this controlled phase, preventing further damage. This moment highlights Kestrel Bay’s resilience amid Ashvale’s dominance.",
+   "headline": "Yaw Mensah-Cole's big chance saved",
+   "story": "Yaw Mensah-Cole fires a powerful shot from 8.7 metres that is saved, keeping Ashvale Rovers' 2-0 lead intact. Despite Kestrel Bay FC controlling the game with 45.7% possession over the last five minutes, Ashvale's 54.3% possession and 1.29 xG show their attacking threat remains strong.",
    "claims": [
     {
-     "text": "Ashvale Rovers have 54.3% possession and 1.29 xG, showing clear control.",
+     "text": "Ashvale Rovers hold a clear advantage with 54.3% possession and 1.29 xG",
      "fact_keys": [
       "home_possession_pct",
-      "home_xg",
-      "pulse_dominance_strength"
+      "home_xg"
      ]
     },
     {
-     "text": "Yaw Mensah-Cole’s shot from 8.7 meters at 77.4 km/h was saved.",
-     "fact_keys": [
-      "shot_distance_m",
-      "shot_speed_kmh",
-      "outcome",
-      "shooter"
-     ]
-    },
-    {
-     "text": "Kestrel Bay FC is on top in the last 5 minutes despite only 45.7% possession.",
+     "text": "Kestrel Bay FC has controlled the game recently despite trailing 2-0",
      "fact_keys": [
       "pulse_team_on_top",
-      "away_possession_pct"
+      "pulse_dominance_strength",
+      "score"
+     ]
+    },
+    {
+     "text": "Mensah-Cole's 77.4 km/h shot from close range was saved",
+     "fact_keys": [
+      "shot_speed_kmh",
+      "shot_distance_m",
+      "outcome"
      ]
     }
    ],
@@ -909,11 +969,6 @@
     "h9"
    ],
    "drawings": [
-    {
-     "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole 9"
-    },
     {
      "type": "arrow",
      "from": [
@@ -925,36 +980,59 @@
       32.0
      ],
      "style": "shot",
-     "label": "Saved shot"
+     "label": "Mensah-Cole shot 77 km/h"
+    },
+    {
+     "type": "circle",
+     "player": "h9",
+     "label": "Mensah-Cole #9"
+    },
+    {
+     "type": "circle",
+     "player": "h1",
+     "label": "Lindqvist GK"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      105.0,
+      32.0
+     ],
+     "to": [
+      101.0,
+      35.4
+     ],
+     "style": "run",
+     "label": "Save by Lindqvist"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers hold 54.3% possession, 1.29 xG; Yaw Mensah-Cole’s 8.7m shot at 77.4 km/h saved; Kestrel Bay leads pulse despite 45.7% possession.",
-      "tag": "possession, xG, pulse"
+      "caption": "Ashvale leads 2-0 with 54.3% possession, 1.29 xG; Kestrel Bay controls play but trails.",
+      "tag": "possession, xG"
      },
      "fr": {
-      "caption": "Ashvale Rovers dominent avec 54,3% de possession, 1,29 xG; tir à 8,7m à 77,4 km/h de Yaw Mensah-Cole arrêté; Kestrel Bay mène le pulse à 45,7%.",
-      "tag": "possession, xG, pulse"
+      "caption": "Ashvale domine 2-0 avec 54,3% possession, 1,29 xG; Kestrel Bay contrôle mais perd.",
+      "tag": "possession, xG"
      },
      "ar": {
-      "caption": "أشفيل روفرز تسيطر بـ54.3% استحواذ و1.29 xG؛ تسديدة ياو منساه-كول من 8.7م بسرعة 77.4 كم/س تصدى لها؛ كسترل باي يتصدر النبض رغم 45.7%.",
-      "tag": "استحواذ، xG، نبض"
+      "caption": "آشفيل روفرز يتقدم 2-0 مع 54.3% استحواذ و1.29 xG؛ كسترل باي يسيطر لكنه متأخر.",
+      "tag": "استحواذ، xG"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers control the ball more and create better chances. Yaw Mensah-Cole’s close shot was saved, but Kestrel Bay stays strong.",
-      "tag": "control, chance"
+      "caption": "Ashvale Rovers lead 2-0 and keep most of the ball; Kestrel Bay plays well but is behind.",
+      "tag": "lead, control"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont plus le ballon et de meilleures occasions. Le tir proche de Yaw Mensah-Cole a été arrêté, Kestrel Bay reste solide.",
-      "tag": "contrôle, occasion"
+      "caption": "Ashvale Rovers mène 2-0 et garde le ballon; Kestrel Bay joue bien mais est derrière.",
+      "tag": "avance, contrôle"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة ويصنعون فرصاً أفضل. تسديدة ياو منساه-كول القريبة تصدى لها الحارس، لكن كسترل باي صامد.",
-      "tag": "سيطرة، فرصة"
+      "caption": "آشفيل روفرز متقدم 2-0 ويسيطر على الكرة؛ كسترل باي يلعب جيدًا لكنه متأخر.",
+      "tag": "تقدم، سيطرة"
      }
     }
    },
@@ -975,23 +1053,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13053
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 14615
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 9550
+     "ms": 15645
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 8697
+     "ms": 8308
     }
    ],
    "facts": {
@@ -1016,29 +1094,28 @@
    "duration_s": 13.0,
    "title": "Kestrel Bay FC turn up the press",
    "importance": 0.7,
-   "headline": "Kestrel Bay intensifies press despite 2-0 deficit",
-   "story": "Kestrel Bay FC is ramping up pressure with 16 pressures in the last 5 minutes, trying to disrupt Ashvale Rovers' rhythm. Despite trailing 2-0, they have won 5 turnovers recently, showing urgency to regain control in a contested, slightly chaotic game. Ashvale still holds a slight edge in possession and chances.",
+   "headline": "Kestrel Bay FC intensify pressing despite 2-0 deficit",
+   "story": "Kestrel Bay FC ramp up their press with 16 pressures in the last five minutes, seeking to disrupt Ashvale Rovers who hold 55.7% possession and a strong 1.32 xG. Though trailing 2-0, Kestrel Bay's increased turnovers won and high turnovers last five minutes suggest growing momentum in a contested, slightly chaotic game.",
    "claims": [
     {
-     "text": "Kestrel Bay FC has increased defensive pressure with 16 pressures in the last 5 minutes.",
+     "text": "Kestrel Bay FC have applied 16 pressures in the last five minutes.",
      "fact_keys": [
       "pressures_last5"
      ]
     },
     {
-     "text": "Ashvale Rovers leads 2-0 with 55.7% possession and 10 shots, maintaining a slight upper hand.",
+     "text": "Ashvale Rovers dominate possession at 55.7% with 10 shots and 1.32 xG.",
      "fact_keys": [
-      "home_goals",
       "home_possession_pct",
       "home_shots",
-      "score_text"
+      "home_xg"
      ]
     },
     {
-     "text": "The match tempo is contested and slightly more chaotic than usual, reflecting Kestrel Bay's pressing surge.",
+     "text": "The match tempo is contested with a slight edge to Ashvale Rovers.",
      "fact_keys": [
       "pulse_tempo",
-      "pulse_chaos"
+      "pulse_dominance_strength"
      ]
     }
    ],
@@ -1096,29 +1173,29 @@
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay doubles pressing to 16 in 5 mins, winning 5 turnovers but trailing 2-0; Ashvale holds 55.7% possession and 10 shots.",
-      "tag": "press surge"
+      "caption": "Kestrel Bay FC doubled pressing rate to 16 in last 5 minutes despite 0.02 xG, chasing Ashvale's 55.7% possession and 1.32 xG lead.",
+      "tag": "pressing, xG"
      },
      "fr": {
-      "caption": "Kestrel Bay intensifie le pressing à 16 actions en 5 min, 5 récupérations, mais perd 2-0; Ashvale domine avec 55,7% possession, 10 tirs.",
-      "tag": "pression accrue"
+      "caption": "Kestrel Bay FC a doublé les pressions à 16 en 5 dernières minutes, face à 55,7% de possession et 1,32 xG d'Ashvale.",
+      "tag": "pressions, xG"
      },
      "ar": {
-      "caption": "كسترل باي يضاعف الضغط إلى 16 مرة خلال 5 دقائق، مع 5 استرجاعات، لكنه متأخر 0-2؛ آشفال روفرز يسيطر ب55.7% استحواذ و10 تسديدات.",
-      "tag": "زيادة الضغط"
+      "caption": "كسترل باي ضغطت 16 مرة في آخر 5 دقائق رغم 0.02 xG، مقابل 55.7% استحواذ و1.32 xG لأشفيل روفرز.",
+      "tag": "ضغط، xG"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay is pressing harder, trying to catch up after trailing 2-0; Ashvale Rovers keeps more ball and shoots more.",
+      "caption": "Kestrel Bay FC pressed hard 16 times recently, trying to catch Ashvale Rovers who hold the ball more and have better chances.",
       "tag": "pressing"
      },
      "fr": {
-      "caption": "Kestrel Bay presse fort pour revenir après un 2-0; Ashvale garde plus le ballon et tire davantage.",
+      "caption": "Kestrel Bay FC presse fort 16 fois, pour rattraper Ashvale qui garde plus le ballon et crée plus d’occasions.",
       "tag": "pression"
      },
      "ar": {
-      "caption": "كسترل باي يضغط بقوة ليقلص الفارق بعد تأخره 0-2؛ آشفال روفرز يسيطر على الكرة أكثر ويسدد أكثر.",
+      "caption": "كسترل باي كثف الضغط 16 مرة في آخر دقائق، يحاولون اللحاق بأشفيل روفرز الذين يسيطرون على الكرة ويخلقون فرصاً.",
       "tag": "ضغط"
      }
     }
@@ -1140,23 +1217,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 15631
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 14751
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 9790
+     "ms": 13416
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 8564
+     "ms": 10174
     }
    ],
    "facts": {
@@ -1181,18 +1258,18 @@
    "duration_s": 13.0,
    "title": "Adebayo Lorne scores",
    "importance": 1.0,
-   "headline": "Kestrel Bay narrows gap amid chaotic play",
-   "story": "Adebayo Lorne scores from close range after a 30-second buildup, reducing Ashvale Rovers' lead to 2-1. Despite Ashvale's clear dominance and higher possession, Kestrel Bay's persistence in a chaotic tempo moment shifts momentum and keeps them in the contest.",
+   "headline": "Kestrel Bay pulls one back amid chaos",
+   "story": "Adebayo Lorne scores for Kestrel Bay FC to make it 2-1, pulling one back against Ashvale Rovers. Despite Ashvale's clear dominance and higher possession, Kestrel Bay's patient 30-second buildup and clinical finish show they can threaten even in a chaotic tempo. This goal shifts momentum and keeps Kestrel Bay in the fight.",
    "claims": [
     {
-     "text": "Kestrel Bay's goal came after a lengthy 30.4-second buildup involving 6 passes",
+     "text": "Kestrel Bay's goal comes after a 30.4-second buildup with 6 passes",
      "fact_keys": [
-      "buildup_passes",
-      "buildup_seconds"
+      "buildup_seconds",
+      "buildup_passes"
      ]
     },
     {
-     "text": "Ashvale Rovers lead 2-1 with 53.8% possession and 10 shots",
+     "text": "Ashvale Rovers lead 2-1 but have 53.8% possession and 10 shots",
      "fact_keys": [
       "home_possession_pct",
       "home_shots",
@@ -1201,7 +1278,7 @@
      ]
     },
     {
-     "text": "The match tempo is chaotic with Ashvale clearly on top over the last 5 minutes",
+     "text": "The match tempo is chaotic with Ashvale clearly on top",
      "fact_keys": [
       "pulse_tempo",
       "pulse_dominance_strength",
@@ -1225,7 +1302,7 @@
       11.6
      ],
      "style": "pass",
-     "label": "8 to 11"
+     "label": "Ferreira-Lind to Moreau-Vance"
     },
     {
      "type": "arrow",
@@ -1238,7 +1315,7 @@
       33.4
      ],
      "style": "pass",
-     "label": "11 to 9"
+     "label": "Moreau-Vance to Lorne"
     },
     {
      "type": "arrow",
@@ -1251,7 +1328,7 @@
       39.8
      ],
      "style": "run",
-     "label": "9 carry"
+     "label": "Lorne carry"
     },
     {
      "type": "arrow",
@@ -1264,7 +1341,7 @@
       60.8
      ],
      "style": "pass",
-     "label": "9 to 7"
+     "label": "Lorne to Holmberg"
     },
     {
      "type": "arrow",
@@ -1277,36 +1354,36 @@
       54.7
      ],
      "style": "run",
-     "label": "7 carry"
+     "label": "Holmberg carry"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay's goal ended a 30.4s buildup with 6 passes, cutting Ashvale's lead to 2-1 despite their 53.8% possession and 10 shots.",
-      "tag": "build-up, possession"
+      "caption": "Kestrel Bay's goal ends a 30.4s buildup with 6 passes amid chaotic tempo; Ashvale leads 2-1 with 53.8% possession and 10 shots.",
+      "tag": "possession, buildup"
      },
      "fr": {
-      "caption": "But de Kestrel Bay après une construction de 30,4s et 6 passes, réduisant l'avance d'Ashvale (53,8% possession, 10 tirs).",
-      "tag": "construction, possession"
+      "caption": "But de Kestrel Bay après 30,4s de construction et 6 passes; Ashvale domine 2-1 avec 53,8% de possession et 10 tirs.",
+      "tag": "possession, construction"
      },
      "ar": {
-      "caption": "سجل كستريل باي هدفًا بعد بناء هجمة استمر 30.4 ثانية و6 تمريرات، ليقلص الفارق أمام آشڤيل روفرز المتصدرة.",
-      "tag": "بناء_هجمة, استحواذ"
+      "caption": "هدف كستريل باي بعد بناء هجمة 30.4 ثانية و6 تمريرات وسط إيقاع فوضوي؛ آشڤيل متقدم 2-1 مع 53.8% استحواذ و10 تسديدات.",
+      "tag": "الاستحواذ, البناء"
      }
     },
     "casual": {
      "en": {
-      "caption": "Adebayo Lorne scored after a long 30-second team play, making it 2-1 as Ashvale still controls most of the ball.",
-      "tag": "goal, possession"
+      "caption": "Adebayo Lorne scores for Kestrel Bay after a calm 30-second build, pulling one back as Ashvale leads 2-1 with more ball control.",
+      "tag": "goal, build"
      },
      "fr": {
-      "caption": "Adebayo Lorne marque après une longue action de 30 secondes, 2-1, Ashvale garde la maîtrise du ballon.",
-      "tag": "but, possession"
+      "caption": "Adebayo Lorne marque pour Kestrel Bay après une construction calme de 30 secondes, réduisant l'écart face à Ashvale qui mène 2-1.",
+      "tag": "but, construction"
      },
      "ar": {
-      "caption": "أديبايو لورن سجل بعد هجمة طويلة استمرت 30 ثانية، ليصبح التعادل 2-1 مع سيطرة آشڤيل على الكرة.",
-      "tag": "هدف, استحواذ"
+      "caption": "أديبايو لورن يسجل لكستريل باي بعد هجمة هادئة دامت 30 ثانية، يقلص الفارق رغم تقدم آشڤيل 2-1.",
+      "tag": "هدف, بناء"
      }
     }
    },
@@ -1327,28 +1404,30 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 16039
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 15052
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 10576
+     "ms": 13123
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 13754
+     "ms": 12356
     }
    ],
    "facts": {
     "clock": "40'",
     "score": "2-1",
+    "goal_effect": "pulls one back",
+    "score_before": "2-0",
     "scorer": "Adebayo Lorne",
     "assist": "Kai Holmberg",
     "xg": 0.252,
@@ -1371,41 +1450,70 @@
    "clock": "45'",
    "t": 2641.8,
    "on_air_t": 2644.8,
-   "duration_s": 11.8,
+   "duration_s": 13.0,
    "title": "Momentum swings to Kestrel Bay FC",
    "importance": 0.65,
-   "headline": "Kestrel Bay FC Gains Momentum Despite Deficit",
-   "story": "After trailing 2-1, Kestrel Bay FC has edged into a slight advantage in control and possession over the last five minutes, shifting the game's rhythm. Their contested tempo and increased field tilt suggest growing pressure on Ashvale Rovers as the half closes, setting up a tense second half.",
+   "headline": "Kestrel Bay FC Edges Slight Control Before Half",
+   "story": "Kestrel Bay FC narrows the game's control with 54.5% field tilt and a slight dominance strength, despite trailing 2-1. The match tempo remains contested, suggesting a balanced but tense battle as the half ends. This subtle shift could set up Kestrel Bay FC for a stronger start after halftime.",
    "claims": [
     {
-     "text": "Kestrel Bay FC now holds 54.5% field tilt and slight control strength.",
+     "text": "Kestrel Bay FC holds a slight edge in control with 54.5% field tilt.",
      "fact_keys": [
       "field_tilt_last5_pct",
-      "control_strength_now"
+      "pulse_dominance_strength"
      ]
     },
     {
-     "text": "Possession in the last five minutes favors Kestrel Bay FC at 62.5%.",
+     "text": "The tempo is contested, reflecting a balanced and competitive match.",
      "fact_keys": [
-      "possession_last5_pct"
+      "pulse_tempo"
      ]
     },
     {
-     "text": "The match tempo remains contested with a slight increase in chaos at 1.19.",
+     "text": "Ashvale Rovers lead 2-1 despite Kestrel Bay FC's recent pressure.",
      "fact_keys": [
-      "pulse_tempo",
-      "pulse_chaos"
+      "score_text",
+      "home_goals",
+      "away_goals"
      ]
     }
    ],
    "focus_players": [
-    "a9"
+    "a9",
+    "h9"
    ],
    "drawings": [
+    {
+     "type": "zone",
+     "points": [
+      [
+       38.4,
+       28.9
+      ],
+      [
+       53.6,
+       28.8
+      ],
+      [
+       57.9,
+       42.2
+      ],
+      [
+       41.2,
+       50.5
+      ]
+     ],
+     "label": "Midfield Control Zone"
+    },
     {
      "type": "circle",
      "player": "a9",
      "label": "Lorne 9"
+    },
+    {
+     "type": "circle",
+     "player": "h9",
+     "label": "Mensah-Cole 9"
     },
     {
      "type": "arrow",
@@ -1414,66 +1522,53 @@
       28.9
      ],
      "to": [
-      44.7,
-      9.7
+      41.2,
+      50.5
      ],
-     "style": "pass",
-     "label": "Lorne to Moreau-Vance"
+     "style": "run",
+     "label": "Lorne Run"
     },
     {
      "type": "arrow",
      "from": [
-      44.7,
-      9.7
+      53.6,
+      28.8
      ],
      "to": [
-      57.0,
-      14.8
+      57.9,
+      42.2
      ],
-     "style": "pass",
-     "label": "Moreau-Vance to Chaouch"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      57.0,
-      14.8
-     ],
-     "to": [
-      60.2,
-      31.6
-     ],
-     "style": "pass",
-     "label": "Chaouch to Obi"
+     "style": "run",
+     "label": "Mensah-Cole Run"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay leads field tilt 54.5% with slight control; possession surges to 62.5%, tempo contested at chaos 1.19.",
+      "caption": "Kestrel Bay FC leads field tilt at 54.5%, showing slight dominance despite trailing 2-1 to Ashvale Rovers at halftime.",
       "tag": "field tilt"
      },
      "fr": {
-      "caption": "Kestrel Bay domine le terrain à 54,5%, légère maîtrise, possession à 62,5%, tempo disputé, chaos 1,19.",
-      "tag": "domination"
+      "caption": "Kestrel Bay FC domine légèrement le terrain à 54,5% malgré un retard 2-1 face à Ashvale Rovers à la mi-temps.",
+      "tag": "domination terrain"
      },
      "ar": {
-      "caption": "كسترل باي يسيطر على 54.5% من الملعب مع تحكم طفيف، الاستحواذ 62.5%، الإيقاع متنازع والفوضى 1.19.",
-      "tag": "السيطرة"
+      "caption": "كسترل باي يسيطر بنسبة 54.5% مع تفوق طفيف رغم تأخره 2-1 أمام آشفال روفرز عند منتصف الشوط.",
+      "tag": "سيطرة الملعب"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay now controls more of the field and has the ball 62.5% of the last five minutes, making the game more intense.",
-      "tag": "momentum"
+      "caption": "Kestrel Bay FC has a bit more control of the game at 54.5%, but Ashvale Rovers still lead 2-1 at halftime.",
+      "tag": "game control"
      },
      "fr": {
-      "caption": "Kestrel Bay prend le dessus avec plus de ballon (62,5%) et contrôle léger du jeu, le match devient plus intense.",
-      "tag": "momentum"
+      "caption": "Kestrel Bay FC a un peu plus le contrôle du jeu (54,5%), mais Ashvale Rovers mène 2-1 à la pause.",
+      "tag": "contrôle jeu"
      },
      "ar": {
-      "caption": "كسترل باي يسيطر على الكرة 62.5% في آخر 5 دقائق، واللعب أصبح أكثر حدة.",
-      "tag": "زخم"
+      "caption": "كسترل باي يسيطر قليلاً بنسبة 54.5% لكن آشفال روفرز متقدم 2-1 عند الاستراحة.",
+      "tag": "سيطرة اللعب"
      }
     }
    },
@@ -1483,36 +1578,59 @@
     "history": [
      {
       "attempt": 1,
+      "verdict": "overturned",
+      "by": "judge",
+      "issues": [
+       "Claim that Kestrel Bay FC leads possession with 62.5% in last 5 minutes is contradicted by field_tilt_last5_pct of 54.5, which does not clearly support Kestrel Bay FC leading possession that much",
+       "Claim that game tempo is contested with slight dominance favoring Kestrel Bay FC is acceptable, but 'shift the game's rhythm' implies a cause-effect not fully supported by facts",
+       "Headline 'Kestrel Bay FC Gains Momentum Before Half' implies a momentum gain not explicitly supported by facts beyond possession and slight dominance; momentum is a subjective interpretation that should be softened"
+      ]
+     },
+     {
+      "attempt": 2,
       "verdict": "stands",
       "by": "judge",
       "issues": []
      }
     ],
-    "drawing_issues": [
-     "label longer than 5 words"
-    ]
+    "drawing_issues": []
    },
    "fallbacks": [],
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 15291
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13764
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 10528
+     "ms": 15902
+    },
+    {
+     "agent": "Analyst",
+     "source": "model",
+     "ms": 14395
+    },
+    {
+     "agent": "Telestrator",
+     "source": "model",
+     "ms": 5798
+    },
+    {
+     "agent": "VAR",
+     "source": "model",
+     "ms": 7820
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 12729
+     "ms": 3086
     }
    ],
    "facts": {
@@ -1534,149 +1652,160 @@
    "clock": "53'",
    "t": 3243.4,
    "on_air_t": 3246.4,
-   "duration_s": 13.0,
+   "duration_s": 10.6,
    "title": "Ashvale Rovers turn up the press",
    "importance": 0.7,
-   "headline": "Ashvale Rovers intensify pressing despite Kestrel Bay's control",
-   "story": "Ashvale Rovers have increased their pressing effort, winning 5 turnovers in the last 5 minutes and applying 18 pressures, yet Kestrel Bay FC holds a slight upper hand in game momentum. Despite Ashvale's higher shots and expected goals, Kestrel Bay's controlled tempo and possession near 50% keep the contest finely balanced at 2-1.",
+   "headline": "Ashvale Rovers turn up the press",
+   "story": "Ashvale Rovers made 18 pressures in the last five minutes, 1.86 times their usual rate. That won the ball back 5 times, 3 of them in Kestrel Bay FC's half.",
    "claims": [
     {
-     "text": "Ashvale Rovers have won 5 turnovers and applied 18 pressures in the last 5 minutes.",
+     "text": "18 pressures in the last five minutes against an average of 9.7.",
+     "fact_keys": [
+      "pressures_last5",
+      "pressures_avg_per5",
+      "ratio"
+     ]
+    },
+    {
+     "text": "5 ball wins, 3 of them high up the pitch.",
      "fact_keys": [
       "turnovers_won_last5",
-      "pressures_last5"
-     ]
-    },
-    {
-     "text": "Kestrel Bay FC leads the pulse with a slight dominance and controlled tempo.",
-     "fact_keys": [
-      "pulse_dominance_strength",
-      "pulse_team_on_top",
-      "pulse_tempo"
-     ]
-    },
-    {
-     "text": "Ashvale Rovers have taken 11 shots with an expected goals of 1.42, showing attacking intent.",
-     "fact_keys": [
-      "home_shots",
-      "home_xg"
+      "high_turnovers_last5"
      ]
     }
    ],
-   "focus_players": [
-    "h8",
-    "h9",
-    "a10",
-    "a9"
-   ],
+   "focus_players": [],
    "drawings": [
     {
      "type": "zone",
      "points": [
       [
-       1.9,
-       16.2
+       14.8,
+       26.8
+      ],
+      [
+       30.9,
+       18.2
       ],
       [
        35.9,
-       16.2
+       37.9
       ],
       [
-       35.9,
-       58.9
+       30.2,
+       57.7
       ],
       [
-       1.9,
-       58.9
+       14.1,
+       48.5
       ]
      ],
-     "label": "Ashvale Pressing Zone"
+     "label": "Pressing trap"
     },
     {
      "type": "circle",
-     "player": "h8",
-     "label": "Haddadi 8"
+     "player": "h9"
     },
     {
      "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole 9"
-    },
-    {
-     "type": "circle",
-     "player": "a10",
-     "label": "Chaouch 10"
-    },
-    {
-     "type": "circle",
-     "player": "a9",
-     "label": "Lorne 9"
+     "player": "h7"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers win 5 turnovers, apply 18 pressures last 5 minutes; Kestrel Bay leads slight dominance, controlled tempo.",
-      "tag": "pressing, dominance"
+      "caption": "Ashvale Rovers doubled pressing intensity to 18 in last 5 minutes, winning 5 turnovers, 3 high up Kestrel Bay's half.",
+      "tag": "press surge"
      },
      "fr": {
-      "caption": "Ashvale Rovers remportent 5 pertes et exercent 18 pressions en 5 min; Kestrel Bay domine légèrement avec tempo contrôlé.",
-      "tag": "pression, domination"
+      "caption": "Ashvale Rovers a doublé la pression à 18 actions en 5 minutes, récupérant 5 ballons, dont 3 haut dans le camp de Kestrel Bay.",
+      "tag": "pression forte"
      },
      "ar": {
-      "caption": "أشفيل روفرز يفوزون بـ5 استحواذات ويضغطون 18 مرة خلال 5 دقائق؛ كسترل باي يسيطر بتفوق طفيف وإيقاع متحكم.",
-      "tag": "ضغط, سيطرة"
+      "caption": "أشفيل روفرز ضاعفوا الضغط إلى 18 في آخر 5 دقائق، واستعادوا الكرة 5 مرات، 3 منها في نصف كسترل باي.",
+      "tag": "ضغط مكثف"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers press hard, forcing 5 turnovers recently, but Kestrel Bay controls the game with calm play.",
-      "tag": "pressure"
+      "caption": "Ashvale Rovers pressed hard late, twice their usual effort, winning the ball 5 times, mostly near Kestrel Bay’s goal.",
+      "tag": "strong press"
      },
      "fr": {
-      "caption": "Ashvale Rovers intensifient la pression, gagnant 5 ballons, mais Kestrel Bay garde le contrôle du jeu.",
-      "tag": "pression"
+      "caption": "Ashvale Rovers ont pressé fort en fin de match, deux fois plus que d’habitude, récupérant 5 ballons près du but adverse.",
+      "tag": "pression forte"
      },
      "ar": {
-      "caption": "أشفيل روفرز يضغطون بقوة ويكسبون 5 كرات، لكن كسترل باي يسيطر على اللعب بهدوء.",
-      "tag": "ضغط"
+      "caption": "أشفيل روفرز ضغطوا بقوة في الدقائق الأخيرة، ضعف المعتاد، واستعادوا الكرة 5 مرات قرب مرمى كسترل باي.",
+      "tag": "ضغط قوي"
      }
     }
    },
    "var": {
     "verdict": "stands",
-    "final": "verified",
+    "final": "fallback",
     "history": [
      {
       "attempt": 1,
-      "verdict": "stands",
+      "verdict": "overturned",
       "by": "judge",
-      "issues": []
+      "issues": [
+       "Claim of 5 turnovers won in last 5 minutes contradicts fact of only 3 turnovers won last 5 minutes",
+       "Claim 'Kestrel Bay FC holds slight control with 50.3% possession and controlled tempo' is accurate but 'controlled tempo' is subjective; however, 'pulse_tempo' fact states 'controlled' so acceptable",
+       "Claim 'score remains 2-1 in favor of Ashvale Rovers despite Kestrel Bay's recent dominance' is accurate but 'recent dominance' is not supported by facts; pulse_team_on_top is Kestrel Bay FC with slight dominance, so 'recent dominance' is acceptable"
+      ]
+     },
+     {
+      "attempt": 2,
+      "verdict": "overturned",
+      "by": "judge",
+      "issues": [
+       "Claim that Ashvale Rovers won 5 turnovers in the last 5 minutes contradicts fact high_turnovers_last5 which is 3",
+       "Claim that Ashvale Rovers are trailing in possession is incorrect; pulse_team_on_top and away_possession_pct show Kestrel Bay FC has slight control with 50.3% possession, so Ashvale Rovers are not trailing in possession",
+       "Claim that Ashvale Rovers are protecting their 2-1 lead while trailing slightly in possession is contradictory; they are leading and Kestrel Bay FC is on top in possession and tempo"
+      ]
      }
     ],
     "drawing_issues": []
    },
-   "fallbacks": [],
+   "fallbacks": [
+    "analyst: overturned twice, rulebook-safe version aired"
+   ],
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 17878
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13182
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 10524
+     "ms": 13824
+    },
+    {
+     "agent": "Analyst",
+     "source": "model",
+     "ms": 11734
+    },
+    {
+     "agent": "Telestrator",
+     "source": "model",
+     "ms": 7682
+    },
+    {
+     "agent": "VAR",
+     "source": "model",
+     "ms": 9246
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 11083
+     "ms": 5295
     }
    ],
    "facts": {
@@ -1698,38 +1827,37 @@
    "clock": "63'",
    "t": 3853.9,
    "on_air_t": 3856.9,
-   "duration_s": 11.8,
+   "duration_s": 13.0,
    "title": "Momentum swings to Kestrel Bay FC",
    "importance": 0.65,
-   "headline": "Kestrel Bay FC Gains Momentum Despite Scoreline",
-   "story": "Kestrel Bay FC has edged on top in the last five minutes, shifting the pulse of the game despite trailing 2-1. Their slight control strength and 61.5% field tilt show growing pressure on Ashvale Rovers, who still hold a higher overall xG and shots tally. This momentum swing could set up a crucial equalizer.",
+   "headline": "Kestrel Bay FC Gains Momentum Despite Score Deficit",
+   "story": "Kestrel Bay FC has edged into a slight control over the last five minutes, shifting momentum in a tightly contested match. Despite trailing 2-1, their increased pressure with 61.5% field tilt and a pulse tempo described as contested shows they are pushing Ashvale Rovers hard. This swing could set up a crucial equaliser opportunity soon.",
    "claims": [
     {
-     "text": "Kestrel Bay FC leads the pulse with 61.5% field tilt in the last 5 minutes.",
+     "text": "Kestrel Bay FC leads the pulse with a slight dominance strength.",
      "fact_keys": [
-      "field_tilt_last5_pct",
-      "pulse_team_on_top"
+      "pulse_team_on_top",
+      "pulse_dominance_strength"
      ]
     },
     {
-     "text": "Ashvale Rovers maintain a higher total xG of 1.44 and 12 shots overall.",
+     "text": "They have tilted the field 61.5% in their favor over the last 5 minutes.",
      "fact_keys": [
-      "home_xg",
-      "home_shots"
+      "field_tilt_last5_pct"
      ]
     },
     {
-     "text": "The game tempo remains contested with a slight control advantage to Kestrel Bay FC.",
+     "text": "The game tempo remains contested with a slight increase in chaos at 1.06.",
      "fact_keys": [
       "pulse_tempo",
-      "control_strength_now"
+      "pulse_chaos"
      ]
     }
    ],
    "focus_players": [
-    "a19",
     "a11",
-    "h9"
+    "a19",
+    "a10"
    ],
    "drawings": [
     {
@@ -1743,6 +1871,11 @@
      "label": "Nkemelu 19"
     },
     {
+     "type": "circle",
+     "player": "a10",
+     "label": "Chaouch 10"
+    },
+    {
      "type": "arrow",
      "from": [
       11.5,
@@ -1750,7 +1883,7 @@
      ],
      "to": [
       41.2,
-      54.0
+      54
      ],
      "style": "pass",
      "label": "11 to 19"
@@ -1759,42 +1892,42 @@
      "type": "arrow",
      "from": [
       41.2,
-      54.0
+      54
      ],
      "to": [
-      13.6,
-      53.5
+      44,
+      24.7
      ],
-     "style": "carry",
-     "label": "Nkemelu carry"
+     "style": "pass",
+     "label": "19 to 10"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay leads pulse with 61.5% field tilt last 5 minutes, slight control edge despite trailing 2-1; Ashvale holds 1.44 xG and 12 shots.",
-      "tag": "field tilt"
+      "caption": "Kestrel Bay FC leads pulse with slight dominance; 61.5% field tilt last 5 minutes; tempo contested at 1.06 chaos.",
+      "tag": "momentum, pressure"
      },
      "fr": {
-      "caption": "Kestrel Bay domine le jeu avec 61,5% de field tilt sur 5 min, léger avantage de contrôle malgré un score de 2-1; Ashvale a 1,44 xG et 12 tirs.",
-      "tag": "field tilt"
+      "caption": "Kestrel Bay FC domine légèrement le pulse; 61,5% de terrain contrôlé en 5 min; tempo contesté avec chaos à 1,06.",
+      "tag": "momentum, pression"
      },
      "ar": {
-      "caption": "كسترل باي يسيطر بـ61.5% مجال اللعب آخر 5 دقائق مع تفوق بسيط رغم تأخره 2-1؛ أشفيل روفرز يملك 1.44 xG و12 تسديدة.",
-      "tag": "سيطرة الملعب"
+      "caption": "كسترل باي يتصدر النبض بسيطرة طفيفة؛ 61.5% ميل الملعب خلال 5 دقائق؛ الإيقاع متنازع مع فوضى 1.06.",
+      "tag": "زخم, ضغط"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay is pushing hard lately, controlling most of the field despite being behind 2-1; Ashvale Rovers still have more chances and shots.",
+      "caption": "Kestrel Bay FC is pushing hard, controlling most of the field lately despite trailing 2-1.",
       "tag": "momentum"
      },
      "fr": {
-      "caption": "Kestrel Bay prend le dessus ces dernières minutes, contrôlant le terrain malgré le score 2-1; Ashvale a plus d’occasions et tirs.",
+      "caption": "Kestrel Bay FC pousse fort, contrôlant le terrain malgré un score de 2-1.",
       "tag": "momentum"
      },
      "ar": {
-      "caption": "كسترل باي يضغط بقوة في الدقائق الأخيرة رغم تأخره 2-1؛ أشفيل روفرز لديهم فرص وتسديدات أكثر.",
+      "caption": "كسترل باي يضغط بقوة ويسيطر على الملعب رغم تأخره 2-1.",
       "tag": "زخم"
      }
     }
@@ -1810,31 +1943,29 @@
       "issues": []
      }
     ],
-    "drawing_issues": [
-     "zone corners are not anchored to real positions"
-    ]
+    "drawing_issues": []
    },
    "fallbacks": [],
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 18213
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 14071
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 11237
+     "ms": 12352
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 15296
+     "ms": 12205
     }
    ],
    "facts": {
@@ -1859,88 +1990,125 @@
    "duration_s": 13.0,
    "title": "Kestrel Bay FC switch to 4-2-3-1",
    "importance": 0.8,
-   "headline": "Kestrel Bay FC shifts formation to regain ground",
-   "story": "Kestrel Bay FC switches from a 4-3-3 to a 4-2-3-1 formation while trailing 2-1, aiming to stabilize midfield and create more attacking opportunities. Despite Ashvale Rovers holding 51.3% possession and a clear upper hand, this tactical change could disrupt the controlled tempo and help Kestrel Bay FC challenge the lead.",
+   "headline": "Kestrel Bay FC shifts to 4-2-3-1 formation",
+   "story": "Kestrel Bay FC changes their shape to a 4-2-3-1 while trailing 2-1, aiming to regain momentum against Ashvale Rovers. Despite Ashvale's controlled tempo and clear dominance with 51.3% possession and 14 shots, Kestrel Bay looks to stabilize and create chances with this tactical switch.",
    "claims": [
     {
-     "text": "Kestrel Bay FC changed formation to 4-2-3-1 while trailing 2-1",
+     "text": "Kestrel Bay FC switches from 4-3-3 to 4-2-3-1 formation",
      "fact_keys": [
-      "to_formation",
-      "score_text"
+      "from_formation",
+      "to_formation"
      ]
     },
     {
-     "text": "Ashvale Rovers maintain a clear upper hand with 51.3% possession and controlled tempo",
+     "text": "Ashvale Rovers hold 51.3% possession and have taken 14 shots",
      "fact_keys": [
       "home_possession_pct",
-      "pulse_dominance_strength",
-      "pulse_tempo"
+      "home_shots"
      ]
     },
     {
-     "text": "Kestrel Bay FC holds 48.7% possession but has fewer shots and lower xG",
+     "text": "Ashvale Rovers maintain a controlled tempo and clear dominance",
      "fact_keys": [
-      "away_possession_pct",
-      "away_shots",
-      "away_xg"
+      "pulse_tempo",
+      "pulse_dominance_strength"
      ]
     }
    ],
-   "focus_players": [],
+   "focus_players": [
+    "a10",
+    "a19",
+    "a9",
+    "h9",
+    "h6"
+   ],
    "drawings": [
     {
-     "type": "circle",
-     "player": "a3",
-     "label": "3 LB"
+     "type": "zone",
+     "points": [
+      [
+       96.9,
+       5.3
+      ],
+      [
+       90.9,
+       22.2
+      ],
+      [
+       99.6,
+       36.6
+      ],
+      [
+       95.8,
+       54.9
+      ],
+      [
+       87.7,
+       29.5
+      ],
+      [
+       84.4,
+       17.0
+      ],
+      [
+       70.0,
+       7.0
+      ],
+      [
+       65.7,
+       31.5
+      ]
+     ],
+     "label": "Kestrel Bay FC 4-2-3-1"
     },
     {
      "type": "circle",
-     "player": "a4",
-     "label": "4 CB"
+     "player": "a19",
+     "label": "Nkemelu 19 CAM"
     },
     {
      "type": "circle",
-     "player": "a5",
-     "label": "5 CB"
+     "player": "a10",
+     "label": "Chaouch 10 CM"
     },
     {
      "type": "circle",
-     "player": "a2",
-     "label": "2 RB"
+     "player": "a9",
+     "label": "Lorne 9 ST"
     },
     {
      "type": "circle",
-     "player": "a6",
-     "label": "6 DM"
+     "player": "h9",
+     "label": "Mensah-Cole 9 ST"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay FC shifts to 4-2-3-1 at 66', trailing 2-1; Ashvale leads with 51.3% possession, 1.54 xG, controlling tempo.",
+      "caption": "Kestrel Bay FC shifts from 4-3-3 to 4-2-3-1 at 66', trailing 2-1, facing Ashvale's 51.3% possession and 14 shots.",
       "tag": "formation shift"
      },
      "fr": {
-      "caption": "Kestrel Bay FC passe en 4-2-3-1 à la 66e, mené 2-1; Ashvale domine avec 51,3% possession, 1,54 xG, tempo contrôlé.",
+      "caption": "Kestrel Bay FC passe du 4-3-3 au 4-2-3-1 à la 66e, mené 2-1 face à Ashvale (51,3% possession, 14 tirs).",
       "tag": "changement tactique"
      },
      "ar": {
-      "caption": "كسترل باي يغير إلى 4-2-3-1 عند الدقيقة 66 متأخرًا 2-1؛ أشفيل يسيطر بـ51.3% استحواذ و1.54 xG.",
+      "caption": "كسترل باي يغير تشكيلته من 4-3-3 إلى 4-2-3-1 في الدقيقة 66، متأخر 2-1 أمام أشفيل روفرز.",
       "tag": "تغيير تكتيكي"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay FC changed shape to try to catch up, while Ashvale Rovers hold the ball more and lead 2-1.",
-      "tag": "team shape"
+      "caption": "Kestrel Bay changes shape to 4-2-3-1 at 66', trying to catch up as Ashvale controls the ball and shoots a lot.",
+      "tag": "team change"
      },
      "fr": {
-      "caption": "Kestrel Bay FC change de formation pour revenir, Ashvale garde le ballon et mène 2-1.",
-      "tag": "formation équipe"
+      "caption": "Kestrel Bay adopte un 4-2-3-1 à la 66e, pour revenir face à Ashvale qui domine le ballon et tire souvent.",
+      "tag": "changement"
      },
      "ar": {
-      "caption": "كسترل باي يغير تشكيلته لمحاولة التعادل، وأشفيل يسيطر على الكرة ويتقدم 2-1.",
-      "tag": "تشكيلة الفريق"
+      "caption": "كسترل باي يغير تشكيلته إلى 4-2-3-1 في الدقيقة 66 لمحاولة العودة أمام سيطرة أشفيل روفرز.",
+      "tag": "تغيير تشكيل"
      }
     }
    },
@@ -1955,29 +2123,31 @@
       "issues": []
      }
     ],
-    "drawing_issues": []
+    "drawing_issues": [
+     "zone corners are not anchored to real positions"
+    ]
    },
    "fallbacks": [],
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 19606
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13904
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 11220
+     "ms": 11817
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 14296
+     "ms": 14389
     }
    ],
    "facts": {
@@ -1994,31 +2164,32 @@
    "clock": "71'",
    "t": 4348.4,
    "on_air_t": 4351.4,
-   "duration_s": 13.0,
+   "duration_s": 11.8,
    "title": "Kai Holmberg scores",
    "importance": 1.0,
-   "headline": "Holmberg's strike levels tense contest",
-   "story": "Kai Holmberg scores from 14 metres after a patient 37-second buildup featuring 9 passes, showcasing Kestrel Bay FC's strategic persistence. Despite equal possession and a contested tempo, Kestrel Bay FC's clear recent ascendancy culminates in this crucial goal, maintaining the 2-2 deadlock and keeping momentum firmly in their favor.",
+   "headline": "Holmberg's equaliser halts Ashvale's lead",
+   "story": "Kai Holmberg levels the score at 2-2 for Kestrel Bay FC with a precise finish from 14 metres, assisted by Jules Moreau-Vance. This goal comes after Kestrel Bay's tactical switch and intensified pressing, reflecting their growing influence despite equal possession. The equaliser shifts momentum, keeping the contest fiercely balanced.",
    "claims": [
     {
-     "text": "The goal came after a 36.8-second buildup involving 9 passes.",
+     "text": "Kestrel Bay FC and Ashvale Rovers share 50% possession each at the time of the goal",
      "fact_keys": [
-      "buildup_passes",
-      "buildup_seconds"
+      "home_possession_pct",
+      "away_possession_pct"
      ]
     },
     {
-     "text": "Kestrel Bay FC and Ashvale Rovers share 50% possession each.",
+     "text": "The goal is an equaliser, bringing the score to 2-2",
      "fact_keys": [
-      "away_possession_pct",
-      "home_possession_pct"
+      "goal_effect",
+      "score_text"
      ]
     },
     {
-     "text": "Kestrel Bay FC has been clearly on top in the last 5 minutes.",
+     "text": "Kestrel Bay FC has a clear upper hand in the last 5 minutes despite contested tempo",
      "fact_keys": [
+      "pulse_dominance_strength",
       "pulse_team_on_top",
-      "pulse_dominance_strength"
+      "pulse_tempo"
      ]
     }
    ],
@@ -2030,96 +2201,67 @@
     {
      "type": "arrow",
      "from": [
-      67.1,
-      52.2
+      5.6,
+      42.0
      ],
      "to": [
-      50.9,
-      65.6
+      10.5,
+      43.3
      ],
      "style": "pass",
-     "label": "Pellegrino to Chaouch"
+     "label": "Moreau-Vance assist"
     },
     {
      "type": "arrow",
      "from": [
-      50.9,
-      65.6
+      10.5,
+      43.3
      ],
      "to": [
-      40.6,
-      67
+      0.0,
+      33.4
      ],
-     "style": "carry",
-     "label": "Chaouch carry"
+     "style": "shot",
+     "label": "Holmberg shot"
     },
     {
-     "type": "arrow",
-     "from": [
-      40.6,
-      67
-     ],
-     "to": [
-      28.4,
-      67
-     ],
-     "style": "carry",
-     "label": "Chaouch carry"
+     "type": "circle",
+     "player": "a11",
+     "label": "Moreau-Vance #11"
     },
     {
-     "type": "arrow",
-     "from": [
-      28.4,
-      67
-     ],
-     "to": [
-      19.4,
-      45.7
-     ],
-     "style": "pass",
-     "label": "Chaouch to Moreau-Vance"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      19.4,
-      45.7
-     ],
-     "to": [
-      11.3,
-      47.8
-     ],
-     "style": "carry",
-     "label": "Moreau-Vance carry"
+     "type": "circle",
+     "player": "a7",
+     "label": "Holmberg #7"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Holmberg nets after 36.8s buildup with 9 passes; Kestrel Bay leads pulse dominance last 5 minutes, possession equal at 50%.",
-      "tag": "build-up, possession"
+      "caption": "Kestrel Bay FC equalizes at 2-2 with Holmberg's 14m finish; possession split 50-50; Kestrel Bay dominates last 5 minutes despite contested tempo.",
+      "tag": "possession, equaliser"
      },
      "fr": {
-      "caption": "Holmberg marque après une construction de 36,8 s et 9 passes; Kestrel Bay domine clairement les 5 dernières minutes, possession à 50% chacun.",
-      "tag": "construction, possession"
+      "caption": "Kestrel Bay FC égalise à 2-2 par Holmberg à 14m; possession 50-50; domination nette des visiteurs sur 5 dernières minutes.",
+      "tag": "possession, égalisation"
      },
      "ar": {
-      "caption": "هولمبيرغ يسجل بعد بناء هجمة استمر 36.8 ثانية و9 تمريرات؛ كسترل باي يسيطر بوضوح خلال آخر 5 دقائق، والاستحواذ متساوٍ 50%.",
-      "tag": "بناء هجمة, استحواذ"
+      "caption": "كاي هولمبيرغ يعادل النتيجة 2-2 لكستريل باي رغم تساوي الاستحواذ 50%، مع تفوق واضح في آخر 5 دقائق.",
+      "tag": "الاستحواذ, التعادل"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kai Holmberg scored after a patient 37-second build-up with 9 passes; both teams had equal ball control.",
-      "tag": "goal, build-up"
+      "caption": "Kai Holmberg scored to make it 2-2. Both teams had the ball equally, but Kestrel Bay was stronger in the last 5 minutes.",
+      "tag": "equaliser"
      },
      "fr": {
-      "caption": "Kai Holmberg a marqué après une belle action de 37 secondes avec 9 passes; les deux équipes ont eu le même contrôle du ballon.",
-      "tag": "but, action"
+      "caption": "Kai Holmberg a marqué pour égaliser 2-2. Les deux équipes avaient le ballon à parts égales, mais Kestrel Bay a dominé les 5 dernières minutes.",
+      "tag": "égalisation"
      },
      "ar": {
-      "caption": "سجل كاي هولمبيرغ بعد هجمة هادئة استمرت 37 ثانية مع 9 تمريرات؛ الفريقان تحكما بالكرة بالتساوي.",
-      "tag": "هدف, هجمة"
+      "caption": "سجل كاي هولمبيرغ هدف التعادل 2-2. الفريقان استحوذا على الكرة بالتساوي، لكن كستريل باي كان أقوى في الدقائق الخمس الأخيرة.",
+      "tag": "تعادل"
      }
     }
    },
@@ -2140,28 +2282,30 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 20419
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13213
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 11352
+     "ms": 11757
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 15678
+     "ms": 15923
     }
    ],
    "facts": {
     "clock": "71'",
     "score": "2-2",
+    "goal_effect": "equaliser",
+    "score_before": "2-1",
     "scorer": "Kai Holmberg",
     "assist": "Jules Moreau-Vance",
     "xg": 0.119,
@@ -2187,79 +2331,49 @@
    "duration_s": 13.0,
    "title": "Momentum swings to Kestrel Bay FC",
    "importance": 0.65,
-   "headline": "Kestrel Bay FC Seizes Overwhelming Control",
-   "story": "After switching to a 4-2-3-1 and intensifying their press, Kestrel Bay FC has taken overwhelming control of the game despite equal possession. Their dominance is clear with 87.5% field tilt and a surge in xG momentum, leveling the score at 2-2 and shifting the game's balance in their favor.",
+   "headline": "Kestrel Bay FC Takes Command After Equaliser",
+   "story": "Kestrel Bay FC has seized overwhelming control in the last five minutes, despite an even scoreline at 2-2. Their surge to 74% possession and a dominant field tilt of 87.5% signals a strong push to break the deadlock. Ashvale Rovers, with more shots overall, now face pressure to respond as momentum shifts decisively.",
    "claims": [
     {
-     "text": "Kestrel Bay FC dominates with 87.5% field tilt in the last 5 minutes",
+     "text": "Kestrel Bay FC controls 74% possession in the last five minutes",
+     "fact_keys": [
+      "possession_last5_pct"
+     ]
+    },
+    {
+     "text": "The field tilt heavily favors Kestrel Bay FC at 87.5%",
      "fact_keys": [
       "field_tilt_last5_pct"
      ]
     },
     {
-     "text": "They hold overwhelming control now with a contested tempo",
+     "text": "Kestrel Bay FC has overwhelming dominance strength now",
      "fact_keys": [
-      "control_strength_now",
-      "pulse_tempo"
-     ]
-    },
-    {
-     "text": "Their xG momentum has increased to 0.12 in the last 5 minutes",
-     "fact_keys": [
-      "xg_last5"
+      "pulse_dominance_strength",
+      "control_strength_now"
      ]
     }
    ],
    "focus_players": [
     "a7",
-    "a19",
-    "a9"
+    "a9",
+    "a19"
    ],
    "drawings": [
     {
-     "type": "zone",
-     "points": [
-      [
-       61.1,
-       28.8
-      ],
-      [
-       70.1,
-       39.5
-      ],
-      [
-       83.5,
-       37.3
-      ],
-      [
-       84.3,
-       24.4
-      ],
-      [
-       79.1,
-       9.1
-      ],
-      [
-       59.7,
-       12.2
-      ]
-     ],
-     "label": "High Press Zone"
-    },
-    {
      "type": "circle",
      "player": "a7",
-     "label": "Holmberg 7"
-    },
-    {
-     "type": "circle",
-     "player": "a19",
-     "label": "Nkemelu 19"
+     "label": "Holmberg 7 RW"
     },
     {
      "type": "circle",
      "player": "a9",
-     "label": "Lorne 9"
+     "label": "Lorne 9 ST"
+    },
+    {
+     "type": "circle",
+     "player": "a19",
+     "label": "Nkemelu 19 CAM"
     },
     {
      "type": "arrow",
@@ -2271,37 +2385,50 @@
       70.1,
       39.5
      ],
-     "style": "run",
+     "style": "pass",
      "label": "Holmberg to Nkemelu"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      70.1,
+      39.5
+     ],
+     "to": [
+      71.3,
+      55.2
+     ],
+     "style": "pass",
+     "label": "Nkemelu to Ball"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay FC controls 87.5% field tilt, pressing intensely in 4-2-3-1, raising xG by 0.12 in last 5 minutes.",
-      "tag": "field tilt"
+      "caption": "Kestrel Bay FC dominates with 74% possession and 87.5% field tilt, showing overwhelming control at 74'",
+      "tag": "possession, tilt"
      },
      "fr": {
-      "caption": "Kestrel Bay FC domine 87,5% du terrain, presse en 4-2-3-1, xG +0,12 en 5 dernières minutes.",
-      "tag": "domination terrain"
+      "caption": "Kestrel Bay FC contrôle 74% de possession et 87,5% d’inclinaison du terrain à la 74e",
+      "tag": "possession, terrain"
      },
      "ar": {
-      "caption": "كسترل باي يهيمن بـ87.5% من الملعب ويزيد xG بـ0.12 خلال آخر 5 دقائق.",
-      "tag": "هيمنة الملعب"
+      "caption": "كستريل باي يسيطر بنسبة 74% استحواذ و87.5% ميل الملعب عند الدقيقة 74",
+      "tag": "الاستحواذ, الميل"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay FC has taken strong control, pushing hard and creating more chances in the last 5 minutes.",
-      "tag": "strong control"
+      "caption": "Kestrel Bay FC holds the ball most in last 5 minutes, pushing hard to take the lead at 74'",
+      "tag": "possession"
      },
      "fr": {
-      "caption": "Kestrel Bay FC prend le dessus, presse fort et crée plus d’occasions en 5 dernières minutes.",
-      "tag": "contrôle fort"
+      "caption": "Kestrel Bay FC garde le ballon la plupart du temps dans les 5 dernières minutes à la 74e",
+      "tag": "possession"
      },
      "ar": {
-      "caption": "كسترل باي يسيطر بقوة ويصنع فرصًا أكثر خلال آخر 5 دقائق.",
-      "tag": "سيطرة قوية"
+      "caption": "كستريل باي يسيطر على الكرة في آخر 5 دقائق ويحاول التقدم عند الدقيقة 74",
+      "tag": "الاستحواذ"
      }
     }
    },
@@ -2322,23 +2449,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 20346
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 12896
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 11910
+     "ms": 11906
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 15927
+     "ms": 13711
     }
    ],
    "facts": {
@@ -2360,28 +2487,30 @@
    "clock": "77'",
    "t": 4725.8,
    "on_air_t": 4728.8,
-   "duration_s": 13.0,
+   "duration_s": 8.2,
    "title": "Adebayo Lorne sent off",
    "importance": 0.95,
-   "headline": "Kestrel Bay Down to 10 Men, Yet Still Leading",
-   "story": "Adebayo Lorne's red card leaves Kestrel Bay FC with 10 players, but they maintain a clear grip on the game despite being a man down. With 50.8% possession and a contested tempo, Kestrel Bay's control over the last five minutes remains strong, setting up a tense final phase in a 2-2 draw.",
+   "headline": "Kestrel Bay FC down to 10 men at 2-2",
+   "story": "Adebayo Lorne's red card leaves Kestrel Bay FC a player short with 13 minutes left. Despite having 50.8% possession and a clear dominance over the last five minutes, they now face an uphill battle against 11 Ashvale Rovers. This shift could tilt the contested tempo in Ashvale's favor late in the match.",
    "claims": [
     {
-     "text": "Kestrel Bay FC is playing with one fewer player on the pitch.",
+     "text": "Kestrel Bay FC has 10 players on pitch versus Ashvale's 11",
      "fact_keys": [
       "away_players_on_pitch",
+      "home_players_on_pitch",
       "player_advantage"
      ]
     },
     {
-     "text": "Kestrel Bay FC has clear dominance in the last five minutes despite the red card.",
+     "text": "Kestrel Bay FC leads possession with 50.8% and clear dominance recently",
      "fact_keys": [
+      "away_possession_pct",
       "pulse_dominance_strength",
-      "pulse_team_on_top"
+      "team_possession_last5_pct"
      ]
     },
     {
-     "text": "The match tempo remains contested with slightly above normal chaos.",
+     "text": "The match tempo remains contested but chaos is above normal at 1.29",
      "fact_keys": [
       "pulse_tempo",
       "pulse_chaos"
@@ -2395,68 +2524,36 @@
     {
      "type": "circle",
      "player": "a9",
-     "label": "Lorne (Red Card)"
-    },
-    {
-     "type": "link",
-     "players": [
-      "a3",
-      "a4"
-     ],
-     "label": "Defensive line"
-    },
-    {
-     "type": "link",
-     "players": [
-      "a4",
-      "a5"
-     ],
-     "label": "Defensive line"
-    },
-    {
-     "type": "link",
-     "players": [
-      "a5",
-      "a2"
-     ],
-     "label": "Defensive line"
-    },
-    {
-     "type": "link",
-     "players": [
-      "a6",
-      "a19"
-     ],
-     "label": "Midfield control"
+     "label": "Lorne Red Card"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Kestrel Bay FC, down to 10 men, holds clear dominance with 62.5% possession in last 5 minutes despite contested tempo and 1.29 chaos.",
-      "tag": "possession, chaos"
+      "caption": "Kestrel Bay down to 10 vs Ashvale's 11, holding 50.8% possession and clear dominance; tempo contested with chaos at 1.29.",
+      "tag": "possession, tempo"
      },
      "fr": {
-      "caption": "Kestrel Bay FC à 10 domine nettement avec 62,5% de possession sur 5 dernières minutes malgré un tempo disputé et chaos à 1,29.",
-      "tag": "possession, chaos"
+      "caption": "Kestrel Bay à 10 contre 11 d'Ashvale, 50,8% possession, domination nette; tempo disputé, chaos à 1,29.",
+      "tag": "possession, tempo"
      },
      "ar": {
-      "caption": "كسترل باي يلعب بـ10 لاعبين ويتفوق بوضوح مع 62.5% استحواذ خلال آخر 5 دقائق رغم إيقاع متنازع وفوضى 1.29.",
-      "tag": "استحواذ، فوضى"
+      "caption": "كسترل باي 10 لاعبين مقابل 11 لأشفيل، يمتلكون 50.8% استحواذ وسيطرة واضحة، الإيقاع متنازع والفوضى 1.29.",
+      "tag": "استحواذ، إيقاع"
      }
     },
     "casual": {
      "en": {
-      "caption": "Kestrel Bay FC plays with 10 players but still controls the game well in the last minutes despite a tough pace.",
-      "tag": "man down"
+      "caption": "Kestrel Bay plays with 10 men against 11 Ashvale players, keeping the ball just over half the time in a tense match.",
+      "tag": "possession"
      },
      "fr": {
-      "caption": "Kestrel Bay FC joue à 10 mais garde bien le contrôle malgré un rythme intense dans les dernières minutes.",
-      "tag": "à 10 joueurs"
+      "caption": "Kestrel Bay joue à 10 contre 11 d'Ashvale, garde le ballon un peu plus de la moitié du temps dans un match tendu.",
+      "tag": "possession"
      },
      "ar": {
-      "caption": "كسترل باي يلعب بـ10 لاعبين لكنه يسيطر جيداً رغم وتيرة اللعب الصعبة في الدقائق الأخيرة.",
-      "tag": "نقص لاعب"
+      "caption": "كسترل باي يلعب بـ10 لاعبين مقابل 11 لأشفيل، يحتفظ بالكرة أكثر من نصف الوقت في مباراة متوترة.",
+      "tag": "استحواذ"
      }
     }
    },
@@ -2471,29 +2568,32 @@
       "issues": []
      }
     ],
-    "drawing_issues": []
+    "drawing_issues": [
+     "link between unknown players ['a1', 'a3', 'a4', 'a5', 'a6', 'a7', 'a9', 'a10', 'a11', 'a19']",
+     "link between unknown players ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8', 'h9', 'h10', 'h11']"
+    ]
    },
    "fallbacks": [],
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 22834
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 11855
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 11935
+     "ms": 10913
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 17763
+     "ms": 16977
     }
    ],
    "facts": {
@@ -2517,34 +2617,34 @@
    "duration_s": 13.0,
    "title": "Ashvale Rovers turn up the press",
    "importance": 0.7,
-   "headline": "Ashvale Rovers surge with man advantage",
-   "story": "Ashvale Rovers have intensified their pressing, reflected in 62.2% possession over the last five minutes and 17 pressures, despite an overall even possession split. Their 1.75 expected goals and 16 shots show they are pushing hard to break the 2-2 deadlock against Kestrel Bay FC, who are down to 10 men.",
+   "headline": "Ashvale Rovers Ramp Up Press With Numerical Edge",
+   "story": "Ashvale Rovers increase their pressing intensity, reflected in 17 pressures and 8 turnovers won over the last 5 minutes. With 11 players against Kestrel Bay's 10, they hold 62.2% possession in a contested tempo, aiming to capitalize on their advantage in a 2-2 deadlock.",
    "claims": [
     {
-     "text": "Ashvale Rovers control the ball 62.2% in the last five minutes.",
+     "text": "Ashvale Rovers have a clear numerical advantage with 11 players against 10.",
+     "fact_keys": [
+      "home_players_on_pitch",
+      "away_players_on_pitch"
+     ]
+    },
+    {
+     "text": "They have dominated possession with 62.2% in the last 5 minutes.",
      "fact_keys": [
       "possession_last5_pct"
      ]
     },
     {
-     "text": "They have created more chances with 16 shots and 1.75 xG.",
+     "text": "Pressures have increased to 17 and turnovers won to 8 in this period.",
      "fact_keys": [
-      "home_shots",
-      "home_xg"
-     ]
-    },
-    {
-     "text": "Kestrel Bay FC are down to 10 players, giving Ashvale Rovers a numerical edge.",
-     "fact_keys": [
-      "away_players_on_pitch",
-      "player_advantage"
+      "pressures_last5",
+      "turnovers_won_last5"
      ]
     }
    ],
    "focus_players": [
     "h10",
     "h17",
-    "h9"
+    "h8"
    ],
    "drawings": [
     {
@@ -2559,8 +2659,30 @@
     },
     {
      "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole 9"
+     "player": "h8",
+     "label": "Haddadi 8"
+    },
+    {
+     "type": "zone",
+     "points": [
+      [
+       29.1,
+       14.6
+      ],
+      [
+       66.6,
+       14.6
+      ],
+      [
+       66.6,
+       65.3
+      ],
+      [
+       29.1,
+       65.3
+      ]
+     ],
+     "label": "Pressing Zone"
     },
     {
      "type": "arrow",
@@ -2573,49 +2695,36 @@
       60.7
      ],
      "style": "run",
-     "label": "Pressing Brandt"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      44.6,
-      40.1
-     ],
-     "to": [
-      47.2,
-      38.3
-     ],
-     "style": "run",
-     "label": "Pressing El Mansouri"
+     "label": "Brandt presses"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers press intensely with 62.2% possession last 5 mins, 16 shots, 1.75 xG; exploiting Kestrel Bay's 10 men.",
-      "tag": "press, xG, advantage"
+      "caption": "Ashvale Rovers press harder with 17 pressures, 8 turnovers, and 62.2% possession, exploiting their 11v10 player advantage.",
+      "tag": "press, possession, advantage"
      },
      "fr": {
-      "caption": "Ashvale Rovers dominent 62,2% possession 5 dernières min, 16 tirs, 1,75 xG; profitent de l'infériorité numérique de Kestrel Bay.",
-      "tag": "pression, xG, supériorité"
+      "caption": "Ashvale Rovers intensifient le pressing: 17 pressions, 8 récupérations, 62,2% de possession avec un joueur en plus.",
+      "tag": "pression, possession, avantage"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة 62.2% في آخر 5 دقائق، مع 16 تسديدة و1.75 xG، مستغلين نقص لاعبي كسترل باي.",
-      "tag": "ضغط، xG، تفوق"
+      "caption": "أشفيل روفرز يضغطون بقوة مع 17 ضغطة و8 استحواذات وتحكم 62.2% بفضل تفوقهم العددي 11 ضد 10.",
+      "tag": "ضغط، استحواذ، تفوق"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers hold the ball most in last 5 minutes and shoot a lot, taking advantage of Kestrel Bay’s one less player.",
+      "caption": "Ashvale Rovers have more players and have kept the ball 62% recently, winning the ball 8 times by pressing hard.",
       "tag": "possession"
      },
      "fr": {
-      "caption": "Ashvale Rovers gardent le ballon plus longtemps et tirent souvent, profitant d’un joueur en moins chez Kestrel Bay.",
+      "caption": "Ashvale Rovers ont plus de joueurs et gardent le ballon 62% du temps, gagnant 8 ballons en pressant fort.",
       "tag": "possession"
      },
      "ar": {
-      "caption": "أشفيل روفرز يسيطرون على الكرة أكثر في الدقائق الأخيرة ويهاجمون كثيرًا، مستفيدين من نقص لاعب لدى كسترل باي.",
-      "tag": "سيطرة"
+      "caption": "أشفيل روفرز لديهم لاعب إضافي ويحافظون على الكرة 62% مؤخرًا، وفازوا بالكرة 8 مرات بالضغط.",
+      "tag": "استحواذ"
      }
     }
    },
@@ -2628,9 +2737,9 @@
       "verdict": "overturned",
       "by": "judge",
       "issues": [
-       "Claim that Ashvale Rovers have 62.2% possession in last 5 minutes contradicts fact showing 62.2% possession_last5_pct but overall home_possession_pct is 50.6%, so possession claim should clarify it is last 5 minutes only to avoid confusion",
-       "Claim that Kestrel Bay FC hold 49.4% possession is misleading since overall home possession is 50.6% and away possession is 49.4%, so possession is nearly even rather than Kestrel Bay FC holding it",
-       "Claim 'Despite being a man up after the red card' invents context about a red card not stated in facts; facts only show player advantage but no mention of red card or cause"
+       "Claim that Ashvale Rovers hold a numerical advantage with 11 players against 10 is misleading; facts confirm Ashvale Rovers have 11 players and Kestrel Bay FC 10, but the claim implies this advantage is current and ongoing without noting the red card timing explicitly.",
+       "Claim that Ashvale Rovers' pressing has increased turnovers won to 8 in the last 5 minutes is not supported; facts show 8 turnovers won last 5 minutes but no evidence that pressing caused the increase.",
+       "Headline 'Ashvale Rovers Intensify Press Despite Even Score' implies a pressing surge despite the score, but facts show possession last 5 minutes at 62.2%, pressures last 5 at 17, and turnovers won 8, which supports pressing intensity; however, the story's causal language about pressing being the catalyst to break deadlock is speculative and should be softened."
       ]
      },
      {
@@ -2646,38 +2755,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 23025
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13535
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 13228
+     "ms": 10634
     },
     {
      "agent": "Analyst",
      "source": "model",
-     "ms": 18913
+     "ms": 17577
     },
     {
      "agent": "Telestrator",
      "source": "model",
-     "ms": 1677
+     "ms": 2875
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 5175
+     "ms": 5722
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 2990
+     "ms": 3236
     }
    ],
    "facts": {
@@ -2702,31 +2811,31 @@
    "duration_s": 13.0,
    "title": "Yaw Mensah-Cole scores",
    "importance": 1.0,
-   "headline": "Mensah-Cole’s hat-trick seals Ashvale lead",
-   "story": "Yaw Mensah-Cole scores his third goal with a powerful finish from close range, extending Ashvale Rovers' lead to 3-2. Despite Kestrel Bay FC's push with 10 men and nearly equal possession, Ashvale's numerical advantage and clinical finishing prove decisive in this tightly contested match.",
+   "headline": "Mensah-Cole's late strike puts Ashvale ahead",
+   "story": "Yaw Mensah-Cole scores his third goal with a precise finish from close range, putting Ashvale Rovers 3-2 ahead. Despite Kestrel Bay FC's numerical disadvantage and balanced contest, Ashvale's sustained pressure and higher shot count prove decisive in this crucial late moment.",
    "claims": [
     {
-     "text": "Ashvale Rovers maintain a slim lead with 3 goals to 2.",
-     "fact_keys": [
-      "home_goals",
-      "away_goals",
-      "score_text"
-     ]
-    },
-    {
-     "text": "Ashvale have one more player on the pitch, influencing the match balance.",
-     "fact_keys": [
-      "home_players_on_pitch",
-      "away_players_on_pitch",
-      "player_advantage"
-     ]
-    },
-    {
-     "text": "The shot was a quick, precise finish from just under 6 metres.",
+     "text": "Mensah-Cole scores from 5.9 metres with a 109.9 km/h shot",
      "fact_keys": [
       "shot_distance_m",
       "shot_speed_kmh",
-      "body_part"
+      "scorer",
+      "scorer_goals_today"
+     ]
+    },
+    {
+     "text": "Ashvale Rovers maintain slight possession edge with 50.3%",
+     "fact_keys": [
+      "home_possession_pct",
+      "away_possession_pct"
+     ]
+    },
+    {
+     "text": "Kestrel Bay FC down to 10 players, giving Ashvale a numerical advantage",
+     "fact_keys": [
+      "away_players_on_pitch",
+      "home_players_on_pitch",
+      "player_advantage"
      ]
     }
    ],
@@ -2738,15 +2847,15 @@
     {
      "type": "arrow",
      "from": [
-      80,
-      68
+      80.0,
+      68.0
      ],
      "to": [
       90.8,
       60.8
      ],
      "style": "carry",
-     "label": "Brandt run"
+     "label": "Brandt carry"
     },
     {
      "type": "arrow",
@@ -2771,12 +2880,7 @@
       37.8
      ],
      "style": "pass",
-     "label": "Brandt assist"
-    },
-    {
-     "type": "circle",
-     "player": "h9",
-     "label": "Mensah-Cole"
+     "label": "Brandt pass"
     },
     {
      "type": "arrow",
@@ -2785,40 +2889,45 @@
       37.8
      ],
      "to": [
-      105,
+      105.0,
       30.9
      ],
      "style": "shot",
      "label": "Mensah-Cole shot"
+    },
+    {
+     "type": "circle",
+     "player": "h10",
+     "label": "Brandt"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Mensah-Cole’s hat-trick extends Ashvale’s lead to 3-2; 11 vs 10 players tilt balance despite Kestrel’s 49.7% possession.",
-      "tag": "hat-trick, advantage"
+      "caption": "Mensah-Cole nets third goal from 5.9m, 109.9 km/h shot; Ashvale leads 3-2 with 50.3% possession and 11 vs 10 players.",
+      "tag": "key stats"
      },
      "fr": {
-      "caption": "Mensah-Cole signe un triplé, Ashvale mène 3-2 avec un joueur en plus face à Kestrel à 49,7% de possession.",
-      "tag": "triplé, supériorité"
+      "caption": "Mensah-Cole marque son 3e but à 5,9 m, tir à 109,9 km/h; Ashvale mène 3-2 avec 50,3 % de possession et un joueur en plus.",
+      "tag": "stats clés"
      },
      "ar": {
-      "caption": "مِنسا-كول يُسجّل هاتريك ويُعزز تقدم أشفيل 3-2 مع تفوق عددي 11 ضد 10 رغم امتلاك كسترل 49.7% من الكرة.",
-      "tag": "هاتريك, تفوق"
+      "caption": "مِنسا-كول يسجل هدفه الثالث من 5.9 م بسرعة 109.9 كم/س؛ آشڤيل تتقدم 3-2 مع 50.3% استحواذ ولاعب إضافي.",
+      "tag": "إحصائيات رئيسية"
      }
     },
     "casual": {
      "en": {
-      "caption": "Yaw Mensah-Cole scored three goals, helping Ashvale lead 3-2 with one extra player on the field.",
-      "tag": "hat-trick"
+      "caption": "Yaw Mensah-Cole scores his third goal with a fast shot close to goal, helping Ashvale lead 3-2 while having one extra player.",
+      "tag": "late goal"
      },
      "fr": {
-      "caption": "Yaw Mensah-Cole a marqué trois buts, Ashvale mène 3-2 avec un joueur de plus.",
-      "tag": "triplé"
+      "caption": "Yaw Mensah-Cole marque son 3e but d’un tir rapide de près, offrant l’avantage 3-2 à Ashvale avec un joueur en plus.",
+      "tag": "but tardif"
      },
      "ar": {
-      "caption": "ياو مِنسا-كول سجّل ثلاثة أهداف، وأشڤيل تتقدّم 3-2 مع لاعب إضافي في الملعب.",
-      "tag": "هاتريك"
+      "caption": "ياو مِنسا-كول يسجل هدفه الثالث بتسديدة سريعة وقريبة، ليمنح آشڤيل التقدم 3-2 مع لاعب إضافي.",
+      "tag": "هدف متأخر"
      }
     }
    },
@@ -2839,28 +2948,30 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 22991
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 12388
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 12609
+     "ms": 10378
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 17190
+     "ms": 16536
     }
    ],
    "facts": {
     "clock": "89'",
     "score": "3-2",
+    "goal_effect": "goes ahead",
+    "score_before": "2-2",
     "scorer": "Yaw Mensah-Cole",
     "assist": "Elias Brandt",
     "xg": 0.461,
@@ -2886,11 +2997,11 @@
    "duration_s": 13.0,
    "title": "Ashvale Rovers turn up the press",
    "importance": 0.7,
-   "headline": "Ashvale Rovers intensify press to secure lead",
-   "story": "With one player advantage and 51% possession, Ashvale Rovers ramp up their pressing, winning 10 turnovers in the last five minutes. Despite a contested tempo and high chaos, their overwhelming control and 3-2 lead put Kestrel Bay FC under immense pressure, likely sealing the win.",
+   "headline": "Ashvale Rovers press hard to protect lead",
+   "story": "With a one-player advantage and 3-2 lead, Ashvale Rovers ramp up pressing, winning 10 turnovers in the last five minutes. Despite a contested tempo and high chaos, their overwhelming presence disrupts Kestrel Bay’s attempts to equalise late on, helping maintain control in a tense finish.",
    "claims": [
     {
-     "text": "Ashvale Rovers have a numerical advantage with 11 players against 10.",
+     "text": "Ashvale Rovers have one more player on the pitch than Kestrel Bay FC",
      "fact_keys": [
       "home_players_on_pitch",
       "away_players_on_pitch",
@@ -2898,17 +3009,18 @@
      ]
     },
     {
-     "text": "They have dominated possession recently, holding 65.5% in the last 5 minutes.",
+     "text": "They won 10 turnovers and applied 19 pressures in the last five minutes",
      "fact_keys": [
-      "possession_last5_pct",
-      "pulse_team_on_top"
+      "turnovers_won_last5",
+      "pressures_last5"
      ]
     },
     {
-     "text": "Their pressing intensity is high, with 19 pressures and 10 turnovers won in the last 5 minutes.",
+     "text": "The match remains contested with a high level of chaos despite Ashvale’s strong presence",
      "fact_keys": [
-      "pressures_last5",
-      "turnovers_won_last5"
+      "pulse_tempo",
+      "pulse_chaos",
+      "pulse_dominance_strength"
      ]
     }
    ],
@@ -2918,6 +3030,28 @@
     "h10"
    ],
    "drawings": [
+    {
+     "type": "zone",
+     "points": [
+      [
+       51.5,
+       2.9
+      ],
+      [
+       99.0,
+       2.9
+      ],
+      [
+       99.0,
+       50.3
+      ],
+      [
+       51.5,
+       50.3
+      ]
+     ],
+     "label": "High Press Zone"
+    },
     {
      "type": "circle",
      "player": "h9",
@@ -2944,49 +3078,36 @@
       32.5
      ],
      "style": "run",
-     "label": "Press Mensah-Cole"
-    },
-    {
-     "type": "arrow",
-     "from": [
-      72.3,
-      13.3
-     ],
-     "to": [
-      81.0,
-      46.3
-     ],
-     "style": "run",
-     "label": "Press Haddadi"
+     "label": "Pressing Mensah-Cole"
     }
    ],
    "variants": {
     "analyst": {
      "en": {
-      "caption": "Ashvale Rovers press with 19 pressures, 10 turnovers won, 65.5% possession last 5', 11 vs 10 players, securing 3-2 lead.",
-      "tag": "press, turnovers, lead"
+      "caption": "Ashvale Rovers press intensely with 1 extra player, winning 10 turnovers and 19 pressures in last 5 minutes amid contested tempo and overwhelming dominance.",
+      "tag": "press, turnovers, chaos"
      },
      "fr": {
-      "caption": "Ashvale Rovers intensifient le pressing: 19 pressions, 10 récupérations, 65,5% possession, 11 contre 10 joueurs, mène 3-2.",
-      "tag": "pression, récupération, avance"
+      "caption": "Ashvale Rovers pressent fort avec 1 joueur de plus, remportant 10 ballons et 19 pressions en 5 minutes, dominance écrasante malgré un tempo disputé.",
+      "tag": "pression, ballons, chaos"
      },
      "ar": {
-      "caption": "أشفيل روفرز يمارسون ضغطًا عاليًا بـ19 ضغطة و10 استرجاعات، 65.5% استحواذ، 11 ضد 10، ويتقدمون 3-2.",
-      "tag": "ضغط, استحواذ, تقدم"
+      "caption": "أشفيل روفرز يضغطون بقوة مع لاعب إضافي، فازوا بـ10 كرات و19 ضغطًا في آخر 5 دقائق وسط إيقاع متنازع وهيمنة ساحقة.",
+      "tag": "ضغط, كرات, هيمنة"
      }
     },
     "casual": {
      "en": {
-      "caption": "Ashvale Rovers have one extra player and kept the ball 65.5% recently, pressing hard to keep their 3-2 lead.",
-      "tag": "extra player"
+      "caption": "Ashvale Rovers have one more player and worked hard, winning 10 balls in last 5 minutes to keep their 3-2 lead in a tough game.",
+      "tag": "hard press"
      },
      "fr": {
-      "caption": "Ashvale Rovers ont un joueur de plus et gardent le ballon 65,5%, pressant fort pour garder leur avance 3-2.",
-      "tag": "joueur de plus"
+      "caption": "Ashvale Rovers ont un joueur de plus et ont gagné 10 ballons en 5 minutes pour garder leur avance 3-2 dans un match serré.",
+      "tag": "pression forte"
      },
      "ar": {
-      "caption": "أشفيل روفرز لديهم لاعب إضافي واستحوذوا على الكرة 65.5% مؤخرًا، يضغطون بقوة للحفاظ على تقدمهم 3-2.",
-      "tag": "لاعب إضافي"
+      "caption": "أشفيل روفرز لديهم لاعب أكثر وفازوا بـ10 كرات في آخر 5 دقائق ليحافظوا على تقدمهم 3-2 في مباراة صعبة.",
+      "tag": "ضغط قوي"
      }
     }
    },
@@ -2996,6 +3117,16 @@
     "history": [
      {
       "attempt": 1,
+      "verdict": "overturned",
+      "by": "judge",
+      "issues": [
+       "Claim of 65.5% possession in last five minutes contradicts fact showing 51.0% home possession and 49.0% away possession overall, with no separate last 5 minutes split for teams.",
+       "Claim that Ashvale Rovers have 'overwhelming influence' conflicts with 'pulse_tempo' being 'contested' and 'pulse_dominance_strength' as 'overwhelming'—the combination is contradictory and needs clarification.",
+       "Headline 'Ashvale Rovers intensify press to hold lead' implies cause-effect not fully supported by facts; facts show high pressing but no clear evidence of intensification or direct link to holding lead."
+      ]
+     },
+     {
+      "attempt": 2,
       "verdict": "stands",
       "by": "judge",
       "issues": []
@@ -3007,23 +3138,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 26050
     },
     {
      "agent": "Telestrator",
-     "source": "recorded",
-     "ms": 0
+     "source": "model",
+     "ms": 13058
     },
     {
      "agent": "VAR",
      "source": "model",
-     "ms": 12659
+     "ms": 7875
+    },
+    {
+     "agent": "Analyst",
+     "source": "model",
+     "ms": 17022
+    },
+    {
+     "agent": "Telestrator",
+     "source": "model",
+     "ms": 1884
+    },
+    {
+     "agent": "VAR",
+     "source": "model",
+     "ms": 7059
     },
     {
      "agent": "Personalizer",
      "source": "model",
-     "ms": 20369
+     "ms": 2982
     }
    ],
    "facts": {

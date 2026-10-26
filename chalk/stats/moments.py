@@ -136,7 +136,22 @@ class MomentDetector:
                              "player": e["player"]})
         team = ev["team"]
         scorer = ev["player"]
+        other = "away" if team == "home" else "home"
+        mine, theirs = self.s.score[team] - 1, self.s.score[other]  # score before this goal
+        if mine == 0 and theirs == 0:
+            effect = "opening goal"
+        elif mine == theirs:
+            effect = "goes ahead"
+        elif mine + 1 == theirs:
+            effect = "equaliser"
+        elif mine < theirs:
+            effect = "pulls one back"
+        else:
+            effect = "extends the lead"
+        before = {team: mine, other: theirs}
         facts = {
+            "goal_effect": effect,
+            "score_before": f"{before['home']}-{before['away']}",
             "scorer": self.s.name(scorer),
             "assist": self.s.name(ev["assist"]) if ev.get("assist") else None,
             "xg": shot["xg"],

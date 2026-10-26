@@ -47,7 +47,13 @@ def analyst(payload: dict[str, Any]) -> dict[str, Any]:
 
     if t == "goal":
         n = int(f.get("scorer_goals_today", 1))
-        headline = _fmt("{scorer} makes it {score}", v)
+        headline = {
+            "opening goal": "{scorer} opens the scoring",
+            "equaliser": "{scorer} levels it at {score}",
+            "goes ahead": "{scorer} puts {team} ahead",
+            "pulls one back": "{scorer} pulls one back",
+        }.get(f.get("goal_effect"), "{scorer} makes it {score}")
+        headline = _fmt(headline, v)
         parts = []
         if f.get("won_in_opponent_half"):
             parts.append(_fmt("{team} won the ball in {opp}'s half and scored {buildup_seconds} seconds later.", v))
