@@ -939,6 +939,15 @@
      79.2,
      18.4
     ]
+   },
+   "offside": {
+    "line_x": 103.2,
+    "receiver": "h9",
+    "receiver_x": 100.5,
+    "defender": "a5",
+    "margin_m": 2.7,
+    "onside": true,
+    "attack_dir": 1
    }
   }
  },
@@ -1212,6 +1221,15 @@
      76.7,
      11.2
     ]
+   },
+   "offside": {
+    "line_x": 99.6,
+    "receiver": "h9",
+    "receiver_x": 98.5,
+    "defender": "a4",
+    "margin_m": 1.1,
+    "onside": true,
+    "attack_dir": 1
    }
   }
  },
@@ -2423,6 +2441,15 @@
      4.3,
      11.4
     ]
+   },
+   "offside": {
+    "line_x": 2.4,
+    "receiver": "a9",
+    "receiver_x": 5.0,
+    "defender": "h4",
+    "margin_m": 2.6,
+    "onside": true,
+    "attack_dir": -1
    }
   }
  },
@@ -4167,6 +4194,15 @@
      5.6,
      42.0
     ]
+   },
+   "offside": {
+    "line_x": 3.1,
+    "receiver": "a7",
+    "receiver_x": 10.5,
+    "defender": "h5",
+    "margin_m": 7.4,
+    "onside": true,
+    "attack_dir": -1
    }
   }
  },
@@ -5393,6 +5429,15 @@
      72.6,
      38.5
     ]
+   },
+   "offside": {
+    "line_x": 103.7,
+    "receiver": "h9",
+    "receiver_x": 100.5,
+    "defender": "a5",
+    "margin_m": 3.2,
+    "onside": true,
+    "attack_dir": 1
    }
   }
  },

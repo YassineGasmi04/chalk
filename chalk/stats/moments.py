@@ -167,10 +167,16 @@ class MomentDetector:
             "opponent_players_on_pitch": self.s.men["away" if team == "home" else "home"],
         }
         title = f"{self.s.name(scorer)} scores"
+        # VAR line for the final pass (geometry only: shown on screen, not a fact for the agents)
+        last_pass = next((e for e in reversed(chain) if e["type"] == "pass"), None)
+        offside = None
+        if last_pass:
+            offside = M.offside_check(last_pass.get("frame", {}), self.s.player_team, team,
+                                      last_pass["to"], last_pass["start"][0])
         self._fire("goal", team, title, ev, [scorer] + ([ev["assist"]] if ev.get("assist") else []),
                    facts, [e["id"] for e in chain] + [ev["id"]],
                    {"buildup": path, "shot": {"from": shot["start"], "to": shot["end"]},
-                    "shot_frame": shot.get("frame", {})})
+                    "shot_frame": shot.get("frame", {}), "offside": offside})
         if self.s.player[scorer]["goals"] == 2:
             self._fire("milestone", team, f"Brace for {self.s.name(scorer)}", ev, [scorer],
                        {"player": self.s.name(scorer), "milestone": "second goal of the match",

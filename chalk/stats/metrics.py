@@ -101,3 +101,26 @@ def lines_broken(start: tuple[float, float], end: tuple[float, float], attack_di
 
 def ball_speed_kmh(distance_m: float, air_time_s: float) -> float:
     return round(distance_m / max(air_time_s, 0.05) * 3.6, 1)
+
+
+def offside_check(frame: dict[str, list[float]], team_of: dict[str, str], attacking: str,
+                  receiver: str, ball_x: float) -> dict | None:
+    """VAR-style offside check at the moment of a pass.
+
+    The offside line is the second-last opponent (usually the last outfield defender),
+    never behind the ball and never in the receiver's own half. Returns the line, the
+    receiver's position and the margin (positive = onside by that many metres).
+    """
+    d = 1 if attacking == "home" else -1
+    if receiver not in frame:
+        return None
+    rx = frame[receiver][0]
+    opp = sorted((p[0] * d for k, p in frame.items() if team_of.get(k) not in (None, attacking)), reverse=True)
+    if len(opp) < 2:
+        return None
+    line = max(opp[1], ball_x * d, 52.5 if d > 0 else -52.5) * d
+    margin = round((line - rx) * d, 2)
+    defender = min((k for k in frame if team_of.get(k) not in (None, attacking)),
+                   key=lambda k: abs(frame[k][0] - line))  # the player who sets the line
+    return {"line_x": round(line, 2), "receiver": receiver, "receiver_x": round(rx, 2),
+            "defender": defender, "margin_m": margin, "onside": margin >= 0, "attack_dir": d}

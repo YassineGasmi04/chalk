@@ -113,3 +113,13 @@ def test_touches_count_every_on_ball_action(demo):
     for pid in ("h9", "h8", "a10"):
         expected = sum(1 for e in events if e.get("player") == pid and e["type"] in on_ball)
         assert state.player_summary(pid)["touches"] == expected > 20
+
+
+def test_goals_carry_a_var_offside_line(demo):
+    _, _, det = demo
+    goals = [m for m in det.moments if m.type == "goal"]
+    for g in goals:
+        o = g.geometry["offside"]
+        assert o and o["onside"] and o["margin_m"] >= 0  # every goal in the demo stood
+        assert (o["line_x"] - o["receiver_x"]) * o["attack_dir"] == pytest.approx(o["margin_m"], abs=0.01)
+    assert min(g.geometry["offside"]["margin_m"] for g in goals) < 1.5  # one tight call

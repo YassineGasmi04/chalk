@@ -95,7 +95,12 @@ uvicorn chalk.server:app --port 8000   # then open http://localhost:8000 and pre
 - **AI highlights**: plays only the moments the crew analysed, drawings and all, then the full-time recap
 - **Match Pulse**: who is on top minute by minute, chaotic spells, and an amber marker for every AI insight (release the scrubber on one to replay it)
 - **Voice**: reads each insight aloud in English, French or Arabic (browser speech synthesis)
-- **Full-time recap**: result, the AI's verified recap, every goal and what it did to the score, player of the match, and a button to replay the turning point
+- **Full-time recap**: result, the AI's verified recap, every goal and what it did to the score, player of the match, a shot map sized by xG, and a button to replay the turning point
+- **Broadcast graphics**: an animated goal stinger in the scoring team's colours (scorer, xG, shot speed, distance) with chalk confetti, a red card that flips in, the fourth official's LED substitution board, and a change-of-shape card
+- **VAR offside lines**: for every goal, the offside check at the final pass is computed from the positions (second-last defender, never behind the ball) and drawn across the pitch, e.g. *VAR: onside by 1.1 m*
+- **Stadium atmosphere**: a crowd synthesised in the browser from filtered noise (no recorded audio) that follows the Match Pulse, roars at goals, groans at big chances, and a referee's whistle
+- **Shareable moments**: every insight exports as a 1080 x 1350 card (mini pitch with the AI's drawings, caption in the viewer's language and mode, VAR badge), ready for social feeds
+- **Weather**: the match sheet says light rain, so it rains under the floodlights
 
 ## The synthetic data
 

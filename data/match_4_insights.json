@@ -1,6 +1,6 @@
 {
  "match_id": "synthetic-4",
- "generated_at": "2026-10-26T04:10:27+00:00",
+ "generated_at": "2026-10-26T04:22:29+00:00",
  "engine": {
   "provider": "foundry",
   "model": "gpt-4.1-mini",
@@ -43,15 +43,15 @@
   "ar"
  ],
  "stats": {
-  "calls": 22,
-  "cached": 59,
+  "calls": 0,
+  "cached": 81,
   "model_errors": 0,
   "fallbacks": 2,
   "overturned": 5,
   "drawings_rejected": 3,
   "captions_repaired": 0,
   "cards": 18,
-  "seconds": 36.6
+  "seconds": 0.1
  },
  "cards": [
   {
@@ -990,23 +990,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 11017
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 3530
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 1056
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 4142
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -1981,23 +1981,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 10624
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 3680
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 789
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 3074
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -3072,38 +3072,38 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 10684
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 2042
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 2582
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 3058
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 1929
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 1340
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 4770
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -3490,23 +3490,23 @@
    "trace": [
     {
      "agent": "Analyst",
-     "source": "model",
-     "ms": 13690
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Telestrator",
-     "source": "model",
-     "ms": 3091
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "VAR",
-     "source": "model",
-     "ms": 1850
+     "source": "recorded",
+     "ms": 0
     },
     {
      "agent": "Personalizer",
-     "source": "model",
-     "ms": 2869
+     "source": "recorded",
+     "ms": 0
     }
    ],
    "facts": {
@@ -3644,18 +3644,18 @@
   "trace": [
    {
     "agent": "Recap",
-    "source": "model",
-    "ms": 3549
+    "source": "recorded",
+    "ms": 0
    },
    {
     "agent": "Recap",
-    "source": "model",
-    "ms": 3714
+    "source": "recorded",
+    "ms": 0
    },
    {
     "agent": "Personalizer",
-    "source": "model",
-    "ms": 2830
+    "source": "recorded",
+    "ms": 0
    }
   ],
   "facts": {

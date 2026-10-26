@@ -42,6 +42,9 @@ export class PitchRenderer {
     this.target = 1;
     this.tele = null; // the AI Telestrator's drawings for the moment on air
     this.focus = null; // player followed in player-cam mode
+    this.varLine = null; // VAR offside lines for a goal on air
+    this.rain = false;
+    this.drops = Array.from({ length: 120 }, () => ({ x: Math.random(), y: Math.random(), v: 0.6 + Math.random() * 0.6 }));
     new ResizeObserver(() => this.resize()).observe(canvas);
     this.resize();
   }
@@ -271,11 +274,11 @@ export class PitchRenderer {
     const hits = (yy) => (this.placed || []).some((b) => x < b.x + b.w + 2 && x + w > b.x - 2 && yy < b.y + b.h + 2 && yy + h > b.y - 2);
     for (let i = 0; i < 6 && hits(y); i++) y -= h + 3 * dpr;
     (this.placed ||= []).push({ x, y, w, h });
-    c.fillStyle = tone === "signal" ? SIGNAL : tone === "focus" ? "#ffffff" : "rgba(10, 22, 30, 0.86)";
+    c.fillStyle = tone === "signal" ? SIGNAL : tone === "focus" ? "#ffffff" : tone === "var" ? "#5ad1ff" : "rgba(10, 22, 30, 0.86)";
     c.beginPath();
     c.roundRect(x, y, w, h, h / 2);
     c.fill();
-    c.fillStyle = tone === "signal" ? "#1b1405" : tone === "focus" ? "#2a0a3d" : "#ffffff";
+    c.fillStyle = tone === "signal" ? "#1b1405" : tone === "focus" || tone === "var" ? "#2a0a3d" : "#ffffff";
     c.textAlign = "center";
     c.textBaseline = "middle";
     c.fillText(text, X, y + h / 2 + 0.5 * dpr);
@@ -369,6 +372,7 @@ export class PitchRenderer {
       c.stroke();
     }
 
+    if (this.varLine) this.drawVarLine(c, now);
     if (tele) this.drawTelestration(c, frame, now, "over");
     const tagged = new Set();
     for (const pid of [this.focus, tele ? null : carrier]) {
@@ -377,6 +381,66 @@ export class PitchRenderer {
       tagged.add(pid);
       const [x, y] = frame[pid];
       this.label(c, [x, y], this.players[pid].short, 1, pid === this.focus ? "focus" : "dark", this.chipLift(x, y));
+    }
+    this.drawRain(c);
+  }
+
+  // ------------------------------------------------------------- weather
+  drawRain(c) {
+    if (!this.rain || reduceMotion) return;
+    const w = this.canvas.width, h = this.canvas.height;
+    c.save();
+    c.strokeStyle = "rgba(220, 235, 255, 0.16)";
+    c.lineWidth = 1.1 * this.dpr;
+    c.beginPath();
+    for (const d of this.drops) {
+      d.y += 0.011 * d.v;
+      d.x -= 0.0016 * d.v;
+      if (d.y > 1.05) { d.y = -0.05; d.x = Math.random() * 1.1; }
+      const x = d.x * w, y = d.y * h;
+      c.moveTo(x, y);
+      c.lineTo(x - 3 * this.dpr * d.v, y + 16 * this.dpr * d.v);
+    }
+    c.stroke();
+    c.restore();
+  }
+
+  // ---------------------------------------------------------- VAR lines
+  showVarLine(offside) {
+    this.varLine = offside ? { o: offside, born: performance.now() } : null;
+  }
+
+  drawVarLine(c, now) {
+    const { o, born } = this.varLine;
+    const k = reduceMotion ? 1 : Math.max(0, Math.min(1, (now - born) / 650));
+    const y1 = W * k;
+    const lineAt = (x, color, width) => {
+      c.save();
+      c.strokeStyle = color;
+      c.lineWidth = width * this.dpr;
+      c.shadowColor = color;
+      c.shadowBlur = 8 * this.dpr;
+      c.beginPath();
+      const [X0, Y0] = this.px(x, 0), [X1, Y1] = this.px(x, y1);
+      c.moveTo(X0, Y0);
+      c.lineTo(X1, Y1);
+      c.stroke();
+      c.restore();
+    };
+    // the gap between attacker and defender, tinted green when onside
+    const quad = [[o.receiver_x, 0], [o.line_x, 0], [o.line_x, y1], [o.receiver_x, y1]].map(([x, y]) => this.px(x, y));
+    c.save();
+    c.beginPath();
+    quad.forEach(([X, Y], i) => (i ? c.lineTo(X, Y) : c.moveTo(X, Y)));
+    c.closePath();
+    c.fillStyle = o.onside ? "rgba(70, 200, 130, 0.22)" : "rgba(255, 77, 94, 0.25)";
+    c.fill();
+    c.restore();
+    lineAt(o.line_x, "#5ad1ff", 2.6);
+    lineAt(o.receiver_x, o.onside ? "#7ee2a8" : "#ff4d5e", 2.6);
+    if (k >= 1) {
+      const label = `${o.onside ? "Onside" : "Offside"} by ${Math.abs(o.margin_m).toFixed(1)} m`;
+      this.label(c, [(o.line_x + o.receiver_x) / 2, 0], `VAR  ${label}`, 1, "var", 8);
     }
   }
 

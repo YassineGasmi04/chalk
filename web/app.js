@@ -1,5 +1,6 @@
 import { PitchRenderer } from "./pitch.js";
 import { Studio } from "./studio.js";
+import { Stadium, Stingers } from "./fx.js";
 
 const params = new URLSearchParams(location.search);
 const SEED = params.get("seed") || "4";
@@ -122,6 +123,9 @@ class Replay {
     this.pitch = new PitchRenderer($("pitch"));
     this.pitch.setRoster(this.roster, this.colors);
     this.stats = new LiveStats();
+    this.fx = new Stingers();
+    this.stadium = new Stadium();
+    this.pitch.rain = /rain/i.test(this.start.weather || "");
     this.studio = new Studio(this, insights);
     this.setupUI(home, away);
     this.pulseCanvas = $("pulse");
@@ -154,6 +158,9 @@ class Replay {
         });
       }));
     $("namesToggle").addEventListener("change", (e) => { this.pitch.showNames = e.target.checked; });
+    $("soundToggle").addEventListener("change", (e) => {
+      if (e.target.checked) { if (!this.stadium.start()) e.target.checked = false; } else this.stadium.stop();
+    });
     $("scrub").addEventListener("input", (e) => {
       this.studio.stopHighlights();
       this.studio.hideOverlays();
@@ -248,6 +255,7 @@ class Replay {
     this.stats.reset();
     this.idx = 0;
     this.pitch.clearMarks();
+    this.fx?.hide();
     this.studio.resync(this.T);
     this.advanceTo(this.T, true);
     $("momentList").innerHTML = "";
@@ -278,6 +286,8 @@ class Replay {
         break;
       }
       case "shot":
+        this.lastShot = ev;
+        if (ev.outcome !== "goal" && (ev.xg >= 0.2 || ev.outcome === "saved")) this.stadium.ooh();
         p.addMark({ kind: "line", from: ev.start, to: ev.end, width: 2.8, color: SIGNAL, ttl: 3200, arrow: true, seed: ev.id });
         // sits under the shooter so it never collides with the name tag above
         p.addMark({ kind: "label", at: ev.start, text: `${ev.speed_kmh} km/h   xG ${ev.xg.toFixed(2)}`, tone: "signal", ttl: 3200, lift: -34 });
@@ -287,21 +297,42 @@ class Replay {
         if (ev.speed_kmh >= 30 && pos) p.addMark({ kind: "label", at: pos, text: `${name(ev.player)} ${ev.speed_kmh} km/h`, ttl: 2200 });
         break;
       }
-      case "goal":
-        this.flash("Goal", `${this.roster[ev.player]?.name} ${ev.clock}`, 3800);
+      case "goal": {
+        const shot = this.lastShot || {};
+        const pl = this.roster[ev.player] || {};
+        this.fx.goal({
+          team: ev.team, teamName: this.start[ev.team].name, color: this.colors[ev.team],
+          scorer: pl.name, number: pl.number, clock: ev.clock, xg: (ev.xg ?? shot.xg ?? 0).toFixed(2),
+          speed: shot.speed_kmh ?? "", distance: shot.distance_m ?? "",
+          scoreText: `${this.start.home.name} ${ev.score.home} – ${ev.score.away} ${this.start.away.name}`,
+        });
+        this.stadium.roar();
         break;
+      }
       case "card":
-        if (ev.card === "red") this.flash("Red card", this.roster[ev.player]?.name, 3200);
+        if (ev.card === "red") {
+          const pl = this.roster[ev.player] || {};
+          this.fx.redCard({ player: pl.name, number: pl.number, teamName: this.start[ev.team].name,
+            color: this.colors[ev.team], clock: ev.clock, left: 11 - this.stats.t[ev.team].reds });
+        }
+        this.stadium.whistle(1);
         break;
-      case "substitution":
-        this.flash("Substitution", `${name(ev.player)} on for ${name(ev.player_off)}`, 2500);
+      case "substitution": {
+        const pin = this.roster[ev.player] || {}, pout = this.roster[ev.player_off] || {};
+        this.fx.substitution({ teamName: this.start[ev.team].name, color: this.colors[ev.team], clock: ev.clock,
+          inNum: pin.number, inName: pin.short, outNum: pout.number, outName: pout.short });
         break;
+      }
       case "formation_change":
-        this.flash("Tactics", `${this.start[ev.team].name} switch to ${ev.to}`, 2800);
+        this.fx.tactics({ teamName: this.start[ev.team].name, color: this.colors[ev.team], from: ev.from, to: ev.to, clock: ev.clock });
+        break;
+      case "kickoff":
+        this.stadium.whistle(1);
         break;
       case "period_end":
-        this.flash(ev.period === 1 ? "Half-time" : "Full-time",
-                   `${this.start.home.short} ${ev.score.home} - ${ev.score.away} ${this.start.away.short}`, 3000);
+        this.fx.period({ label: ev.period === 1 ? "Half-time" : "Full-time",
+          scoreText: `${this.start.home.name} ${ev.score.home} – ${ev.score.away} ${this.start.away.name}` });
+        this.stadium.whistle(ev.period === 1 ? 2 : 3, true);
         break;
     }
   }
@@ -465,7 +496,14 @@ class Replay {
     const dt = Math.min(0.1, (now - this.lastFrame) / 1000);
     this.lastFrame = now;
     this.studio.tick(now);
-    if (this.playing && !this.studio.onAir?.paused) {
+    if (Math.floor(now / 250) !== this.lastCrowdTick) {
+      this.lastCrowdTick = Math.floor(now / 250);
+      const pts = this.summary.pulse;
+      let chaos = 1;
+      for (let i = pts.length - 1; i >= 0; i--) if (pts[i].t <= this.T) { chaos = pts[i].chaos; break; }
+      this.stadium.follow(chaos, this.playing, !!this.studio.onAir);
+    }
+    if (this.playing && !this.studio.onAir?.paused && !this.fx.active(now)) {
       const before = this.idx;
       this.T = Math.min(this.endT, this.T + dt * this.speed);
       this.advanceTo(this.T);

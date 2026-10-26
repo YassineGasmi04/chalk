@@ -67,6 +67,10 @@
       <input type="checkbox" id="voiceToggle">
       <span>Voice</span>
     </label>
+    <label class="viewer-group switch switch-tight">
+      <input type="checkbox" id="soundToggle" aria-label="Stadium crowd sound">
+      <span>Crowd</span>
+    </label>
   </section>
 
   <main class="stage">
@@ -81,6 +85,8 @@
         <span class="sb-clock" id="sbClock">0'</span>
       </div>
       <div class="ticker" id="ticker" aria-live="polite"></div>
+      <canvas class="fx-canvas" id="fxCanvas" aria-hidden="true"></canvas>
+      <div class="stinger" id="stinger" hidden aria-live="assertive"></div>
       <div class="insight" id="insight" hidden>
         <div class="ins-tag"><span id="insTag">Insight</span></div>
         <div class="ins-main">
@@ -91,6 +97,7 @@
           <div class="ins-actions">
             <span class="var-badge" id="insVar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>VAR checked</span></span>
             <button type="button" class="ins-btn" id="insWhy">Why?</button>
+            <button type="button" class="ins-btn" id="insShare" title="Save this moment as an image to share">Share</button>
             <button type="button" class="ins-btn ins-go" id="insNext">Resume</button>
           </div>
         </div>

@@ -5,6 +5,8 @@
 // shows the caption for the viewer's mode (Analyst / Fan) and language
 // (EN / FR / AR). "Why?" opens the crew's working: claims, facts, VAR, timings.
 
+import { makeShareCard, shareOrDownload } from "./share.js";
+
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const $ = (id) => document.getElementById(id);
 
@@ -24,9 +26,9 @@ const TYPE_LABELS = {
 };
 const TYPE_LABEL = TYPE_LABELS.en;
 const UI = {
-  en: { yourClub: "Your club", yourPlayer: "Your player", ok: "VAR checked", safe: "Rulebook version", rules: "Rules checked", why: "Why?", resume: "Resume" },
-  fr: { yourClub: "Votre club", yourPlayer: "Votre joueur", ok: "Vérifié VAR", safe: "Version sûre", rules: "Règles vérifiées", why: "Pourquoi ?", resume: "Reprendre" },
-  ar: { yourClub: "فريقك", yourPlayer: "لاعبك", ok: "تحقق الفار", safe: "نسخة آمنة", rules: "قواعد", why: "لماذا؟", resume: "استئناف" },
+  en: { yourClub: "Your club", yourPlayer: "Your player", ok: "VAR checked", safe: "Rulebook version", rules: "Rules checked", why: "Why?", resume: "Resume", share: "Share" },
+  fr: { yourClub: "Votre club", yourPlayer: "Votre joueur", ok: "Vérifié VAR", safe: "Version sûre", rules: "Règles vérifiées", why: "Pourquoi ?", resume: "Reprendre", share: "Partager" },
+  ar: { yourClub: "فريقك", yourPlayer: "لاعبك", ok: "تحقق الفار", safe: "نسخة آمنة", rules: "قواعد", why: "لماذا؟", resume: "استئناف", share: "مشاركة" },
 };
 const STORE_KEY = "chalk.viewer";
 
@@ -96,6 +98,7 @@ export class Studio {
     $("startLive").addEventListener("click", () => { this.hideOverlays(); this.r.goLive(); });
     $("insWhy").addEventListener("click", () => { this.selectTab("tabCrew"); });
     $("insNext").addEventListener("click", () => this.end());
+    $("insShare").addEventListener("click", () => this.share());
     this.applyPrefs(true);
   }
 
@@ -187,7 +190,10 @@ export class Studio {
     const hold = Math.min(12000, 4200 + 900 * card.drawings.length);
     this.onAir = { card, frame: m?.geometry?.frame, ball: m?.geometry?.ball, start: performance.now(), hold, paused };
     if (this.speak(this.spokenText(card))) this.onAir.spoken = false;
-    if (paused) this.r.pitch.showTelestration(card.drawings);
+    if (paused) {
+      this.r.pitch.showTelestration(card.drawings);
+      if (card.type === "goal") this.r.pitch.showVarLine(m?.geometry?.offside);
+    }
     this.lastCard = card;
     this.renderCard(card);
     this.renderCrew(card);
@@ -200,6 +206,7 @@ export class Studio {
     this.onAir = null;
     this.silence();
     this.r.pitch.clearTelestration();
+    this.r.pitch.showVarLine(null);
     $("insight").hidden = true;
     if (!resume) return;
     this.r.lastFrame = performance.now();
@@ -258,6 +265,7 @@ export class Studio {
       ? "Every number was checked against the match data and the reasoning by the VAR agent"
       : "VAR could not verify the AI's version, so a version built only from the fact sheet aired";
     $("insWhy").textContent = ui.why;
+    $("insShare").textContent = ui.share;
     $("insNext").textContent = ui.resume;
     $("insNext").hidden = !this.onAir?.paused;
   }
@@ -303,6 +311,26 @@ export class Studio {
       <ul class="trace">${trace}</ul>
       <p class="crew-foot">${esc(eng.model || "")}${eng.provider === "foundry" ? " on Microsoft Foundry" : ""}, orchestrated with Microsoft Agent Framework.
         <a href="${this.r.dataPath}/match_${this.r.seed}_overlay.json" target="_blank" rel="noopener">Broadcast overlay feed (JSON)</a></p>`;
+  }
+
+  // --------------------------------------------------------------- share
+  async share() {
+    const card = this.onAir?.card || this.lastCard;
+    if (!card) return;
+    const btn = $("insShare");
+    const was = btn.textContent;
+    btn.disabled = true;
+    try {
+      const blob = await makeShareCard({
+        card, moment: this.momentById.get(card.moment_id), prefs: this.prefs, roster: this.r.roster,
+        colors: this.r.colors, start: this.r.start, ui: UI[this.prefs.lang] || UI.en,
+        typeLabel: (TYPE_LABELS[this.prefs.lang] || TYPE_LABEL)[card.type] || "Insight",
+      });
+      await shareOrDownload(blob, `chalk-${card.clock.replace(/[^0-9+]/g, "")}-${card.type}.png`);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = was;
+    }
   }
 
   // --------------------------------------------------------------- voice
@@ -405,6 +433,10 @@ export class Studio {
         <div class="rc-box"><h3>Player of the match</h3>
           <p class="potm-name">${esc(potm.number ?? "")} ${esc(f.potm_name || "")}</p>
           <div class="potm-stats">${chips}</div></div>
+        <div class="rc-box rc-shotmap"><h3>Every shot, sized by xG</h3>${this.shotMap()}
+          <p class="rc-legend"><span><span class="dot" style="display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:${this.r.colors.home}"></span> ${esc(start.home.name)}</span>
+          <span><span class="dot" style="display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:${this.r.colors.away}"></span> ${esc(start.away.name)}</span>
+          <span>Filled with a white ring: goal</span></p></div>
       </div>
       <div class="rc-actions">
         ${tp ? `<button type="button" class="btn-primary" data-rc="tp">Replay the turning point ${esc(tp)}</button>` : ""}
@@ -427,6 +459,24 @@ export class Studio {
         this.r.toggle(true);
       }
     }));
+  }
+
+  shotMap() {
+    const shots = this.r.events.filter((e) => e.type === "shot");
+    const lines = `<rect x="0" y="0" width="105" height="68" rx="1.5" fill="#174d3c"/>
+      <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width=".35">
+        <rect x="0" y="0" width="105" height="68"/><line x1="52.5" y1="0" x2="52.5" y2="68"/>
+        <circle cx="52.5" cy="34" r="9.15"/>
+        <rect x="0" y="13.84" width="16.5" height="40.32"/><rect x="88.5" y="13.84" width="16.5" height="40.32"/>
+        <rect x="0" y="24.84" width="5.5" height="18.32"/><rect x="99.5" y="24.84" width="5.5" height="18.32"/></g>`;
+    const dots = shots.map((e) => {
+      const goal = e.outcome === "goal";
+      const r = (1 + Math.sqrt(e.xg) * 5).toFixed(2);
+      const c = this.r.colors[e.team];
+      return `<circle cx="${e.start[0]}" cy="${e.start[1]}" r="${r}" fill="${c}" fill-opacity="${goal ? 1 : 0.45}"
+        stroke="${goal ? "#fff" : c}" stroke-width="${goal ? 0.7 : 0.35}"><title>${esc(e.clock)} xG ${e.xg}${goal ? ", goal" : ""}</title></circle>`;
+    }).join("");
+    return `<svg viewBox="-1 -1 107 70" role="img" aria-label="Shot map: ${shots.length} shots">${lines}${dots}</svg>`;
   }
 
   // --------------------------------------------------------- player card
