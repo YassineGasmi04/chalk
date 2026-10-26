@@ -1,2 +1,6 @@
-# Step 1 (engine + stats) needs only the Python standard library.
+# Microsoft Agent Framework: agents + workflow, and its OpenAI-compatible client
+# (works with Microsoft Foundry / Azure OpenAI deployments).
+agent-framework-core>=1.23
+agent-framework-openai>=1.17
+# tests
 pytest>=8.0
