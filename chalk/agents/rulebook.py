@@ -36,6 +36,9 @@ def allowed_numbers(facts: dict[str, Any], extra: list[Any] | None = None) -> se
             if 0 < f < 1:  # a share may be spoken as a percentage
                 vals.add(round(f * 100))
                 vals.add(round(f * 100, 1))
+            if 1 < f <= 100:  # and a percentage as a share (48.9% -> 0.489)
+                vals.add(round(f / 100, 3))
+                vals.add(round(f / 100, 2))
         elif isinstance(v, str):
             for m in NUM_RE.findall(v):
                 vals.add(round(float(m.replace(",", ".")), 2))
@@ -55,19 +58,31 @@ def allowed_numbers(facts: dict[str, Any], extra: list[Any] | None = None) -> se
 def check_numbers(text: str, allowed: set[float]) -> list[str]:
     issues = []
     for m in NUM_RE.findall(text or ""):
-        v = round(float(m.replace(",", ".")), 2)
+        f = float(m.replace(",", "."))
+        if round(f, 3) in allowed:
+            continue
+        v = round(f, 2)
         if v not in allowed:
             issues.append(f"number {m} is not on the fact sheet")
     return issues
 
 
+KEY_LEAK_RE = re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b")
+
+
 def check_language(text: str) -> list[str]:
     low = (text or "").lower()
-    return [f"unsupported context: '{w.strip()}'" for w in UNSUPPORTED if w in low]
+    issues = [f"unsupported context: '{w.strip()}'" for w in UNSUPPORTED if w in low]
+    leaks = KEY_LEAK_RE.findall(text or "")
+    if leaks:
+        issues.append(f"internal data names in the text {sorted(set(leaks))[:3]}; say it in plain words")
+    return issues
 
 
 # ----------------------------------------------------------------- analysis
 ALIASES = {"team": "team_name", "opponent": "opponent_name", "minute": "clock", "time": "clock"}
+# fields of the moment itself, which the Analyst also sees
+META_KEYS = {"title", "type", "headline", "players", "score", "clock"}
 
 
 def resolve_key(key: str, facts: dict[str, Any]) -> bool:
@@ -78,7 +93,7 @@ def resolve_key(key: str, facts: dict[str, Any]) -> bool:
         if k.startswith(prefix):
             k = k[len(prefix):]
     k = ALIASES.get(k, k)
-    if k in facts:
+    if k in facts or k in META_KEYS:
         return True
     if len(k) < 4:  # "pct", "xg"... too generic to match by suffix
         return False
@@ -215,6 +230,8 @@ def check_variants(variants: Any, allowed: set[float], personas: list[str],
             probs = check_numbers(caption, allowed) + check_numbers(v.get("tag", ""), allowed)
             if lang == "en":
                 probs += check_language(caption)
+            elif KEY_LEAK_RE.search(caption):
+                probs.append("internal data names in the caption")
             if len(caption.split()) > 40:
                 probs.append("caption longer than 40 words")
             if probs:

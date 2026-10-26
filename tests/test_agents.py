@@ -182,3 +182,20 @@ def test_step_numbers_allowed_in_drawing_labels(match):
     d = {"type": "arrow", "from": seg["from"], "to": seg["to"], "style": "pass", "label": "Pass 2"}
     kept, issues = rulebook.filter_drawings([d], geo, rulebook.allowed_numbers(card.facts))
     assert kept == [d] and issues == []
+
+
+def test_second_live_run_regressions(match):
+    """Second gpt-4.1-mini run: raw key names leaked into stories, and a signed
+    dominance number was misread as the wrong team."""
+    card = cards_for(match, types={"tactical_shift"}, n=1)[0]
+    f = card.facts
+    assert f["pulse_team_on_top"] in (card.team_names["home"], card.team_names["away"], "neither team")
+    assert "pulse_dominance" not in f  # no signed number left to misread
+    allowed = rulebook.allowed_numbers(f, card.extra_numbers())
+    leak = rulebook.check_language("Ashvale lead (home_possession_pct 50.3 vs pulse_chaos 1.35).")
+    assert any("internal data names" in i for i in leak)
+    assert rulebook.check_language("Ashvale have 4-2-3-1 shape and a box-to-box run.") == []
+    # 48.9% written as a share is the same fact
+    assert rulebook.check_numbers("a 0.489 share", rulebook.allowed_numbers({"p": 48.9})) == []
+    # citing the moment's own title is fine
+    assert rulebook.resolve_key("title", f)

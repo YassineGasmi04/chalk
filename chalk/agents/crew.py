@@ -149,9 +149,17 @@ class Card:
             for side, stats in (ctx.get("teams") or {}).items():
                 for k, v in stats.items():
                     sheet[f"{side}_{'team' if k == 'name' else k}"] = v
-            for k, v in (ctx.get("pulse") or {}).items():
-                if k in ("dominance", "chaos", "label"):
-                    sheet[f"pulse_{k}"] = v
+            pulse = ctx.get("pulse") or {}
+            if pulse:
+                dom = float(pulse.get("dominance", 0))
+                # stated in words so nobody has to interpret the sign of a number
+                sheet["pulse_team_on_top"] = ("neither team" if abs(dom) < 0.15 else
+                                              self.team_names.get("home" if dom > 0 else "away"))
+                sheet["pulse_dominance_strength"] = ("balanced" if abs(dom) < 0.15 else
+                                                     "slight" if abs(dom) < 0.35 else
+                                                     "clear" if abs(dom) < 0.6 else "overwhelming")
+                sheet["pulse_tempo"] = pulse.get("label")
+                sheet["pulse_chaos"] = pulse.get("chaos")
             sheet["window_minutes"] = 5
             self._sheet = sheet
         return self._sheet
