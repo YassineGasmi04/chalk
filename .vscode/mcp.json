@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "chalk-match": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "chalk.mcp_server", "--seed", "4"],
+      "cwd": "${workspaceFolder}"
+    },
+    "chalk-match-live": {
+      "type": "http",
+      "url": "http://localhost:8000/mcp/"
+    }
+  }
+}

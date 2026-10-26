@@ -1,6 +1,6 @@
 {
  "match_id": "synthetic-4",
- "generated_at": "2026-10-26T04:22:29+00:00",
+ "generated_at": "2026-10-26T04:49:37+00:00",
  "engine": {
   "provider": "foundry",
   "model": "gpt-4.1-mini",
@@ -43,15 +43,15 @@
   "ar"
  ],
  "stats": {
-  "calls": 0,
-  "cached": 81,
+  "calls": 5,
+  "cached": 78,
   "model_errors": 0,
   "fallbacks": 2,
   "overturned": 5,
   "drawings_rejected": 3,
   "captions_repaired": 0,
   "cards": 18,
-  "seconds": 0.1
+  "seconds": 20.6
  },
  "cards": [
   {
@@ -3590,29 +3590,29 @@
    "analyst": {
     "en": {
      "caption": "Ashvale Rovers edged Kestrel Bay 3-2 with 2.21 xG vs 0.73; Mensah-Cole netted a hat-trick from 12 shots.",
-     "tag": "xG, goals"
+     "tag": "xG, hat-trick"
     },
     "fr": {
-     "caption": "Ashvale Rovers bat Kestrel Bay 3-2, xG 2,21 contre 0,73; Mensah-Cole inscrit un triplé sur 12 tirs.",
-     "tag": "xG, buts"
+     "caption": "Ashvale Rovers l'emporte 3-2 avec 2,21 xG contre 0,73; Mensah-Cole inscrit un triplé sur 12 tirs.",
+     "tag": "xG, triplé"
     },
     "ar": {
-     "caption": "حقق أشفيل روفرز الفوز 3-2 على كيسترل باي، xG 2.21 مقابل 0.73؛ ياو منساه-كول سجل 3 أهداف من 12 تسديدة.",
-     "tag": "xG, أهداف"
+     "caption": "فاز أشفال روفرز 3-2 مع 2.21 xG مقابل 0.73؛ ياو منساه-كول سجل ثلاثية من 12 تسديدة.",
+     "tag": "xG، ثلاثية"
     }
    },
    "casual": {
     "en": {
-     "caption": "Ashvale Rovers won 3-2 thanks to Yaw Mensah-Cole’s 3 goals. They created more chances and had a higher expected goals number.",
+     "caption": "Ashvale Rovers won 3-2. Yaw Mensah-Cole scored all 3 goals, shooting 12 times.",
      "tag": "match winner"
     },
     "fr": {
-     "caption": "Ashvale Rovers gagne 3-2 grâce à 3 buts de Yaw Mensah-Cole. Ils ont eu plus d’occasions et un meilleur xG.",
-     "tag": "buteur"
+     "caption": "Ashvale Rovers gagne 3-2. Yaw Mensah-Cole a marqué les 3 buts en 12 tirs.",
+     "tag": "buteur clé"
     },
     "ar": {
-     "caption": "فاز أشفيل روفرز 3-2 بفضل 3 أهداف من ياو منساه-كول. صنعوا فرصًا أكثر وكان لديهم xG أعلى.",
-     "tag": "هداف"
+     "caption": "فاز أشفال روفرز 3-2. ياو منساه-كول سجل 3 أهداف من 12 محاولة.",
+     "tag": "هداف المباراة"
     }
    }
   },
@@ -3623,17 +3623,21 @@
     {
      "attempt": 1,
      "verdict": "overturned",
-     "by": "rulebook",
+     "by": "judge",
      "issues": [
-      "number 10 is not on the fact sheet"
+      "Turning point is incorrectly stated as 89' in the story and headline, but facts show the turning point is 77' when Adebayo Lorne was sent off.",
+      "Claim that Kestrel Bay switched tactics at 66' to chase the game is not supported by facts; facts only state the tactical change occurred but not the reason.",
+      "Story states Mensah-Cole scored an early brace, but goals timeline shows his goals at 26' and 29' which is early, so this is acceptable; no issue here."
      ]
     },
     {
      "attempt": 2,
      "verdict": "overturned",
-     "by": "rulebook",
+     "by": "judge",
      "issues": [
-      "number 10 is not on the fact sheet"
+      "Claim that the winning goal was at 89' is correct, but calling it a hat-trick including the winning goal is misleading since the facts show Mensah-Cole scored 3 goals total, but the turning point text and timeline emphasize the 89' goal as the winner, not the entire hat-trick. The claim should clarify the timing and nature of the goals more precisely.",
+      "Claim that Kestrel Bay FC was reduced to 10 men after Adebayo Lorne’s red card at 77' is correct but the fact 'away_players_on_pitch' is 10 at final whistle, so the claim stands but could be clearer that the team remained with 10 players after the red card.",
+      "The turning point is stated as 89' in facts but the analysis text calls 77' the turning point due to the red card; this is a contradiction that needs fixing."
      ]
     }
    ]
@@ -3644,18 +3648,28 @@
   "trace": [
    {
     "agent": "Recap",
-    "source": "recorded",
-    "ms": 0
+    "source": "model",
+    "ms": 11040
+   },
+   {
+    "agent": "VAR",
+    "source": "model",
+    "ms": 1423
    },
    {
     "agent": "Recap",
-    "source": "recorded",
-    "ms": 0
+    "source": "model",
+    "ms": 3990
+   },
+   {
+    "agent": "VAR",
+    "source": "model",
+    "ms": 1714
    },
    {
     "agent": "Personalizer",
-    "source": "recorded",
-    "ms": 0
+    "source": "model",
+    "ms": 2328
    }
   ],
   "facts": {
@@ -3674,6 +3688,7 @@
    "home_pressures": 223,
    "home_red_cards": 0,
    "home_big_chances": 4,
+   "home_players_on_pitch": 11,
    "away_possession_pct": 49.0,
    "away_shots": 7,
    "away_shots_on_target": 5,
@@ -3682,6 +3697,7 @@
    "away_pressures": 212,
    "away_red_cards": 1,
    "away_big_chances": 1,
+   "away_players_on_pitch": 10,
    "xg_text": "Ashvale Rovers 2.21, Kestrel Bay FC 0.73",
    "goals_timeline": "26' Yaw Mensah-Cole for Ashvale Rovers (opening goal, 0-0 to 1-0); 29' Yaw Mensah-Cole for Ashvale Rovers (extends the lead, 1-0 to 2-0); 40' Adebayo Lorne for Kestrel Bay FC (pulls one back, 2-0 to 2-1); 71' Kai Holmberg for Kestrel Bay FC (equaliser, 2-1 to 2-2); 89' Yaw Mensah-Cole for Ashvale Rovers (goes ahead, 2-2 to 3-2)",
    "red_cards_timeline": "77' Adebayo Lorne (Kestrel Bay FC)",

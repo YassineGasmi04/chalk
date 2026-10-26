@@ -128,6 +128,7 @@ def build_recap_card(events: list[dict[str, Any]], state: MatchState,
         for k in ("possession_pct", "shots", "shots_on_target", "xg", "pass_accuracy_pct", "pressures",
                   "red_cards", "big_chances"):
             facts[f"{side}_{k}"] = t[k]
+        facts[f"{side}_players_on_pitch"] = state.men[side]  # "down to 10 men" is a fact, not arithmetic
     facts["xg_text"] = f"{names['home']} {facts['home_xg']}, {names['away']} {facts['away_xg']}"
     goals = [m for m in moments if m["type"] == "goal"]
     facts["goals_timeline"] = "; ".join(

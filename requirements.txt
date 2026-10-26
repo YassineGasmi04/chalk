@@ -2,6 +2,10 @@
 # (works with Microsoft Foundry / Azure OpenAI deployments).
 agent-framework-core>=1.23
 agent-framework-openai>=1.17
+# Model Context Protocol: the match data MCP server (stdio + streamable HTTP);
+# tenacity is needed by the Agent Framework MCP client
+mcp>=2.3
+tenacity>=9.0
 # live server (Server-Sent Events)
 fastapi>=0.115
 uvicorn>=0.30

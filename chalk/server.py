@@ -10,6 +10,10 @@ Streams a synthetic match as it happens and runs the whole pipeline live:
     Render       the browser receives events, moments, pulse points and insight cards
                  over Server-Sent Events and draws them
 
+Viewers can also ask the studio a question (POST /api/ask): a Q&A agent answers through the
+CHALK MCP server, pinned to the minute they are watching, and VAR checks every number. The
+same MCP server is mounted at /mcp for any MCP client (GitHub Copilot in VS Code, ...).
+
 Run locally:
     uvicorn chalk.server:app --port 8000
 Then open http://localhost:8000/ (or /web/?live=1).
@@ -18,8 +22,10 @@ Then open http://localhost:8000/ (or /web/?live=1).
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import json
 import os
+import random
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -28,11 +34,15 @@ from typing import Any, AsyncIterator
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from mcp.server.transport_security import TransportSecuritySettings
+from pydantic import BaseModel, Field
 
 from .agents.config import ROOT, load_settings
 from .agents.crew import Crew
 from .agents.export import card_to_json, recap_to_json
 from .agents.producer import LiveProducer, build_cards, build_recap_card, context_at
+from .agents.qa import StudioQA
+from .mcp_server import build_server
 from .sim.engine import MatchSimulator
 from .stats.moments import MomentDetector
 from .stats.state import MatchState
@@ -41,7 +51,29 @@ DATA = ROOT / "data"
 ON_AIR_DELAY_S = 3.0
 MAX_SPEED = 60.0
 
-app = FastAPI(title="CHALK live", description="The AI pundit that draws on the pitch.")
+# The match data MCP server over streamable HTTP (whole match, demo seed). Public read-only
+# data, so the Host check is relaxed for cloud hosting.
+MCP = build_server(int(os.environ.get("CHALK_SEED", "4")))
+MCP_APP = MCP.streamable_http_app(streamable_http_path="/", stateless_http=True, json_response=True,
+                                  transport_security=TransportSecuritySettings(
+                                      enable_dns_rebinding_protection=False))
+
+
+@contextlib.asynccontextmanager
+async def lifespan(_app: FastAPI):
+    async with MCP_APP.router.lifespan_context(MCP_APP):
+        yield
+
+
+app = FastAPI(title="CHALK live", description="The AI pundit that draws on the pitch.", lifespan=lifespan)
+_qa: StudioQA | None = None
+
+
+def studio_qa() -> StudioQA:
+    global _qa
+    if _qa is None:
+        _qa = StudioQA()
+    return _qa
 
 
 def _load_events(seed: int) -> list[dict[str, Any]]:
@@ -81,6 +113,9 @@ async def _stream(seed: int, speed: float, ai: str) -> AsyncIterator[str]:
     recorded = _recorded(seed)
     settings = load_settings()
     live_ai = (ai == "live" or (ai == "auto" and settings.online)) and os.environ.get("CHALK_LIVE_AI", "1") != "0"
+    if not live_ai and recorded is None and ai != "recorded":
+        # a match nobody has recorded (a new seed): the offline crew explains it live, for free
+        settings, live_ai = load_settings(force_offline=True), True
     crew = Crew(settings) if live_ai else None
     rec_cards = {c["moment_id"]: c for c in (recorded or {}).get("cards", [])}
     engine = (recorded or {}).get("engine", {}) if not crew else {
@@ -152,6 +187,32 @@ async def _stream(seed: int, speed: float, ai: str) -> AsyncIterator[str]:
             t.cancel()
 
 
+class Question(BaseModel):
+    question: str = Field(..., max_length=400)
+    t: float | None = Field(None, ge=0, description="match time the viewer is watching, in seconds")
+    seed: int = Field(4, ge=0, le=99999)
+    lang: str = "en"
+    persona: str = "analyst"
+
+
+@app.post("/api/ask")
+async def ask(q: Question) -> JSONResponse:
+    """Ask the studio. Answers only from the match up to t, checked by VAR."""
+    qa = studio_qa()
+    out = await qa.ask(q.question, t=q.t, seed=q.seed, lang=q.lang, persona=q.persona)
+    out["engine"] = qa.engine
+    out["session"] = dict(qa.stats)
+    return JSONResponse(out)
+
+
+@app.get("/api/new-match")
+def new_match() -> dict[str, Any]:
+    """A fresh seed: a match nobody has seen, simulated and explained live."""
+    seed = random.randint(100, 99999)
+    ev = MatchSimulator(seed=seed).run()[0]
+    return {"seed": seed, "home": ev["home"]["name"], "away": ev["away"]["name"]}
+
+
 @app.get("/api/match/{seed}/insights")
 def insights(seed: int) -> JSONResponse:
     return JSONResponse(_recorded(seed) or {"cards": []})
@@ -162,5 +223,6 @@ def root() -> RedirectResponse:
     return RedirectResponse("/web/")
 
 
+app.mount("/mcp", MCP_APP, name="mcp")
 app.mount("/web", StaticFiles(directory=ROOT / "web", html=True), name="web")
 app.mount("/data", StaticFiles(directory=DATA), name="data")

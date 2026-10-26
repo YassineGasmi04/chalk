@@ -60,6 +60,7 @@ export class Studio {
     this.setupTabs();
     const eng = insights?.engine;
     $("crewEngine").textContent = eng ? (eng.provider === "offline" ? "Offline crew" : `${eng.model} on Foundry`) : "";
+    this.renderTrust();
   }
 
   // ------------------------------------------------------------- viewer
@@ -117,6 +118,7 @@ export class Studio {
     $("voiceToggle").checked = p.voice;
     this.r.pitch.focus = p.player || null;
     savePrefs(p);
+    this.r.ask?.render();
     if (!initial) {
       if (this.onAir) this.renderCard(this.onAir.card);
       if (!$("recap").hidden) this.showRecap();
@@ -163,6 +165,7 @@ export class Studio {
     this.cards.push(card);
     this.cards.sort((a, b) => a.on_air_t - b.on_air_t);
     this.byMoment.set(card.moment_id, card);
+    this.renderTrust();
   }
 
   reset() {
@@ -171,7 +174,8 @@ export class Studio {
     this.byMoment = new Map();
     this.momentById = new Map();
     this.aired = new Set();
-    if (this.insights) this.insights.recap = null;
+    if (this.insights) { this.insights.recap = null; this.insights.stats = null; }
+    this.renderTrust();
   }
 
   /** Called as time advances; returns true if playback must freeze. */
@@ -311,6 +315,41 @@ export class Studio {
       <ul class="trace">${trace}</ul>
       <p class="crew-foot">${esc(eng.model || "")}${eng.provider === "foundry" ? " on Microsoft Foundry" : ""}, orchestrated with Microsoft Agent Framework.
         <a href="${this.r.dataPath}/match_${this.r.seed}_overlay.json" target="_blank" rel="noopener">Broadcast overlay feed (JSON)</a></p>`;
+  }
+
+  // --------------------------------------------------------- trust report
+  /** How much checking stands behind what aired: the whole pipeline, in numbers. */
+  renderTrust() {
+    const cards = this.cards;
+    const qa = this.r.ask?.session;
+    if (!cards.length && !qa?.questions) { $("trustBody").innerHTML = ""; return; }
+    const sum = (f) => cards.reduce((n, c) => n + f(c), 0);
+    const claims = sum((c) => (c.claims || []).length);
+    const facts = sum((c) => (c.claims || []).reduce((n, cl) => n + (cl.fact_keys || []).length, 0));
+    const overturns = sum((c) => (c.var?.history || []).filter((h) => h.verdict !== "stands").length);
+    const verified = cards.filter((c) => c.var?.final === "verified").length;
+    const fallbacks = cards.filter((c) => c.var?.final === "fallback").length;
+    const rejected = sum((c) => (c.var?.drawing_issues || []).length);
+    const drawn = sum((c) => (c.drawings || []).length);
+    const traces = cards.flatMap((c) => c.trace || []);
+    const calls = this.insights?.stats?.calls ?? traces.filter((t) => t.source === "model").length;
+    const byAgent = {};
+    for (const t of traces) if (t.source === "model" && t.ms) (byAgent[t.agent] ||= []).push(t.ms);
+    const pct = (xs, q) => { const s = xs.slice().sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(q * s.length))]; };
+    const lat = Object.entries(byAgent).map(([a, xs]) => [a, pct(xs, 0.5), pct(xs, 0.95)]);
+    const maxMs = Math.max(1, ...lat.map((l) => l[2]));
+    const tile = (v, label, hot = false) => `<div class="${hot ? "hot" : ""}"><dt>${label}</dt><dd>${v}</dd></div>`;
+    const qaTiles = qa?.questions ? tile(qa.questions, "viewer questions answered") +
+      tile(qa.overturned, "Q&amp;A answers VAR sent back", qa.overturned > 0) : "";
+    $("trustBody").innerHTML = `
+      <div class="trust-head"><h3 class="trust-title">Trust report</h3>${cards.length ? `<p class="trust-score">${verified}/${cards.length} insights aired as the AI wrote them, after VAR</p>` : ""}</div>
+      <dl class="trust-grid">
+        ${tile(claims, "claims checked")}${tile(facts, "facts cited")}${tile(overturns, "times VAR overturned the AI", overturns > 0)}
+        ${tile(fallbacks, "rulebook versions aired", fallbacks > 0)}${tile(`${drawn - rejected}/${drawn}`, "drawings kept on the pitch")}${tile(calls, "model calls")}
+        ${qaTiles}
+      </dl>
+      ${lat.length ? `<ul class="trust-lat">${lat.map(([a, p50, p95]) => `<li><span>${esc(a)}</span><span class="ms">median ${(p50 / 1000).toFixed(1)}s · p95 ${(p95 / 1000).toFixed(1)}s</span><span class="bar"><span class="p95" style="width:${(p95 / maxMs * 100).toFixed(0)}%"></span><span class="p50" style="width:${(p50 / maxMs * 100).toFixed(0)}%"></span></span></li>`).join("")}</ul>` : ""}
+      <p class="trust-note">Every number on air comes from code. Agents write the words and drawings; VAR rejects anything it cannot find in the match data.</p>`;
   }
 
   // --------------------------------------------------------------- share

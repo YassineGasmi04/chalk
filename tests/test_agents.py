@@ -267,3 +267,17 @@ def test_recap_agent_runs_through_the_same_crew(match):
     assert [t["agent"] for t in out.trace] == ["Recap", "VAR", "Personalizer"]
     assert rulebook.check_variants(out.variants, rulebook.allowed_numbers(out.facts, out.extra_numbers()),
                                    PERSONAS, LANGUAGES, out.facts) == {}
+
+
+def test_recap_may_say_down_to_ten_men():
+    """Regression from a live run: the recap said a team finished with 10 men and VAR
+    overturned it because 10 was not on the full-time fact sheet."""
+    from chalk.agents.producer import build_recap_card
+    from chalk.sim.engine import MatchSimulator
+    from chalk.stats.moments import analyse
+    from chalk.agents.rulebook import allowed_numbers, check_numbers
+    events = MatchSimulator(seed=4).run()
+    state, det = analyse(events)
+    card = build_recap_card(events, state, [m.to_dict() for m in det.moments])
+    assert card.facts["away_players_on_pitch"] == 10
+    assert check_numbers("Kestrel Bay FC finished with 10 men.", allowed_numbers(card.facts)) == []

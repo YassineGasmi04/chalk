@@ -1,6 +1,7 @@
 import { PitchRenderer } from "./pitch.js";
 import { Studio } from "./studio.js";
 import { Stadium, Stingers } from "./fx.js";
+import { AskDesk } from "./ask.js";
 
 const params = new URLSearchParams(location.search);
 const SEED = params.get("seed") || "4";
@@ -127,6 +128,7 @@ class Replay {
     this.stadium = new Stadium();
     this.pitch.rain = /rain/i.test(this.start.weather || "");
     this.studio = new Studio(this, insights);
+    this.ask = new AskDesk(this);
     this.setupUI(home, away);
     this.pulseCanvas = $("pulse");
     new ResizeObserver(() => this.drawPulse()).observe(this.pulseCanvas);
@@ -185,8 +187,10 @@ class Replay {
 
   // ---------------------------------------------------------------- live
   /** Switch from the recorded file to the server's live feed (Server-Sent Events). */
-  goLive() {
-    if (this.live) return;
+  goLive(seed = null) {
+    if (this.live && seed === null) return;
+    this.feed?.close();
+    if (seed !== null) this.seed = String(seed);
     this.live = true;
     this.liveEnded = false;
     this.events = [this.events[0]];
@@ -194,13 +198,16 @@ class Replay {
     this.summary.pulse = [];
     this.studio.reset();
     this.studio.stopHighlights();
+    this.studio.selectTab("tabStats");
+    $("recap").hidden = true;
+    $("askThread").innerHTML = "";
     this.endT = 0;
     this.T = 0;
     this.idx = 0;
     $("momentList").innerHTML = "";
     this.momentsShown = 0;
     this.seek(0);
-    $("feedLabel").textContent = "Live feed";
+    $("feedLabel").textContent = this.seed === SEED ? "Live feed" : `Live · match #${this.seed}`;
     $("feedLabel").closest(".feed-pill").classList.add("is-live");
     $("hlBtn").hidden = true;
     const es = new EventSource(`/api/live?seed=${this.seed}&speed=${this.speed}`);
@@ -208,11 +215,14 @@ class Replay {
     es.addEventListener("hello", (e) => {
       const h = JSON.parse(e.data);
       if (this.studio.insights) this.studio.insights.engine = h.engine;
-      $("crewEngine").textContent = h.mode === "live AI" ? `${h.engine.model} on Foundry, live` : "Recorded crew";
+      else this.studio.insights = { engine: h.engine, cards: [] };
+      const model = h.engine?.model;
+      $("crewEngine").textContent = h.mode !== "live AI" ? "Recorded crew"
+        : model && model !== "offline" ? `${model} on Foundry, live` : "Offline crew, live";
     });
     es.addEventListener("event", (e) => {
       const ev = JSON.parse(e.data);
-      if (ev.type === "match_start") return;
+      if (ev.type === "match_start") { this.events[0] = ev; return; }
       this.events.push(ev);
       this.endT = ev.t;
     });
@@ -554,8 +564,19 @@ load()
     if (!params.has("nowelcome")) window.chalk.studio.showWelcome();
     fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((h) => {
       if (!h?.ok) return;
+      const app = window.chalk;
       $("startLive").hidden = false;
-      if (params.has("live")) { window.chalk.studio.hideOverlays(); window.chalk.goLive(); }
+      $("startNew").hidden = false;
+      $("newMatchBtn").hidden = false;
+      app.ask.setAvailable(true);
+      const fresh = async () => {
+        app.studio.hideOverlays();
+        const r = await fetch("/api/new-match");
+        if (r.ok) app.goLive((await r.json()).seed);
+      };
+      $("newMatchBtn").addEventListener("click", fresh);
+      $("startNew").addEventListener("click", fresh);
+      if (params.has("live")) { app.studio.hideOverlays(); app.goLive(); }
     }).catch(() => { /* static hosting: replay only */ });
   })
   .catch((err) => {

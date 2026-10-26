@@ -1,0 +1,21 @@
+{
+"d9f314b318b5f39b35bd53a12f5c10cf": {
+"answer": "Yaw Mensah-Cole is excelling as a striker with 2 goals from 5 shots and an expected goals value close to 1. He shows strong defensive work with 4 tackles and 7 interceptions, and maintains good passing accuracy at 86%. His top speed of 33.1 km/h also highlights his physical threat.",
+"tools": [
+{
+"tool": "player_stats",
+"args": {
+"player": "Mensah-Cole"
+}
+}
+],
+"source": "model",
+"focus": "h9",
+"var": {
+"final": "verified",
+"issues": [],
+"attempts": 1,
+"by": "rulebook"
+}
+}
+}

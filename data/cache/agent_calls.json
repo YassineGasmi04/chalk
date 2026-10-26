@@ -14567,5 +14567,147 @@
 }
 }
 }
+},
+"4900fbc33526a6d26dc1925b6e8ec633": {
+"headline": "Mensah-Cole's Hat-Trick Secures Ashvale Rovers Win",
+"story": "Ashvale Rovers triumphed 3-2 over Kestrel Bay FC in a thrilling encounter. Yaw Mensah-Cole's early brace gave Ashvale a strong lead, but Kestrel Bay fought back with goals at 40' and 71'. The turning point came at 77' when Kestrel Bay's Adebayo Lorne was sent off, leaving his team a man down. Mensah-Cole sealed the victory with a decisive goal in the 89th minute. His 12 shots and 2.09 xG made him the standout player of the match.",
+"claims": [
+{
+"text": "Yaw Mensah-Cole scored a hat-trick, including the winning goal at 89'.",
+"fact_keys": [
+"goals_timeline",
+"potm_goals",
+"turning_point_clock"
+]
+},
+{
+"text": "Kestrel Bay FC was reduced to 10 men after Adebayo Lorne's red card at 77'.",
+"fact_keys": [
+"red_cards_timeline",
+"away_red_cards"
+]
+},
+{
+"text": "Ashvale Rovers dominated with 51% possession and 17 shots, 9 on target.",
+"fact_keys": [
+"home_possession_pct",
+"home_shots",
+"home_shots_on_target"
+]
+},
+{
+"text": "Kestrel Bay FC switched tactics at 66' from 4-3-3 to 4-2-3-1 to chase the game.",
+"fact_keys": [
+"tactical_changes"
+]
+},
+{
+"text": "Mensah-Cole's 12 shots and 2.09 xG highlight his offensive impact.",
+"fact_keys": [
+"potm_shots",
+"potm_xg"
+]
+}
+],
+"focus_players": [
+"h9"
+],
+"turning_point": "89'"
+},
+"25f42c7440854115d6eab5144198fed3": {
+"verdict": "overturned",
+"issues": [
+"Turning point is incorrectly stated as 89' in the story and headline, but facts show the turning point is 77' when Adebayo Lorne was sent off.",
+"Claim that Kestrel Bay switched tactics at 66' to chase the game is not supported by facts; facts only state the tactical change occurred but not the reason.",
+"Story states Mensah-Cole scored an early brace, but goals timeline shows his goals at 26' and 29' which is early, so this is acceptable; no issue here."
+]
+},
+"785831f617c7a03832a8242284d967d0": {
+"headline": "Mensah-Cole’s hat-trick seals Ashvale Rovers win",
+"story": "Ashvale Rovers edged Kestrel Bay FC 3-2 in a thrilling encounter. Yaw Mensah-Cole’s early brace gave Ashvale a strong start, but Kestrel Bay fought back with goals at 40' and 71'. The turning point came at 77' when Kestrel Bay’s Adebayo Lorne was sent off, leaving his team a man down. Mensah-Cole capitalized late at 89' to secure the victory. His 12 shots, 2.09 xG, and top speed of 34.6 km/h earned him player of the match honors.",
+"claims": [
+{
+"text": "Yaw Mensah-Cole scored a hat-trick including the winning goal at 89'.",
+"fact_keys": [
+"goals_timeline",
+"potm_goals",
+"turning_point_text"
+]
+},
+{
+"text": "Kestrel Bay FC was reduced to 10 men after Adebayo Lorne’s red card at 77'.",
+"fact_keys": [
+"red_cards_timeline",
+"away_players_on_pitch"
+]
+},
+{
+"text": "Ashvale Rovers dominated with 51% possession and 17 shots compared to 49% and 7 shots for Kestrel Bay.",
+"fact_keys": [
+"home_possession_pct",
+"away_possession_pct",
+"home_shots",
+"away_shots"
+]
+},
+{
+"text": "Kestrel Bay FC switched formation from 4-3-3 to 4-2-3-1 at 66'.",
+"fact_keys": [
+"tactical_changes"
+]
+},
+{
+"text": "Mensah-Cole’s 2.09 xG and 78.5% pass accuracy highlight his all-around impact.",
+"fact_keys": [
+"potm_xg",
+"potm_pass_accuracy_pct"
+]
+}
+],
+"focus_players": [
+"h9",
+"a9"
+],
+"turning_point": "77'"
+},
+"14020b9a742f9e235d5af531289a32b5": {
+"verdict": "overturned",
+"issues": [
+"Claim that the winning goal was at 89' is correct, but calling it a hat-trick including the winning goal is misleading since the facts show Mensah-Cole scored 3 goals total, but the turning point text and timeline emphasize the 89' goal as the winner, not the entire hat-trick. The claim should clarify the timing and nature of the goals more precisely.",
+"Claim that Kestrel Bay FC was reduced to 10 men after Adebayo Lorne’s red card at 77' is correct but the fact 'away_players_on_pitch' is 10 at final whistle, so the claim stands but could be clearer that the team remained with 10 players after the red card.",
+"The turning point is stated as 89' in facts but the analysis text calls 77' the turning point due to the red card; this is a contradiction that needs fixing."
+]
+},
+"07e189b86fd3566cdfb6d7816d9e8fc7": {
+"variants": {
+"analyst": {
+"en": {
+"caption": "Ashvale Rovers edged Kestrel Bay 3-2 with 2.21 xG vs 0.73; Mensah-Cole netted a hat-trick from 12 shots.",
+"tag": "xG, hat-trick"
+},
+"fr": {
+"caption": "Ashvale Rovers l'emporte 3-2 avec 2,21 xG contre 0,73; Mensah-Cole inscrit un triplé sur 12 tirs.",
+"tag": "xG, triplé"
+},
+"ar": {
+"caption": "فاز أشفال روفرز 3-2 مع 2.21 xG مقابل 0.73؛ ياو منساه-كول سجل ثلاثية من 12 تسديدة.",
+"tag": "xG، ثلاثية"
+}
+},
+"casual": {
+"en": {
+"caption": "Ashvale Rovers won 3-2. Yaw Mensah-Cole scored all 3 goals, shooting 12 times.",
+"tag": "match winner"
+},
+"fr": {
+"caption": "Ashvale Rovers gagne 3-2. Yaw Mensah-Cole a marqué les 3 buts en 12 tirs.",
+"tag": "buteur clé"
+},
+"ar": {
+"caption": "فاز أشفال روفرز 3-2. ياو منساه-كول سجل 3 أهداف من 12 محاولة.",
+"tag": "هداف المباراة"
+}
+}
+}
 }
 }
