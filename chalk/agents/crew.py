@@ -69,9 +69,9 @@ class OfflineChatClient(BaseChatClient):
         return self._respond(list(messages))
 
 
-def make_online_client(settings: Settings) -> Any:
+def make_online_client(settings: Settings, model: str | None = None) -> Any:
     from agent_framework.openai import OpenAIChatCompletionClient
-    return OpenAIChatCompletionClient(model=settings.model, api_key=settings.api_key,
+    return OpenAIChatCompletionClient(model=model or settings.model, api_key=settings.api_key,
                                       base_url=settings.base_url)
 
 
@@ -160,6 +160,20 @@ class Card:
                                                      "clear" if abs(dom) < 0.6 else "overwhelming")
                 sheet["pulse_tempo"] = pulse.get("label")
                 sheet["pulse_chaos"] = pulse.get("chaos")
+            # the score and the numbers on the pitch, as sentences nobody can misread
+            score = ctx.get("score") or sheet.get("score")
+            hn, an = self.team_names.get("home", "Home"), self.team_names.get("away", "Away")
+            if score and "-" in str(score):
+                hg, ag = (int(x) for x in str(score).split("-")[:2])
+                sheet["score_text"] = f"{hn} {hg}-{ag} {an}"
+                sheet["leading_team"] = "level" if hg == ag else (hn if hg > ag else an)
+            teams = ctx.get("teams") or {}
+            hm = (teams.get("home") or {}).get("players_on_pitch")
+            am = (teams.get("away") or {}).get("players_on_pitch")
+            if hm and am:
+                sheet["player_advantage"] = ("level numbers" if hm == am else
+                                             f"{hn if hm > am else an} have {abs(hm - am)} more player"
+                                             + ("s" if abs(hm - am) > 1 else ""))
             sheet["window_minutes"] = 5
             self._sheet = sheet
         return self._sheet
@@ -196,12 +210,15 @@ class Crew:
         self.stats = {"calls": 0, "cached": 0, "model_errors": 0, "fallbacks": 0,
                       "overturned": 0, "drawings_rejected": 0, "captions_repaired": 0}
         online = make_online_client(settings) if settings.online else None
+        judge = make_online_client(settings, settings.var_model) \
+            if settings.online and settings.var_model else online
         self.agents: dict[str, Agent] = {}
         self.offline_agents: dict[str, Agent] = {}
         for role, (name, instructions, desc) in ROLES.items():
             self.offline_agents[role] = Agent(OfflineChatClient(role), instructions, name=name, description=desc)
-            self.agents[role] = Agent(online, instructions, name=name, description=desc) \
-                if online is not None else self.offline_agents[role]
+            client = judge if role == "var" else online
+            self.agents[role] = Agent(client, instructions, name=name, description=desc) \
+                if client is not None else self.offline_agents[role]
 
     # ------------------------------------------------------------- calls
     async def call(self, role: str, payload: dict[str, Any], card: Card,
@@ -212,7 +229,8 @@ class Crew:
         agent = self.offline_agents[role] if use_offline else self.agents[role]
         key = None
         if not use_offline:
-            key = CallCache.key(self.settings.model, role, ROLES[role][1], prompt)
+            model = (self.settings.var_model or self.settings.model) if role == "var" else self.settings.model
+            key = CallCache.key(model, role, ROLES[role][1], prompt)
             hit = self.cache.get(key)
             if hit is not None:
                 self.stats["cached"] += 1
@@ -272,7 +290,9 @@ class Crew:
                            "geometry": _geometry(card.moment["geometry"]), "analysis": card.analysis}
                 raw = await crew.call("telestrator", payload, card)
                 allowed = rulebook.allowed_numbers(card.facts, card.extra_numbers())
-                kept, issues = rulebook.filter_drawings(raw.get("drawings"), card.moment["geometry"], allowed)
+                allowed |= {float(p["number"]) for p in card.players.values() if p.get("number")}
+                drawings = rulebook.repair_labels(raw.get("drawings"), card.players)
+                kept, issues = rulebook.filter_drawings(drawings, card.moment["geometry"], allowed)
                 crew.stats["drawings_rejected"] += len(issues)
                 if not kept:
                     fb = offline.telestrator(payload)

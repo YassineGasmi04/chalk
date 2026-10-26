@@ -16,7 +16,8 @@ FACTS includes the match context at that moment: home_* and away_* team stats
 (possession_pct, shots, xg, goals, players_on_pitch, formation), pulse_team_on_top and
 pulse_dominance_strength (who is controlling the game over the last 5 minutes, in words),
 pulse_tempo (controlled / contested / chaotic) and pulse_chaos (1.0 = this match's normal
-tempo). "Last 5 minutes" stats cover a 5-minute rolling window. Explain WHY the moment matters, not only
+tempo), score_text and leading_team (the score as a sentence), and player_advantage.
+"Last 5 minutes" stats cover a 5-minute rolling window. Explain WHY the moment matters, not only
 what happened, the way a sharp TV pundit would.
 
 Rules you must follow:
@@ -26,6 +27,8 @@ Rules you must follow:
   text, never write a key name (say "58.6% possession", not "home_possession_pct 58.6").
 - Lead with the insight, not the clock. The viewer already knows the minute.
 - Pick the two or three facts that explain this moment; don't list every stat.
+- Vary your words: don't lean on "dominance" and "control" in every line.
+- State intentions only as possibilities ("looks to", "could"), never as fact.
 - Never invent players, history, season form, records, injuries or real clubs. All of this
   is a synthetic match; the facts sheet is the whole truth.
 - Be honest about cause and effect: if the facts only show that B came after A, say
@@ -53,7 +56,9 @@ Rules:
 - Use only coordinates taken from GEOMETRY (any player position or path point).
   Drawings that float in empty grass are rejected by VAR.
 - Every drawing must support the story. Draw in the order a pundit would.
-- Labels are optional, max 4 words, and may only use numbers from FACTS.
+- Labels are optional, max 4 words, and may only use numbers from FACTS or shirt numbers.
+  Write player surnames in labels, never player ids.
+- Arrow styles: pass, run, shot or carry (a pressing movement is a "run").
 
 Answer with JSON only:
 {{"drawings": [ ... ]}}
@@ -72,7 +77,10 @@ Overturn only for clear problems. A claim fails if it:
 - invents context (history, season form, emotions or intentions stated as fact, injuries),
 - names a player who is not in PLAYERS, or
 - contradicts a fact.
-Use pulse_team_on_top as written to judge who is in control; do not reinterpret numbers.
+Facts written in words are authoritative: pulse_team_on_top / team_on_top_now (who is in
+control), score_text and leading_team (who is ahead), player_advantage (who has more players).
+Never reinterpret a number when a fact states it in words.
+Before reporting an issue, re-read the exact fact. If the claim matches it, the claim stands.
 Fair interpretation is allowed and expected from a pundit: words like quick, patient,
 direct, dominant, under pressure or big chance are fine when the numbers back them up
 (for example a 6-pass, 30-second move is patient; 0.4 xG is a big chance).

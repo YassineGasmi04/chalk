@@ -43,6 +43,7 @@ class Settings:
     api_key: str | None
     model: str
     max_concurrency: int = 3
+    var_model: str | None = None  # optional stronger deployment just for the VAR judge
 
     @property
     def online(self) -> bool:
@@ -52,7 +53,8 @@ class Settings:
         if not self.online:
             return "offline crew (rule-based pundits, no model calls)"
         host = (self.base_url or "").split("/")[2] if self.base_url else "?"
-        return f"{self.provider}: {self.model} at {host}"
+        judge = f", VAR judge on {self.var_model}" if self.var_model else ""
+        return f"{self.provider}: {self.model} at {host}{judge}"
 
 
 def load_settings(env_file: Path | None = None, force_offline: bool = False) -> Settings:
@@ -62,9 +64,10 @@ def load_settings(env_file: Path | None = None, force_offline: bool = False) -> 
     api_key = get("CHALK_API_KEY")
     model = get("CHALK_MODEL", "gpt-4.1-mini")
     conc = int(get("CHALK_MAX_CONCURRENCY", "3"))
+    var_model = get("CHALK_VAR_MODEL") or None
     if force_offline or not (base_url and api_key):
         return Settings("offline", None, None, "offline", conc)
     if not base_url.endswith("/"):
         base_url += "/"
     provider = "foundry" if ("azure.com" in base_url or "azure-api" in base_url) else "openai-compatible"
-    return Settings(provider, base_url, api_key, model, conc)
+    return Settings(provider, base_url, api_key, model, conc, var_model)

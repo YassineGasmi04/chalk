@@ -199,3 +199,22 @@ def test_second_live_run_regressions(match):
     assert rulebook.check_numbers("a 0.489 share", rulebook.allowed_numbers({"p": 48.9})) == []
     # citing the moment's own title is fine
     assert rulebook.resolve_key("title", f)
+
+
+def test_third_live_run_regressions(match):
+    """Full 18-moment run: momentum facts were signed numbers, the judge miscounted
+    11 v 10, and drawing labels showed player ids and an unknown 'press' style."""
+    events, moments, contexts = match
+    swings = [m for m in moments if m["type"] == "momentum_swing"]
+    assert swings and all("dominance_now" not in m["facts"] for m in swings)
+    assert all(isinstance(m["facts"]["team_on_top_now"], str) for m in swings)
+    red = cards_for(match, types={"red_card"}, n=1)[0]
+    assert red.facts["player_advantage"].endswith("have 1 more player")
+    assert red.facts["leading_team"] in ("level", red.team_names["home"], red.team_names["away"])
+    goal = cards_for(match, types={"goal"}, n=1)[0]
+    seg = goal.moment["geometry"]["buildup"][-1]
+    raw = [{"type": "arrow", "from": seg["from"], "to": seg["to"], "style": "press", "label": "h9 to h6"}]
+    fixed = rulebook.repair_labels(raw, goal.players)
+    assert fixed[0]["style"] == "run" and "h9" not in fixed[0]["label"]
+    kept, issues = rulebook.filter_drawings(fixed, goal.moment["geometry"], rulebook.allowed_numbers(goal.facts))
+    assert kept and not issues

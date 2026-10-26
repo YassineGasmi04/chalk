@@ -82,7 +82,32 @@ def check_language(text: str) -> list[str]:
 # ----------------------------------------------------------------- analysis
 ALIASES = {"team": "team_name", "opponent": "opponent_name", "minute": "clock", "time": "clock"}
 # fields of the moment itself, which the Analyst also sees
-META_KEYS = {"title", "type", "headline", "players", "score", "clock"}
+META_KEYS = {"title", "type", "headline", "players", "score", "clock", "previous_moments"}
+ARROW_STYLES = {"pass": "pass", "run": "run", "shot": "shot", "carry": "carry", "dribble": "carry",
+                "press": "run", "pressure": "run", "pressing": "run", "movement": "run", "sprint": "run",
+                "cross": "pass", "through ball": "pass", "assist": "pass"}
+PLAYER_ID_RE = re.compile(r"\b([ha]\d{1,2})\b")
+MAX_DRAWINGS = 5
+
+
+def repair_labels(drawings: Any, players: dict[str, Any]) -> Any:
+    """Fix harmless slips before judging: player ids in labels become surnames,
+    synonyms of arrow styles ("press") become the supported ones."""
+    if not isinstance(drawings, list):
+        return drawings
+    def surname(m: re.Match) -> str:
+        p = players.get(m.group(1))
+        return p["name"].split()[-1] if p else m.group(1)
+    out = []
+    for d in drawings:
+        if isinstance(d, dict):
+            d = dict(d)
+            if isinstance(d.get("label"), str):
+                d["label"] = PLAYER_ID_RE.sub(surname, d["label"]).strip()
+            if d.get("type") == "arrow" and isinstance(d.get("style"), str):
+                d["style"] = ARROW_STYLES.get(d["style"].lower(), d["style"])
+        out.append(d)
+    return out
 
 
 def resolve_key(key: str, facts: dict[str, Any]) -> bool:
@@ -202,7 +227,9 @@ def filter_drawings(drawings: Any, geometry: dict[str, Any],
     # labels may number the steps of a move ("Pass 1") or name shirt numbers
     allowed = allowed | {float(n) for n in range(1, 12)}
     kept, issues = [], []
-    for d in drawings[:6]:
+    for d in drawings:
+        if len(kept) >= MAX_DRAWINGS:
+            break
         if not isinstance(d, dict):
             issues.append("drawing is not an object")
             continue

@@ -298,8 +298,9 @@ class MomentDetector:
                     self._last_fired[("momentum_swing", None)] = s.t
                     self._fire("momentum_swing", side, f"Momentum swings to {s.team_name(side)}",
                                ev, [],
-                               {"dominance_now": now_p.dominance,
-                                "dominance_5min_ago": then_p.dominance,
+                               {"team_on_top_now": _on_top(s, now_p.dominance),
+                                "team_on_top_5min_ago": _on_top(s, then_p.dominance),
+                                "control_strength_now": _strength(now_p.dominance),
                                 "possession_last5_pct": round(100 * w[side]["possession"], 1),
                                 "field_tilt_last5_pct": round(100 * w[side]["field_tilt"], 1),
                                 "shots_last5": w[side]["shots"], "xg_last5": w[side]["xg"]},
@@ -316,6 +317,18 @@ class MomentDetector:
                         "shots_last5_away": w["away"]["shots"]},
                        [], {})
         self._last_label = label
+
+
+def _on_top(s: MatchState, dominance: float) -> str:
+    """Who is controlling the game, in words (a signed number invites misreading)."""
+    if abs(dominance) < 0.15:
+        return "neither team"
+    return s.team_name("home" if dominance > 0 else "away")
+
+
+def _strength(dominance: float) -> str:
+    d = abs(dominance)
+    return "balanced" if d < 0.15 else "slight" if d < 0.35 else "clear" if d < 0.6 else "overwhelming"
 
 
 def _press_zone(frame: dict[str, list[float]], s: MatchState, side: str) -> dict[str, Any]:
