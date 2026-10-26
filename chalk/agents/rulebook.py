@@ -13,7 +13,7 @@ from typing import Any
 NUM_RE = re.compile(r"(?<![A-Za-z])(\d+(?:[.,]\d+)?)")
 # context the facts never contain: forbidden as stated fact
 UNSUPPORTED = [
-    "record", "all-time", "all time", "this season", "last season", "history",
+    "record", "all-time", "all time", "season", "history",
     "ever ", "league table", "injur", "title race", "relegation",
 ]
 PITCH_X = (-2.0, 107.0)
@@ -67,6 +67,24 @@ def check_language(text: str) -> list[str]:
 
 
 # ----------------------------------------------------------------- analysis
+ALIASES = {"team": "team_name", "opponent": "opponent_name", "minute": "clock", "time": "clock"}
+
+
+def resolve_key(key: str, facts: dict[str, Any]) -> bool:
+    """A cited key is valid if it names a fact, tolerating harmless variations
+    (possession_pct -> home_possession_pct, chaos -> pulse_chaos, teams.home.xg -> home_xg)."""
+    k = str(key).strip().lower().replace(".", "_").replace("-", "_")
+    for prefix in ("facts_", "context_", "teams_"):
+        if k.startswith(prefix):
+            k = k[len(prefix):]
+    k = ALIASES.get(k, k)
+    if k in facts:
+        return True
+    if len(k) < 4:  # "pct", "xg"... too generic to match by suffix
+        return False
+    return any(f.endswith("_" + k) or f.startswith(k + "_") for f in facts)
+
+
 def check_analysis(analysis: dict[str, Any], facts: dict[str, Any], players: dict[str, Any],
                    extra_numbers: list[Any]) -> list[str]:
     issues: list[str] = []
@@ -86,7 +104,7 @@ def check_analysis(analysis: dict[str, Any], facts: dict[str, Any], players: dic
             issues.append("claim is not an object")
             continue
         keys = c.get("fact_keys") or []
-        unknown = [k for k in keys if k not in facts]
+        unknown = [k for k in keys if not resolve_key(k, facts)]
         if not keys:
             issues.append(f"claim cites no facts: '{c.get('text', '')[:50]}'")
         if unknown:
@@ -166,6 +184,8 @@ def filter_drawings(drawings: Any, geometry: dict[str, Any],
     if not isinstance(drawings, list):
         return [], ["drawings is not a list"]
     ground = grounding_points(geometry)
+    # labels may number the steps of a move ("Pass 1") or name shirt numbers
+    allowed = allowed | {float(n) for n in range(1, 12)}
     kept, issues = [], []
     for d in drawings[:6]:
         if not isinstance(d, dict):

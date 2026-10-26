@@ -144,3 +144,41 @@ def test_model_outage_falls_back_to_rule_based_pundit(match):
     assert out.var["final"] == "verified"
     assert any("model unavailable" in f for f in out.fallbacks)
     assert crew.stats["model_errors"] >= 1
+
+
+# ------------------------------------- regression: first live Foundry run
+def test_context_citations_from_live_run_are_accepted(match):
+    """In the first gpt-4.1-mini run, good claims citing match context were wrongly
+    overturned. They must pass now; invented numbers must still be caught."""
+    card = cards_for(match, types={"red_card"}, n=1)[0]
+    f = card.facts
+    assert "home_possession_pct" in f and "pulse_chaos" in f and f["team_name"]
+    good = {
+        "headline": "Down to ten",
+        "story": f"{f['team_name']} are down to {f['players_left']} with {f['minutes_remaining']} minutes left, "
+                 f"after {f['team_possession_last5_pct']}% of the ball in the last 5 minutes.",
+        "claims": [
+            {"text": "They kept the ball well before the card.", "fact_keys": ["possession_pct"]},
+            {"text": "The game had been chaotic.", "fact_keys": ["chaos", "pulse"]},
+            {"text": f"{f['team_name']} lose a player.", "fact_keys": ["team", "players_left"]},
+            {"text": "Shots so far.", "fact_keys": ["shots", "teams.home.xg"]},
+        ],
+        "focus_players": card.moment["players"][:1],
+    }
+    assert rulebook.check_analysis(good, f, card.players, card.extra_numbers()) == []
+    bad = copy.deepcopy(good)
+    bad["story"] += " Their 9th red card of the season."
+    bad["claims"][0]["fact_keys"] = ["pct"]
+    issues = rulebook.check_analysis(bad, f, card.players, card.extra_numbers())
+    assert any("number 9" in i for i in issues)
+    assert any("unsupported context" in i for i in issues)
+    assert any("unknown facts" in i for i in issues)
+
+
+def test_step_numbers_allowed_in_drawing_labels(match):
+    card = cards_for(match, types={"goal"}, n=1)[0]
+    geo = card.moment["geometry"]
+    seg = geo["buildup"][-1]
+    d = {"type": "arrow", "from": seg["from"], "to": seg["to"], "style": "pass", "label": "Pass 2"}
+    kept, issues = rulebook.filter_drawings([d], geo, rulebook.allowed_numbers(card.facts))
+    assert kept == [d] and issues == []

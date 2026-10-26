@@ -37,7 +37,7 @@ PERSONAS = ["analyst", "casual"]
 LANGUAGES = ["en", "fr", "ar"]
 MAX_ANALYST_ATTEMPTS = 2
 MUST_AIR = {"goal", "red_card", "tactical_shift"}
-CONSTANT_NUMBERS = [100, 0]  # e.g. "out of 100"
+CONSTANT_NUMBERS = [0, 5, 100]  # "out of 100", "the last 5 minutes" (the rolling window)
 
 ROLES = {
     "analyst": ("Analyst", prompts.ANALYST,
@@ -129,15 +129,42 @@ class Card:
     variants: dict[str, Any] = field(default_factory=dict)
     fallbacks: list[str] = field(default_factory=list)
     trace: list[dict[str, Any]] = field(default_factory=list)
+    _sheet: dict[str, Any] | None = field(default=None, repr=False)
 
     @property
     def facts(self) -> dict[str, Any]:
-        return self.moment["facts"]
+        """One fact sheet: the moment's own facts plus the match context at that moment.
+
+        Keys are flat and explicit (home_possession_pct, away_xg, pulse_chaos...) so the
+        Analyst can cite context and VAR can check it with the same rules.
+        """
+        if getattr(self, "_sheet", None) is None:
+            sheet = dict(self.moment["facts"])
+            team = self.moment.get("team")
+            other = {"home": "away", "away": "home"}.get(team or "")
+            if team:
+                sheet["team_name"] = self.team_names.get(team)
+                sheet["opponent_name"] = self.team_names.get(other or "")
+            ctx = self.context or {}
+            for side, stats in (ctx.get("teams") or {}).items():
+                for k, v in stats.items():
+                    sheet[f"{side}_{'team' if k == 'name' else k}"] = v
+            for k, v in (ctx.get("pulse") or {}).items():
+                if k in ("dominance", "chaos", "label"):
+                    sheet[f"pulse_{k}"] = v
+            sheet["window_minutes"] = 5
+            self._sheet = sheet
+        return self._sheet
 
     def extra_numbers(self) -> list[Any]:
         ctx = self.context or {}
         return CONSTANT_NUMBERS + [self.moment.get("clock", ""), ctx.get("score", "")] + \
-            [v for t in (ctx.get("teams") or {}).values() for v in t.values() if isinstance(v, (int, float))]
+            list(ctx.get("previous_moments") or [])
+
+    def context_view(self) -> dict[str, Any]:
+        """Context that isn't already on the fact sheet."""
+        ctx = self.context or {}
+        return {"previous_moments": ctx.get("previous_moments", [])}
 
     def moment_view(self) -> dict[str, Any]:
         m = self.moment
@@ -146,7 +173,7 @@ class Card:
         return {"id": m["id"], "type": m["type"], "clock": m["clock"], "title": m["title"],
                 "team": team, "team_name": self.team_names.get(team or "", None),
                 "opponent_name": self.team_names.get(other or "", None),
-                "players": m.get("players", []), "facts": m["facts"]}
+                "players": m.get("players", []), "facts": self.facts}
 
 
 # ---------------------------------------------------------------- the crew
@@ -223,7 +250,7 @@ class Crew:
         class AnalystExec(Executor):
             @handler
             async def explain(self, card: Card, ctx: WorkflowContext[Card]) -> None:
-                payload = {"moment": card.moment_view(), "players": card.players, "context": card.context}
+                payload = {"moment": card.moment_view(), "players": card.players, "context": card.context_view()}
                 if card.attempts and card.var.get("issues"):
                     payload["var_notes"] = card.var["issues"]
                 card.analysis = await crew.call("analyst", payload, card)
@@ -270,7 +297,7 @@ class Crew:
                         await ctx.send_message(card)
                         return
                     # Out of retries: air only what the rulebook can guarantee
-                    payload = {"moment": card.moment_view(), "players": card.players, "context": card.context}
+                    payload = {"moment": card.moment_view(), "players": card.players, "context": card.context_view()}
                     card.analysis = offline.analyst(payload)
                     fb_draw = offline.telestrator({**payload, "geometry": _geometry(card.moment["geometry"]),
                                                    "analysis": card.analysis})
