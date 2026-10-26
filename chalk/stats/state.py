@@ -16,6 +16,8 @@ from . import metrics as M
 
 DIR = {"home": 1, "away": -1}
 ON_BALL = {"pass", "carry", "take_on", "shot", "kickoff", "throw_in", "goal_kick", "free_kick"}
+# Events after which the acting team has won the ball
+WINS_BALL = {"interception", "tackle", "save", "block"}
 TURNOVER_TYPES = {"interception", "tackle"}
 WINDOW_S = 300  # rolling window for "right now" stats
 
@@ -81,8 +83,10 @@ class MatchState:
         T = self.team.get(team) if team else None
         P = self.player[pid] if pid else None
 
-        if etype in ON_BALL and team:
+        if (etype in ON_BALL or etype in WINS_BALL) and team:
             self.in_possession = team
+        elif etype in ("goal", "period_end"):
+            self.in_possession = None  # celebrations and breaks belong to nobody
             if P is not None:
                 P["touches"] += 1
 
@@ -224,8 +228,10 @@ class MatchState:
         for e in evs:
             if last_t is not None and last_team:
                 poss[last_team] += e["t"] - last_t
-            if e["type"] in ON_BALL and e.get("team"):
+            if (e["type"] in ON_BALL or e["type"] in WINS_BALL) and e.get("team"):
                 last_team = e["team"]
+            elif e["type"] in ("goal", "period_end"):
+                last_team = None
             last_t = e["t"]
         total_poss = sum(poss.values()) or 1.0
         for side in ("home", "away"):

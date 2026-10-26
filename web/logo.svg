@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CHALK logo">
+  <title>CHALK</title>
+  <!-- the telestrator ring: a hand-drawn circle that overshoots its start -->
+  <path d="M46.5 14.5 C40 9 28 8.5 19.5 14 C10 20 8.5 33 13.5 42 C19 51.5 32.5 55.5 43 51 C52.5 47 57 36 54 26.5 C52.2 21 48.5 16.8 43 14.2 C40.5 13 37.6 12.3 34.8 12.2"
+        fill="none" stroke="#ffbf3c" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- the player being circled -->
+  <circle cx="33" cy="33" r="7.5" fill="#ffffff" stroke="#2a0a3d" stroke-width="2.5"/>
+  <circle cx="33" cy="33" r="3" fill="#ffbf3c"/>
+</svg>

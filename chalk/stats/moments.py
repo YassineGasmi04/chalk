@@ -151,7 +151,7 @@ class MomentDetector:
             "team_xg_total": round(self.s.team[team]["xg"], 2),
             "opponent_players_on_pitch": self.s.men["away" if team == "home" else "home"],
         }
-        title = f"GOAL - {self.s.name(scorer)} ({self._team_name(team)})"
+        title = f"{self.s.name(scorer)} scores"
         self._fire("goal", team, title, ev, [scorer] + ([ev["assist"]] if ev.get("assist") else []),
                    facts, [e["id"] for e in chain] + [ev["id"]],
                    {"buildup": path, "shot": {"from": shot["start"], "to": shot["end"]},
@@ -166,7 +166,7 @@ class MomentDetector:
         if ev["outcome"] != "goal" and ev["xg"] >= 0.2:
             chain = self._possession_chain(ev["possession"], ev["id"])
             self._fire("big_chance", team,
-                       f"Big chance - {self.s.name(ev['player'])}", ev, [ev["player"]],
+                       f"Big chance for {self.s.name(ev['player'])}", ev, [ev["player"]],
                        {"shooter": self.s.name(ev["player"]), "xg": ev["xg"],
                         "outcome": ev["outcome"], "shot_distance_m": ev["distance_m"],
                         "shot_speed_kmh": ev["speed_kmh"], "pressured": ev["pressured"],
@@ -179,7 +179,7 @@ class MomentDetector:
                        importance=0.6 + ev["xg"] * 0.5)
         if ev["speed_kmh"] >= 110 and self._ok("rocket_shot", team):
             prev = self.s.records.get("shot_speed_kmh", {}).get("previous")
-            self._fire("rocket_shot", team, f"Rocket from {self.s.name(ev['player'])}", ev,
+            self._fire("rocket_shot", team, f"{self.s.name(ev['player'])} shoots at {ev['speed_kmh']:.0f} km/h", ev,
                        [ev["player"]],
                        {"shooter": self.s.name(ev["player"]), "shot_speed_kmh": ev["speed_kmh"],
                         "shot_distance_m": ev["distance_m"], "outcome": ev["outcome"],
@@ -192,7 +192,7 @@ class MomentDetector:
         team = ev["team"]
         other = "away" if team == "home" else "home"
         w = self.s.window()
-        self._fire("red_card", team, f"Red card - {self.s.name(ev['player'])}", ev, [ev["player"]],
+        self._fire("red_card", team, f"{self.s.name(ev['player'])} sent off", ev, [ev["player"]],
                    {"player": self.s.name(ev["player"]),
                     "second_yellow": ev.get("second_yellow", False),
                     "players_left": self.s.men[team],
@@ -234,7 +234,7 @@ class MomentDetector:
             press_m = min((M.dist(start, o) for o in opp_pos), default=None)
             mark_m = min((M.dist(end, o) for o in opp_pos), default=None)
             self._fire("hardest_pass", team,
-                       f"Pass of the match so far - {self.s.name(ev['player'])}", ev,
+                       f"Pass of the match by {self.s.name(ev['player'])}", ev,
                        [ev["player"], ev["to"]],
                        {"passer": self.s.name(ev["player"]), "receiver": self.s.name(ev["to"]),
                         "difficulty": ev["difficulty"], "previous_best": rec.get("previous"),
@@ -259,7 +259,7 @@ class MomentDetector:
         if ev["speed_kmh"] >= 33 and rec.get("event_id") == ev["id"] and ev["t"] > 300 \
                 and self._ok("speed_burst", None):
             pos = ev["frame"].get(ev["player"], ev["ball"])
-            self._fire("speed_burst", ev["team"], f"Top speed - {self.s.name(ev['player'])}", ev,
+            self._fire("speed_burst", ev["team"], f"{self.s.name(ev['player'])} hits {ev['speed_kmh']} km/h", ev,
                        [ev["player"]],
                        {"player": self.s.name(ev["player"]), "speed_kmh": ev["speed_kmh"],
                         "sprint_distance_m": ev["distance_m"],
